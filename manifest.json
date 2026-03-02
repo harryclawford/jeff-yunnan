@@ -1,0 +1,9 @@
+{
+  "name": "Yunnan Deep-Dive Guide",
+  "short_name": "Yunnan Guide",
+  "start_url": "/yunnan-guide/",
+  "display": "standalone",
+  "background_color": "#faf6f0",
+  "theme_color": "#c2583a",
+  "description": "Interactive travel guide for Yunnan, China \u2014 March 2026"
+}
