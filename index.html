@@ -10,6 +10,14 @@
   <title>Yunnan Deep-Dive Guide — Mar 8–15, 2026</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
+
+<style>
+.photo-gallery { display:grid; grid-template-columns:1fr; gap:12px; margin:18px 0; }
+@media(min-width:500px) { .photo-gallery.two-col { grid-template-columns:1fr 1fr; } }
+.photo-card { border-radius:var(--radius-sm); overflow:hidden; border:1px solid var(--border); }
+.photo-card img { width:100%; height:200px; object-fit:cover; display:block; background:var(--cream-dark); }
+.photo-card figcaption { padding:8px 12px; font-size:0.78rem; color:var(--warm-gray); line-height:1.4; }
+</style>
 </head>
 <body>
   <!-- Progress bar -->
@@ -35,6 +43,8 @@
   <!-- Mobile menu overlay -->
   <div class="menu-overlay" id="menu-overlay">
     <div class="menu-section-label">Sections</div>
+<a href="#map">🗺️ Interactive Map</a>
+<a href="#map">🗺️ Interactive Map</a>
 <a href="#map">🗺️ Interactive Map</a>
 <a href="#overview">Yunnan Overview</a>
 <a href="#peoples">The Peoples</a>
@@ -74,6 +84,7 @@
   <nav class="toc-sidebar">
     <div class="toc-label">Sections</div>
 <a href="#map">🗺️ Map</a>
+<a href="#map">🗺️ Interactive Map</a>
 <a href="#overview">Yunnan Overview</a>
 <a href="#peoples">The Peoples</a>
 <a href="#tea-horse-road">Tea Horse Road</a>
@@ -110,6 +121,14 @@
 
   <!-- Main content -->
   <main class="content">
+
+<section class="section" id="map" data-nav-id="map" style="margin-bottom:48px;scroll-margin-top:calc(var(--nav-height) + 16px)">
+  <span class="section-number">Interactive Map</span>
+  <h2 class="section-header">Your Route Through Yunnan</h2>
+  <p style="margin-bottom:16px;font-size:0.9rem;color:var(--warm-gray)">Tap any marker to see details. Pinch to zoom. The route follows the ancient Tea Horse Road south from Lijiang to Dali.</p>
+  <div id="yn-map" style="width:100%;height:480px;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;z-index:1"></div>
+</section>
+
 
 <section class="section" id="map" data-nav-id="map" style="scroll-margin-top:calc(var(--nav-height) + 16px)">
   <span class="section-number">Interactive Map</span>
@@ -172,7 +191,17 @@
   
 <div class="subsection">
   <h3 class="subsection-title">NAXI (纳西族) — THE PEOPLE OF LIJIANG</h3>
-  <p data-search="The Peoples — NAXI (纳西族) — THE PEOPLE OF LIJIANG">Population: ~330,000, concentrated in Lijiang prefecture. Language: Naxi, a Tibeto-Burman language, related to Tibetan and Burmese but distinct. Most Naxi today also speak Mandarin.</p>
+  <div class="photo-gallery two-col">
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/1_lijiang_old_town_2012.jpg/1280px-1_lijiang_old_town_2012.jpg" alt="Lijiang Old Town — UNESCO World Heritage" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Lijiang Old Town — UNESCO World Heritage</figcaption>
+</figure>
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Jade_Dragon_Snow_Mountain_2.jpg/1280px-Jade_Dragon_Snow_Mountain_2.jpg" alt="Jade Dragon Snow Mountain from Lijiang" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Jade Dragon Snow Mountain from Lijiang</figcaption>
+</figure>
+</div>
+<p data-search="The Peoples — NAXI (纳西族) — THE PEOPLE OF LIJIANG">Population: ~330,000, concentrated in Lijiang prefecture. Language: Naxi, a Tibeto-Burman language, related to Tibetan and Burmese but distinct. Most Naxi today also speak Mandarin.</p>
 <p data-search="The Peoples — NAXI (纳西族) — THE PEOPLE OF LIJIANG">The Naxi are probably the most culturally fascinating ethnic group you'll encounter on this trip — partly because they're so well-documented, and partly because some of their cultural practices are genuinely unlike anything else on Earth.</p><h4 class="sub-subsection-title">THE DONGBA SCRIPT: THE WORLD'S ONLY LIVING PICTOGRAPHIC WRITING SYSTEM</h4>
 <p data-search="The Peoples — THE DONGBA SCRIPT: THE WORLD'S ONLY LIVING PICTOGRAPHIC WRITING SYSTEM">Most ancient writing systems started as pictographs and evolved toward abstraction (think: Egyptian hieroglyphs eventually became Coptic; Chinese characters shed much of their pictographic nature after standardization). The Dongba script never made that transition. It's still in use, still taught, and still fully pictographic — each character is a small drawing. A man, a river, a mountain. About 1,400 characters exist. It was used exclusively by Dongba priests (shamans/religious specialists) to write ritual texts, and it's estimated there are around 20,000+ Dongba manuscripts in existence, held in libraries worldwide.</p>
 <div class="fact-callout">
@@ -230,6 +259,17 @@
   </div>
   <div class="hotel-badge">🏨 Kuanshang Lijiang</div>
   <div class="day-card-body">
+<div class="photo-gallery two-col">
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/1_lijiang_old_town_2012.jpg/800px-1_lijiang_old_town_2012.jpg" alt="Dayan Old Town canals at dusk" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Dayan Old Town canals at dusk</figcaption>
+</figure>
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Mu_Fu%2C_Lijiang.jpg/800px-Mu_Fu%2C_Lijiang.jpg" alt="Mu Family Mansion (木府)" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Mu Family Mansion (木府)</figcaption>
+</figure>
+</div>
+
     <p data-search="Day 1">MARCH 8 — ARRIVE LIJIANG, DAYAN OLD TOWN ---</p>
 <p data-search="Day 1">HOTEL: Kuanshang Lijiang (宽上丽江)</p>
 <div class="collapsible">
@@ -308,6 +348,17 @@
   </div>
   <div class="hotel-badge">🏨 Kuanshang Lijiang</div>
   <div class="day-card-body">
+<div class="photo-gallery two-col">
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Lijiang_Yunnan_China-Heilongtan-Park-01.jpg/800px-Lijiang_Yunnan_China-Heilongtan-Park-01.jpg" alt="Black Dragon Pool — classic Jade Dragon reflection" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Black Dragon Pool — classic Jade Dragon reflection</figcaption>
+</figure>
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Baisha_Murals_Lijiang.jpg/800px-Baisha_Murals_Lijiang.jpg" alt="Baisha Old Town" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Baisha Old Town</figcaption>
+</figure>
+</div>
+
     <p data-search="Day 2">MARCH 9 — BLACK DRAGON POOL, DAY AN OLD TOWN, BAISHA ---</p>
 <div class="collapsible">
   <button class="collapsible-toggle">BLACK DRAGON POOL (黑龍潭, Jade Spring Park) <span class="chevron">▼</span></button>
@@ -378,6 +429,17 @@
   </div>
   <div class="hotel-badge">🏨 Kuanshang Lijiang</div>
   <div class="day-card-body">
+<div class="photo-gallery two-col">
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Jade_Dragon_Snow_Mountain_2.jpg/800px-Jade_Dragon_Snow_Mountain_2.jpg" alt="Jade Dragon Snow Mountain — 13 peaks, 5,596m" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Jade Dragon Snow Mountain — 13 peaks, 5,596m</figcaption>
+</figure>
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Blue_Moon_Valley%2C_Lijiang.jpg/800px-Blue_Moon_Valley%2C_Lijiang.jpg" alt="Blue Moon Valley glacial lakes" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Blue Moon Valley glacial lakes</figcaption>
+</figure>
+</div>
+
     <p data-search="Day 3">MARCH 10 — JADE DRAGON SNOW MOUNTAIN, BLUE MOON VALLEY, IMPRESSIONS, YUHU ---</p>
 <p data-search="Day 3">(See dedicated sections on JDSS and Impressions Lijiang below.)</p>
 <div class="collapsible">
@@ -432,6 +494,17 @@
   </div>
   <div class="hotel-badge">🏨 Kuanshang Lijiang</div>
   <div class="day-card-body">
+<div class="photo-gallery two-col">
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Lashihai-horses.jpg/800px-Lashihai-horses.jpg" alt="Lashi Lake — Tea Horse Road horseback trails" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Lashi Lake — Tea Horse Road horseback trails</figcaption>
+</figure>
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Shuhe_old_town.jpg/800px-Shuhe_old_town.jpg" alt="Shuhe Old Town" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Shuhe Old Town</figcaption>
+</figure>
+</div>
+
     <p data-search="Day 4">MARCH 11 — LASHI LAKE HORSEBACK, SHUHE OLD TOWN ---</p>
 <div class="collapsible">
   <button class="collapsible-toggle">LASHI LAKE HORSEBACK RIDING (拉市海) <span class="chevron">▼</span></button>
@@ -479,6 +552,13 @@
   </div>
   <div class="hotel-badge">🏨 Sunyata Shaxi</div>
   <div class="day-card-body">
+<div class="photo-gallery ">
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Tiger_leaping_gorge_2.jpg/1280px-Tiger_leaping_gorge_2.jpg" alt="Tiger Leaping Gorge — 3,900m deep" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Tiger Leaping Gorge — 3,900m deep</figcaption>
+</figure>
+</div>
+
     <p data-search="Day 5">MARCH 12 — TIGER LEAPING GORGE, DRIVE TO SHAXI ---</p>
 <p data-search="Day 5">(See dedicated Tiger Leaping Gorge section below.)</p>
 <div class="collapsible">
@@ -523,6 +603,17 @@
   </div>
   <div class="hotel-badge">🏨 Daji Dali</div>
   <div class="day-card-body">
+<div class="photo-gallery two-col">
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shaxi_Pear_Orchard_Temple.jpg/800px-Shaxi_Pear_Orchard_Temple.jpg" alt="Shaxi — Sideng Square area" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Shaxi — Sideng Square area</figcaption>
+</figure>
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Dali_old_town.jpg/800px-Dali_old_town.jpg" alt="Dali Old Town gate" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Dali Old Town gate</figcaption>
+</figure>
+</div>
+
     <p data-search="Day 6">MARCH 13 — SHAXI, DRIVE TO DALI, DALI OLD TOWN, CATHOLIC CHURCH ---</p>
 <div class="collapsible">
   <button class="collapsible-toggle">SHAXI VILLAGE DEEP DIVE <span class="chevron">▼</span></button>
@@ -587,6 +678,17 @@
   </div>
   <div class="hotel-badge">🏨 Daji Dali</div>
   <div class="day-card-body">
+<div class="photo-gallery two-col">
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Three_Pagodas-1.JPG/800px-Three_Pagodas-1.JPG" alt="Three Pagodas of Chongsheng Temple (崇圣寺三塔)" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Three Pagodas of Chongsheng Temple (崇圣寺三塔)</figcaption>
+</figure>
+<figure class="photo-card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Erhai_Lake.JPG/800px-Erhai_Lake.JPG" alt="Erhai Lake with Cangshan mountains" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Erhai Lake with Cangshan mountains</figcaption>
+</figure>
+</div>
+
     <p data-search="Day 7">MARCH 14 — XIZHOU, MUSHROOM HOTPOT, TIE-DYE, ERHAI LAKE ---</p>
 <div class="collapsible">
   <button class="collapsible-toggle">XIZHOU VILLAGE (喜洲) <span class="chevron">▼</span></button>
@@ -1172,5 +1274,72 @@
   </div>
 
   <script src="script.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function() {
+  var map = L.map('yn-map', {
+    center: [26.5, 100.15],
+    zoom: 8,
+    scrollWheelZoom: false,
+    zoomControl: true
+  });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap',
+    maxZoom: 18
+  }).addTo(map);
+
+  var locs = [
+  {name:"Dayan Old Town (大研古城)",lat:26.8724,lng:100.2257,day:"D1-D2",desc:"UNESCO World Heritage Naxi old town. 354 stone bridges, three-tier water system.",icon:"🏘️"},
+  {name:"Black Dragon Pool (黑龍潭)",lat:26.8874,lng:100.227,day:"D2",desc:"Spring-fed pool with iconic Jade Dragon Snow Mountain reflections. Home to Dongba Culture Museum.",icon:"💧"},
+  {name:"Baisha Old Town (白沙古镇)",lat:26.9195,lng:100.2095,day:"D2",desc:"Original Naxi capital. Famous Baisha Murals — Buddhist/Taoist/Dongba fusion art from 14th-16th century.",icon:"🎨"},
+  {name:"Jade Dragon Snow Mountain (玉龍雪山)",lat:27.1215,lng:100.1865,day:"D3",desc:"Sacred Naxi peak at 5,596m. Never summited — religious prohibition. Cable car to 4,506m.",icon:"🏔️"},
+  {name:"Blue Moon Valley (藍月谷)",lat:27.0858,lng:100.2074,day:"D3",desc:"Glacial meltwater lakes in turquoise, jade green, and electric blue. Rayleigh scattering from glacial flour.",icon:"💎"},
+  {name:"Yuhu Village (玉湖村)",lat:27.0036,lng:100.1894,day:"D3",desc:"Joseph Rock's base for 27 years. Naxi home visits. Tolkien reportedly drew Middle Earth inspiration from Rock's photos.",icon:"🏡"},
+  {name:"Lashi Lake (拉市海)",lat:26.84,lng:100.08,day:"D4",desc:"Tea Horse Road origin point. Horseback trails on original caravan routes. Migratory bird wetland.",icon:"🐎"},
+  {name:"Shuhe Old Town (束河古镇)",lat:26.9065,lng:100.255,day:"D4",desc:"Older than Dayan. Historic leather crafting hub for Tea Horse Road caravans. UNESCO listed.",icon:"🏘️"},
+  {name:"Tiger Leaping Gorge (虎跳峡)",lat:27.1844,lng:100.1147,day:"D5",desc:"One of Earth's deepest gorges — 3,900m from river to summit. The Jinsha (upper Yangtze) at its most dramatic.",icon:"🐅"},
+  {name:"Shaxi / Sideng Square (沙溪)",lat:26.2916,lng:99.8958,day:"D5-D6",desc:"Only intact Tea Horse Road market square. UNESCO restored. Xingjiao Temple shows Tibetan Buddhist influence.",icon:"🏛️"},
+  {name:"Dali Old Town (大理古城)",lat:25.6986,lng:100.1625,day:"D6",desc:"Former Nanzhao/Dali Kingdom territory. Ming-dynasty layout. Catholic church with Bai-European fusion architecture.",icon:"⛩️"},
+  {name:"Three Pagodas (崇圣寺三塔)",lat:25.7278,lng:100.1425,day:"D6",desc:"Main pagoda 69m tall, built 823-840 AD during Nanzhao. Serious state investment in Buddhist architecture.",icon:"🗼"},
+  {name:"Xizhou Village (喜洲)",lat:25.8175,lng:100.1278,day:"D7",desc:"Best-preserved Bai architecture. Spectacular screen walls (照壁). Yan Family Compound.",icon:"🏘️"},
+  {name:"Erhai Lake / Longkan Wharf",lat:25.75,lng:100.18,day:"D7",desc:"250 km² lake at 1,974m. Historical Bai water highway. Cycling route with Cangshan mountain views.",icon:"🚲"},
+];
+  var markers = [];
+  var dayColors = {
+    'D1-D2': '#c2583a',
+    'D2': '#c2583a',
+    'D3': '#4a7c6f',
+    'D4': '#4a7c6f',
+    'D5': '#2c3e6b',
+    'D5-D6': '#2c3e6b',
+    'D6': '#5a6fa0',
+    'D7': '#c9a84c',
+  };
+  locs.forEach(function(loc) {
+    var color = dayColors[loc.day] || '#c2583a';
+    var icon = L.divIcon({
+      className: 'yn-marker',
+      html: '<div style="background:' + color + ';color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.3);border:2px solid #fff">' + loc.icon + '</div>',
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+      popupAnchor: [0, -20]
+    });
+    var m = L.marker([loc.lat, loc.lng], {icon: icon}).addTo(map);
+    m.bindPopup('<div style="font-family:Inter,sans-serif;max-width:220px"><strong style="font-size:0.95rem">' + loc.name + '</strong><br><span style="display:inline-block;margin:4px 0;padding:2px 8px;border-radius:10px;background:' + color + ';color:#fff;font-size:0.7rem;font-weight:600">' + loc.day + '</span><br><span style="font-size:0.82rem;color:#555;line-height:1.4">' + loc.desc + '</span></div>', {closeButton: false});
+    markers.push(m);
+  });
+
+  // Draw route line
+  var routeCoords = locs.map(function(l) { return [l.lat, l.lng]; });
+  L.polyline(routeCoords, {color: '#c2583a', weight: 2, opacity: 0.5, dashArray: '8 6'}).addTo(map);
+
+  // Fit bounds
+  var group = L.featureGroup(markers);
+  map.fitBounds(group.getBounds().pad(0.1));
+})();
+</script>
+
 </body>
 </html>
