@@ -419,6 +419,9 @@ body.map-tab-active .qr-fab {
   line-height: 1.35;
 }
 [data-theme="dark"] .subsection-title { color: var(--indigo); }
+[data-theme="dark"] .tab-bar { background: #2a2720; border-top-color: #3a3630; }
+[data-theme="dark"] .tab-btn { color: #b0a898; }
+[data-theme="dark"] .tab-btn.active { color: var(--terracotta); }
 .sub-subsection-title {
   font-family: var(--font-sans);
   font-size: 0.92rem;
