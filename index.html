@@ -2,97 +2,47 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="Interactive deep-dive travel guide for Yunnan, China — Lijiang, Tiger Leaping Gorge, Dali, and the Tea Horse Road. March 8–15, 2026.">
   <meta name="theme-color" content="#c2583a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Essential Yunnan — Deep-Dive Travel Guide">
+  <meta property="og:description" content="Interactive guide to Yunnan, China — Lijiang, Tiger Leaping Gorge, Shaxi, Dali &amp; the Tea Horse Road. March 8–15, 2026. 8 days, 14 locations, 13,000 words.">
+  <meta property="og:image" content="https://harryclawford.github.io/jeff-yunnan/images/960px-Yunnan_China_Tiger-Leaping-Gorge-06.jpg">
+  <meta property="og:image:width" content="960">
+  <meta property="og:image:height" content="640">
+  <meta property="og:url" content="https://harryclawford.github.io/jeff-yunnan/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Essential Yunnan — Deep-Dive Travel Guide">
+  <meta name="twitter:description" content="Interactive guide to Yunnan — Lijiang, Tiger Leaping Gorge, Shaxi, Dali. 8 days, 14 locations.">
+  <meta name="twitter:image" content="https://harryclawford.github.io/jeff-yunnan/images/960px-Yunnan_China_Tiger-Leaping-Gorge-06.jpg">
+
   <title>Yunnan Deep-Dive Guide — Mar 8–15, 2026</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
-
-<style>
-.photo-gallery { display:grid; grid-template-columns:1fr; gap:12px; margin:18px 0; }
-@media(min-width:500px) { .photo-gallery.two-col { grid-template-columns:1fr 1fr; } }
-.photo-card { border-radius:var(--radius-sm); overflow:hidden; border:1px solid var(--border); }
-.photo-card img { width:100%; height:200px; object-fit:cover; display:block; background:var(--cream-dark); }
-.photo-card figcaption { padding:8px 12px; font-size:0.78rem; color:var(--warm-gray); line-height:1.4; }
-.logistics-bar { background:var(--cream-dark,#f5f0eb); border-left:3px solid var(--terracotta,#c2583a); padding:10px 14px; margin:10px 0 16px; border-radius:0 var(--radius-sm,6px) var(--radius-sm,6px) 0; font-size:0.85rem; line-height:1.6; }
-.logistics-bar strong { color:var(--charcoal,#2d2a26); }
-.logistics-bar .flight-info { display:inline-block; background:var(--terracotta,#c2583a); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.78rem; margin-right:6px; }
-.logistics-bar .restaurant-info { display:inline-block; background:var(--jade,#4a7c6f); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.78rem; margin-right:6px; }
-.logistics-bar .group-info { display:inline-block; background:var(--indigo,#2c3e6b); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.78rem; margin-right:6px; }
-
-.day-card-header { cursor: pointer; position: relative; }
-.day-card-header::after { content: '▼'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: var(--terracotta,#c2583a); transition: transform 0.3s; font-weight: bold; }
-.day-card.collapsed .day-card-header::after { transform: translateY(-50%) rotate(-90deg); }
-.day-card-body { transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease; overflow: hidden; }
-.day-card.collapsed .day-card-body { max-height: 0 !important; opacity: 0; padding-top: 0; padding-bottom: 0; margin: 0; }
-.day-card:not(.collapsed) .day-card-body { max-height: none; opacity: 1; }
-.section-header { cursor: pointer; position: relative; }
-.section-header::after { content: '▼'; margin-left: 10px; font-size: 0.7em; color: var(--warm-gray); transition: transform 0.3s; display: inline-block; }
-.section.collapsed .section-header { opacity: 0.85; }
-.section.collapsed .section-header::after { content: '▶ tap to expand'; font-size: 0.6em; color: var(--terracotta,#c2583a); font-style: italic; }
-.section:not(.collapsed) .section-header::after { content: '▼'; }
-.section { margin-bottom: 8px; }
-.section.collapsed .section-header::after { transform: rotate(-90deg); }
-.section-body { transition: max-height 0.4s ease, opacity 0.3s ease; overflow: hidden; }
-.section.collapsed .section-body { max-height: 0 !important; opacity: 0; }
-.section:not(.collapsed) .section-body { max-height: none; opacity: 1; }
-.expand-controls { text-align: center; margin: 16px 0; }
-.expand-controls button { background: var(--cream-dark,#f5f0eb); border: 1px solid var(--border,#d4cfc8); padding: 6px 16px; border-radius: 20px; font-size: 0.82rem; cursor: pointer; margin: 0 4px; color: var(--charcoal,#2d2a26); }
-.expand-controls button:hover { background: var(--terracotta,#c2583a); color: #fff; }
-</style>
 </head>
 <body>
   <!-- Progress bar -->
   <div class="progress-bar" id="progress-bar"></div>
 
-  <!-- Navigation -->
-  <nav class="nav">
+  <!-- Top Navigation -->
+  <nav class="nav" id="top-nav">
     <div class="nav-inner">
-      <a href="#" class="nav-brand">雲南 Yunnan Guide</a>
+      <a href="#" class="nav-brand" id="nav-brand">雲南 Yunnan Guide</a>
       <div class="nav-controls">
         <button class="nav-btn" id="search-btn" aria-label="Search">🔍</button>
         <button class="nav-btn" id="theme-btn" aria-label="Toggle dark mode">🌙</button>
-        <button class="nav-btn" id="search-close-btn" style="display:none" aria-label="Close search">✕</button><button class="nav-btn" id="menu-btn" aria-label="Menu">☰</button>
       </div>
     </div>
   </nav>
-
-  <!-- Day strip -->
-  <div class="day-strip" id="day-strip">
-    <a class="day-pill" href="#day1">D1</a><a class="day-pill" href="#day2">D2</a><a class="day-pill" href="#day3">D3</a><a class="day-pill" href="#day4">D4</a><a class="day-pill" href="#day5">D5</a><a class="day-pill" href="#day6">D6</a><a class="day-pill" href="#day7">D7</a><a class="day-pill" href="#day8">D8</a>
-  </div>
-
-  <!-- Mobile menu overlay -->
-  <div class="menu-overlay" id="menu-overlay">
-    <div class="menu-section-label">Sections</div>
-<a href="#map">🗺️ Interactive Map</a>
-<a href="#overview">Yunnan Overview</a>
-<a href="#peoples">The Peoples</a>
-<a href="#tea-horse-road">Tea Horse Road</a>
-<a href="#days">Day-by-Day</a>
-<a href="#jade-dragon">Jade Dragon Snow Mountain</a>
-<a href="#tiger-leaping">Tiger Leaping Gorge</a>
-<a href="#nanzhao">Dali & Nanzhao</a>
-<a href="#impressions">Impressions Lijiang</a>
-<a href="#puer">Pu'er Tea Primer</a>
-<a href="#cultural-tips">Cultural Tips</a>
-<a href="#conversation">Conversation Starters</a>
-<div class="menu-section-label">Days</div>
-<a href="#day1">D1 — March 8</a>
-<a href="#day2">D2 — March 9</a>
-<a href="#day3">D3 — March 10</a>
-<a href="#day4">D4 — March 11</a>
-<a href="#day5">D5 — March 12</a>
-<a href="#day6">D6 — March 13</a>
-<a href="#day7">D7 — March 14</a>
-<a href="#day8">D8 — March 15</a>
-
-  </div>
 
   <!-- Search overlay -->
   <div class="search-overlay" id="search-overlay">
@@ -105,35 +55,8 @@
     </div>
   </div>
 
-  <!-- Desktop TOC sidebar -->
-  <nav class="toc-sidebar">
-    <div class="toc-label">Sections</div>
-<a href="#map">🗺️ Interactive Map</a>
-<a href="#overview">Yunnan Overview</a>
-<a href="#peoples">The Peoples</a>
-<a href="#tea-horse-road">Tea Horse Road</a>
-<a href="#days">Day-by-Day</a>
-<a href="#jade-dragon">Jade Dragon Snow Mountain</a>
-<a href="#tiger-leaping">Tiger Leaping Gorge</a>
-<a href="#nanzhao">Dali & Nanzhao</a>
-<a href="#impressions">Impressions Lijiang</a>
-<a href="#puer">Pu'er Tea Primer</a>
-<a href="#cultural-tips">Cultural Tips</a>
-<a href="#conversation">Conversation Starters</a>
-<div class="toc-label">Days</div>
-<a href="#day1">D1 · March 8</a>
-<a href="#day2">D2 · March 9</a>
-<a href="#day3">D3 · March 10</a>
-<a href="#day4">D4 · March 11</a>
-<a href="#day5">D5 · March 12</a>
-<a href="#day6">D6 · March 13</a>
-<a href="#day7">D7 · March 14</a>
-<a href="#day8">D8 · March 15</a>
-
-  </nav>
-
   <!-- Hero -->
-  <header class="hero">
+  <header class="hero" id="hero">
     <div class="hero-subtitle">Deep-Dive Travel Guide</div>
     <h1>Essential <span>Yunnan</span></h1>
     <div class="hero-divider"></div>
@@ -143,205 +66,34 @@
     </p>
   </header>
 
-  <!-- Main content -->
-  <main class="content">
+  <!-- ===================== TAB CONTENT ===================== -->
+  <div class="tab-content" id="tab-content">
 
-<section class="section" id="map" data-nav-id="map" style="scroll-margin-top:calc(var(--nav-height) + 16px)">
-  <span class="section-number">Interactive Map</span>
-  <h2 class="section-header">Your Route Through Yunnan</h2>
-  <p style="margin-bottom:16px;font-size:0.9rem;color:var(--warm-gray)">Tap any marker to see photos and details. Dashed lines show your day-by-day route.</p>
-  <div id="yunnan-map" style="width:100%;height:420px;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-bottom:24px"></div>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-  (function(){
-    var map = L.map('yunnan-map', {scrollWheelZoom: false}).setView([26.5, 100.15], 8);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap',
-      maxZoom: 17
-    }).addTo(map);
-  L.marker([26.8724, 100.226]).addTo(map).bindPopup('<div style="max-width:260px"><img src="?v=1772517441" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Dayan Old Town canal at dusk" loading="lazy"><strong style="font-size:14px">Dayan Old Town (大研古城)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D1–D4</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">UNESCO World Heritage Naxi old town. 354 stone bridges, 3-tier water system, Sifang Square market center.</span></div>');
-  L.marker([26.885, 100.228]).addTo(map).bindPopup('<div style="max-width:260px"><img src="?v=1772517441" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Black Dragon Pool with Jade Dragon Snow Mountain" loading="lazy"><strong style="font-size:14px">Black Dragon Pool (黑龍潭)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D2</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Spring-fed pool with cyan-blue water. Classic view: Deyue Pavilion reflected with Jade Dragon Snow Mountain behind. Home to the Dongba Culture Museum.</span></div>');
-  L.marker([26.9085, 100.169]).addTo(map).bindPopup('<div style="max-width:260px"><img src="?v=1772517441" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Baisha Old Town with mountain backdrop" loading="lazy"><strong style="font-size:14px">Baisha Old Town (白沙古鎮)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D2</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Original Naxi capital before Lijiang. Home to the Baisha Murals — 14th-16th century Buddhist/Taoist/Dongba paintings by Han, Tibetan, and Naxi artists.</span></div>');
-  L.marker([27.1167, 100.1833]).addTo(map).bindPopup('<div style="max-width:260px"><img src="?v=1772517441" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Jade Dragon Snow Mountain from Lijiang" loading="lazy"><strong style="font-size:14px">Jade Dragon Snow Mountain (玉龍雪山)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D3</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Sacred Naxi mountain, 5,596m. Never summited (religious prohibition). Blue Moon Valley, Impressions Lijiang show. Note: Glacier Park NOT included in itinerary.</span></div>');
-  L.marker([27.091, 100.192]).addTo(map).bindPopup('<div style="max-width:260px"><img src="?v=1772517441" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Blue Moon Valley\'s turquoise glacial lakes" loading="lazy"><strong style="font-size:14px">Blue Moon Valley (藍月谷)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D3</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Series of glacial meltwater lakes — turquoise to electric blue from suspended glacial flour. Jade Lake, Pearl Shoal, Blue Moon Lake.</span></div>');
-  L.marker([27.04, 100.185]).addTo(map).bindPopup('<div style="max-width:260px"><img src="?v=1772517441" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Yuhu Village at the foot of Jade Dragon Snow Mountain" loading="lazy"><strong style="font-size:14px">Yuhu Village (玉湖村)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D3</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Joseph Rock\'s base for 27 years. His preserved house is now a museum. Naxi home visits here connect to descendants of families who hosted Rock.</span></div>');
-  L.marker([26.858, 100.115]).addTo(map).bindPopup('<div style="max-width:260px"><strong style="font-size:14px">Lashi Lake (拉市海)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D4</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Where the Tea Horse Road originated. Horseback trails follow the ancient caravan routes. Migratory bird wetland — bar-headed geese fly over the Himalayas.</span></div>');
-  L.marker([26.903, 100.207]).addTo(map).bindPopup('<div style="max-width:260px"><img src="?v=1772517441" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Shuhe Old Town" loading="lazy"><strong style="font-size:14px">Shuhe Old Town (束河古鎮)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D4</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Older than Dayan, historically known for leather goods for Tea Horse Road caravans. UNESCO-listed. Jiuding Dragon Pool spring complex.</span></div>');
-  L.marker([27.185, 100.11]).addTo(map).bindPopup('<div style="max-width:260px"><img src="?v=1772517441" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Tiger Leaping Gorge — the Jinsha River below" loading="lazy"><strong style="font-size:14px">Tiger Leaping Gorge (虎跳峽)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D5</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">One of the deepest gorges on Earth — 3,900m from river to summit. The Jinsha River (upper Yangtze) at its most dramatic. Named for a tiger\'s legendary leap.</span></div>');
-  L.marker([26.315, 99.925]).addTo(map).bindPopup('<div style="max-width:260px"><strong style="font-size:14px">Shaxi (沙溪)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D5–D6</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Only surviving Tea Horse Road market town with original market square intact. Sideng Square, Xingjiao Temple, original caravanserai archways. UNESCO restored.</span></div>');
-  L.marker([25.694, 100.154]).addTo(map).bindPopup('<div style="max-width:260px"><img src="?v=1772517441" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Three Pagodas of Chongsheng Temple, Dali" loading="lazy"><strong style="font-size:14px">Dali Old Town (大理古城)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D6–D7</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Former Kingdom of Nanzhao/Dali. Defeated Tang Dynasty armies in 754 AD. Catholic church with Bai-European fusion architecture. Three Pagodas nearby.</span></div>');
-  L.marker([25.853, 100.12]).addTo(map).bindPopup('<div style="max-width:260px"><strong style="font-size:14px">Xizhou Village (喜洲)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D7</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Best-preserved Bai village architecture. Elaborate screen walls (照壁), nested courtyards. Yan Family Compound. Tie-dye workshop nearby.</span></div>');
-  L.marker([25.78, 100.2]).addTo(map).bindPopup('<div style="max-width:260px"><img src="?v=1772517441" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Erhai Lake with Cangshan Mountains" loading="lazy"><strong style="font-size:14px">Erhai Lake (洱海)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D7</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">250 km² lake at 1,974m. \'Ear Sea\' from its shape. Historical highway for the Bai kingdom. Cycling route at Longkan Wharf with Cangshan Mountain views.</span></div>');
+    <!-- ===== MAP TAB ===== -->
+    <div class="tab-panel active" id="tab-map">
+      <div class="map-container">
+        <p class="map-hint">Tap any marker for photos &amp; details. Dashed lines show your route.</p>
+        <div id="yunnan-map"></div>
+      </div>
+    </div>
 
-  L.polyline([[26.8724,100.226],[26.885,100.228]], {color:'#c2583a',weight:3,opacity:0.6,dashArray:'8 6'}).addTo(map);
-  L.polyline([[26.885,100.228],[26.9085,100.169]], {color:'#c2583a',weight:3,opacity:0.6,dashArray:'8 6'}).addTo(map);
-  L.polyline([[26.8724,100.226],[27.1167,100.1833]], {color:'#4a7c6f',weight:3,opacity:0.6,dashArray:'8 6'}).addTo(map);
-  L.polyline([[27.1167,100.1833],[27.091,100.192]], {color:'#4a7c6f',weight:3,opacity:0.6,dashArray:'8 6'}).addTo(map);
-  L.polyline([[27.091,100.192],[27.04,100.185]], {color:'#4a7c6f',weight:3,opacity:0.6,dashArray:'8 6'}).addTo(map);
-  L.polyline([[26.8724,100.226],[26.858,100.115]], {color:'#4a7c6f',weight:3,opacity:0.6,dashArray:'8 6'}).addTo(map);
-  L.polyline([[26.858,100.115],[26.903,100.207]], {color:'#4a7c6f',weight:3,opacity:0.6,dashArray:'8 6'}).addTo(map);
-  L.polyline([[26.903,100.207],[27.185,100.11]], {color:'#2c3e6b',weight:3,opacity:0.6,dashArray:'8 6'}).addTo(map);
-  L.polyline([[27.185,100.11],[26.315,99.925]], {color:'#2c3e6b',weight:3,opacity:0.6,dashArray:'8 6'}).addTo(map);
-  L.polyline([[26.315,99.925],[25.694,100.154]], {color:'#2c3e6b',weight:3,opacity:0.6,dashArray:'8 6'}).addTo(map);
-  L.polyline([[25.694,100.154],[25.853,100.12]], {color:'#c9a84c',weight:3,opacity:0.6,dashArray:'8 6'}).addTo(map);
-  L.polyline([[25.853,100.12],[25.78,100.2]], {color:'#c9a84c',weight:3,opacity:0.6,dashArray:'8 6'}).addTo(map);
-
-    // Fit bounds
-    var bounds = L.latLngBounds([[26.8724,100.226], [26.885,100.228], [26.9085,100.169], [27.1167,100.1833], [27.091,100.192], [27.04,100.185], [26.858,100.115], [26.903,100.207], [27.185,100.11], [26.315,99.925], [25.694,100.154], [25.853,100.12], [25.78,100.2]]);
-    map.fitBounds(bounds.pad(0.15));
-  })();
-  </script>
-</section>
-
-    
-<section class="section collapsed" id="overview" data-nav-id="overview">
-  <span class="section-number">Section 01</span>
-  <h2 class="section-header">Yunnan Overview — Why This Place Is Not Like the Rest of China</h2>
-  
-
-<div class="section-body">
-<div class="subsection">
-  <h3 class="subsection-title">THE GEOGRAPHY THAT MADE EVERYTHING</h3>
-  <p data-search="Yunnan Overview — THE GEOGRAPHY THAT MADE EVERYTHING">The name 雲南 (Yúnnán) means "South of the Clouds" — a reference to the Yunnan-Guizhou Plateau, which sits above the cloud line when viewed from the north. That geographic separation from the rest of China isn't just poetic. It explains almost everything about what makes Yunnan different.</p>
-  <p data-search="Yunnan Overview — THE GEOGRAPHY THAT MADE EVERYTHING">Yunnan is roughly the size of California and contains virtually every climate zone on Earth — from tropical rainforest on the Burmese border to alpine tundra on the Tibetan Plateau, all within a few hundred kilometers. You can grow bananas and rear yaks in the same province. This is because Yunnan is essentially a staircase: the western and northern edges tilt sharply upward into the Himalayas, while the south drops down toward Southeast Asia.</p>
-  <p data-search="Yunnan Overview — THE GEOGRAPHY THAT MADE EVERYTHING">This topographic chaos meant that for most of Chinese history, central governments couldn't fully control it. Mountain ranges, river gorges, and altitude made military campaigns expensive and occupation even more so. The result: Yunnan spent centuries operating as a semi-independent frontier — a place where different cultures, trade routes, religions, and ecosystems converged outside the reach of imperial bureaucracy.</p>
-</div>
-<div class="subsection">
-  <h3 class="subsection-title">THE BIODIVERSITY</h3>
-  <div class="fact-callout">
-    <div class="fact-callout-label">🤯 Holy Shit Fact</div>
-    <p>Yunnan has more plant species than any other province in China — roughly 18,000, which is about half of China's total. It has 1,700+ species of birds (Europe has around 800 total). The province sits at the collision point of three tectonic plates: the Indian subcontinent pushing into Asia created the gorges (Tiger Leaping Gorge is a direct result), the altitude gradients created micro-climates, and the relative isolation allowed species to evolve independently. This is why Yunnan is considered one of the world's top biodiversity hotspots. Botanists like Joseph Rock — whose base in Yuhu Village you'll actually visit — were genuinely discovering new-to-science species on a weekly basis.</p>
-  </div>
-</div>
-<div class="subsection">
-  <h3 class="subsection-title">THE ETHNIC DIVERSITY</h3>
-  <p data-search="Yunnan Overview — THE ETHNIC DIVERSITY">China officially recognizes 56 ethnic groups. Yunnan alone is home to 26 of them. No other province comes close. These aren't remnant communities — many have distinct languages, scripts, religions, architectural traditions, and agricultural systems. The Naxi have a living pictographic script. The Bai built an independent kingdom that defeated Tang Dynasty armies. The Yi have their own solar calendar. The Tibetans you might see near the Shangri-La border have a continuous monastic tradition going back to the 7th century.</p>
-  <p data-search="Yunnan Overview — THE ETHNIC DIVERSITY">The reason for this diversity: Yunnan was a refuge. When Han expansion pushed south over millennia, the minorities that couldn't or wouldn't assimilate retreated into the mountains and river valleys of Yunnan. The terrain protected them. So what you're looking at isn't "colorful tourism heritage" — it's genuine cultural survival over thousands of years, maintained precisely because the geography made it possible.</p>
-</div>
-<div class="subsection">
-  <h3 class="subsection-title">THE STRATEGIC POSITION</h3>
-  <p data-search="Yunnan Overview — THE STRATEGIC POSITION">Yunnan borders Myanmar, Laos, and Vietnam. During the Tang dynasty, this made it a buffer state between China and the expansionist kingdoms of Southeast Asia. During WWII, it became critical: the Burma Road ran through Yunnan, supplying Nationalist China after Japan closed the coast. The famous "Hump" air route over the Himalayas terminated here. During the Vietnam War, Chinese logistics to North Vietnam ran through Yunnan.</p>
-  <p data-search="Yunnan Overview — THE STRATEGIC POSITION">Even today, Yunnan is China's primary land gateway to Southeast Asia. The Kunming-Vientiane high-speed rail (opened 2021 to Laos) is part of China's Belt and Road strategy to connect Yunnan to the rest of ASEAN — a modern version of what the Tea Horse Road did for a millennium.</p>
-</div>
-<div class="subsection">
-  <h3 class="subsection-title">THE HISTORICAL NARRATIVE</h3>
-  <p data-search="Yunnan Overview — THE HISTORICAL NARRATIVE">Most of Chinese history is told from the north (Beijing, Xi'an) or the east (Shanghai, Nanjing). Yunnan's story runs perpendicular. It's the story of:</p>
-  <ul>
-    <li>Kingdoms that resisted Tang and Song empires</li>
-    <li>Trade routes that connected China to South Asia before maritime routes existed</li>
-    <li>Ethnic cultures that maintained distinct identities despite centuries of Han migration and governance</li>
-    <li>A landscape so extreme it forced adaptations in food, architecture, religion, and daily life that you won't find anywhere else in China</li>
-  </ul>
-  <p data-search="Yunnan Overview — THE HISTORICAL NARRATIVE">You're not visiting a theme park version of China's minority cultures. You're visiting the place where those cultures actually lived — and still live.</p>
-</div>
-</div>
-</section>
-
-<section class="section collapsed" id="peoples" data-nav-id="peoples">
-  <span class="section-number">Section 02</span>
-  <h2 class="section-header">The Peoples</h2>
-  
-
-<div class="section-body">
-<div class="subsection">
-  <h3 class="subsection-title">NAXI (纳西族) — THE PEOPLE OF LIJIANG</h3>
-  <div class="photo-gallery two-col">
-<figure class="photo-card">
-  <img src="?v=1772517441" alt="Lijiang Old Town — UNESCO World Heritage" loading="lazy" onerror="this.style.display='none'">
-  <figcaption>Lijiang Old Town — UNESCO World Heritage</figcaption>
-</figure>
-<figure class="photo-card">
-  <img src="?v=1772517441" alt="Jade Dragon Snow Mountain from Lijiang" loading="lazy" onerror="this.style.display='none'">
-  <figcaption>Jade Dragon Snow Mountain from Lijiang</figcaption>
-</figure>
-</div>
-<p data-search="The Peoples — NAXI (纳西族) — THE PEOPLE OF LIJIANG">Population: ~330,000, concentrated in Lijiang prefecture. Language: Naxi, a Tibeto-Burman language, related to Tibetan and Burmese but distinct. Most Naxi today also speak Mandarin.</p>
-<p data-search="The Peoples — NAXI (纳西族) — THE PEOPLE OF LIJIANG">The Naxi are probably the most culturally fascinating ethnic group you'll encounter on this trip — partly because they're so well-documented, and partly because some of their cultural practices are genuinely unlike anything else on Earth.</p><h4 class="sub-subsection-title">THE DONGBA SCRIPT: THE WORLD'S ONLY LIVING PICTOGRAPHIC WRITING SYSTEM</h4>
-<p data-search="The Peoples — THE DONGBA SCRIPT: THE WORLD'S ONLY LIVING PICTOGRAPHIC WRITING SYSTEM">Most ancient writing systems started as pictographs and evolved toward abstraction (think: Egyptian hieroglyphs eventually became Coptic; Chinese characters shed much of their pictographic nature after standardization). The Dongba script never made that transition. It's still in use, still taught, and still fully pictographic — each character is a small drawing. A man, a river, a mountain. About 1,400 characters exist. It was used exclusively by Dongba priests (shamans/religious specialists) to write ritual texts, and it's estimated there are around 20,000+ Dongba manuscripts in existence, held in libraries worldwide.</p>
-<div class="fact-callout">
-  <div class="fact-callout-label">🤯 Holy Shit Fact</div>
-  <p data-search="The Peoples — THE DONGBA SCRIPT: THE WORLD'S ONLY LIVING PICTOGRAPHIC WRITING SYSTEM">The holy shit fact: Western scholars rediscovered Dongba texts in the early 1900s and initially couldn't decode them because they didn't realize they were reading a script — they thought they were looking at illustrated manuscripts. It took years to understand that the images were phonetically and semantically loaded characters.</p>
-</div>
-<p data-search="The Peoples — THE DONGBA SCRIPT: THE WORLD'S ONLY LIVING PICTOGRAPHIC WRITING SYSTEM">UNESCO declared Dongba manuscripts part of the Memory of the World register. The script is now taught in Lijiang schools, partly as cultural revival, partly as tourist economy.</p>
-<p data-search="The Peoples — THE DONGBA SCRIPT: THE WORLD'S ONLY LIVING PICTOGRAPHIC WRITING SYSTEM">What to look for in Lijiang: Dongba script appears on signs, souvenirs, and carved wooden plaques throughout the old town. You'll also see it on the entrance to the Dongba Cultural Research Institute. The characters are instantly recognizable — they look like little drawings because they ARE little drawings.</p><h4 class="sub-subsection-title">DONGBA RELIGION</h4>
-<p data-search="The Peoples — DONGBA RELIGION">Dongba religion is animist and shamanistic, with elements absorbed from Tibetan Bon (pre-Buddhist Tibet), Taoism, and local ancestor worship. The universe, in Dongba cosmology, is divided into the realms of gods (above), humans (middle), and demons (below). Dongba priests mediate between these realms through ritual, music, and sacrifices. They're the ones who can read and write the Dongba script — making literacy itself a sacred, priestly skill rather than a civic one.</p>
-<p data-search="The Peoples — DONGBA RELIGION">Interestingly, Dongba religion never developed a centralized church or hierarchy. Each Dongba priest operated somewhat independently, passing knowledge to a son or chosen student. This means there's significant regional variation in ritual texts — you can find two Dongba manuscripts describing the "same" ceremony very differently because they were written by different regional priests.</p><h4 class="sub-subsection-title">THE MATRILINEAL TRADITION (AND ITS NUANCES)</h4>
-<p data-search="The Peoples — THE MATRILINEAL TRADITION (AND ITS NUANCES)">You'll hear that the Naxi are matrilineal. This is true but nuanced. "Matrilineal" means descent and inheritance are traced through the mother's line — children belong to their mother's family, property passes through female lines. This is different from "matriarchal" (women rule) — it's more accurate to say Naxi women traditionally had significant economic and social autonomy.</p>
-<p data-search="The Peoples — THE MATRILINEAL TRADITION (AND ITS NUANCES)">The walking marriage (走婚, zǒuhūn) is often associated with Naxi, but it's actually more specific to the Mosuo people, a subgroup of the Naxi. In the walking marriage tradition: men and women maintain separate households (with their respective birth families); romantic relationships are conducted nightly (the man "walks" to the woman's home and returns before dawn); children are raised by the mother's family; biological fathers have minimal obligation to their children. It's essentially a system where the nuclear family unit (husband-wife-children) is replaced by the maternal extended family as the primary social unit.</p>
-<p data-search="The Peoples — THE MATRILINEAL TRADITION (AND ITS NUANCES)">This system made economic sense in an agricultural context: women manage the household and fields; men's labor and romantic lives are flexible. It was also self-reinforcing: because children always belonged to the mother's clan, there was no inheritance dispute about whose child got what.</p>
-<p data-search="The Peoples — THE MATRILINEAL TRADITION (AND ITS NUANCES)">Modern Naxi in urban Lijiang increasingly follow Han Chinese family structures. Walking marriage is more associated with the Mosuo around Lugu Lake (southwest of Lijiang). But the matrilineal underpinning still shapes how older Naxi communities organize property and kinship.</p><h4 class="sub-subsection-title">NAXI ANCIENT MUSIC (纳西古乐)</h4>
-<p data-search="The Peoples — NAXI ANCIENT MUSIC (纳西古乐)">Here's something that'll stop you cold: Lijiang's Naxi musicians play Tang dynasty court music that has essentially been lost everywhere else in China. When the Tang dynasty (618-907 AD) collapsed, the court music went with it — instruments were lost, notation abandoned, performers scattered. But in Lijiang, the Naxi preserved it. They received it as a diplomatic gift from early emperors, treated it as sacred, and passed it down through ensembles for 1,000+ years.</p>
-<p data-search="The Peoples — NAXI ANCIENT MUSIC (纳西古乐)">The music uses instruments that are now extinct or extremely rare in the rest of China: the sugudu (a type of fiddle), specific ancient flutes, and a type of zither with distinctive tuning. When ethnomusicologists first documented it in the 20th century, they compared it to ancient scores preserved in Japanese imperial archives (Japan received the same Tang court music and preserved it as "gagaku") — and they matched. This confirmed the music's antiquity.</p>
-<p data-search="The Peoples — NAXI ANCIENT MUSIC (纳西古乐)">You can catch Naxi Ancient Music performances in Lijiang Old Town most evenings. The ensemble is typically older musicians — this is genuinely endangered culture, not a tourist recreation.</p>
-</div>
-<div class="subsection">
-  <h3 class="subsection-title">BAI (白族) — THE PEOPLE OF DALI</h3>
-  <p data-search="The Peoples — BAI (白族) — THE PEOPLE OF DALI">Population: ~1.9 million, concentrated in the Dali Bai Autonomous Prefecture. Language: Bai, a Sino-Tibetan language with significant Chinese loanwords. The Bai have been in close contact with Chinese civilization for over 2,000 years, and it shows in their language and material culture — but they've maintained distinct identity throughout.</p>
-<p data-search="The Peoples — BAI (白族) — THE PEOPLE OF DALI">The name "Bai" means "white" — a reference to their traditional love of white in dress and architecture. Bai women's traditional dress is white with colorful trim; Bai houses are white-plastered with gray tile roofs and colorful painted wooden panels and eaves.</p><h4 class="sub-subsection-title">BAI ARCHITECTURE: THE "THREE COURTYARDS AND ONE SCREEN WALL"</h4>
-<p data-search="The Peoples — BAI ARCHITECTURE: THE "THREE COURTYARDS AND ONE SCREEN WALL"">The signature Bai architectural form is the 三坊一照壁 (sān fāng yī zhàobì) — three buildings arranged in a U-shape around a courtyard, with a decorated wall closing the fourth side. That fourth wall (the "screen wall") faces the main hall and is typically painted or plastered with intricate colored geometric patterns and calligraphy. It exists partly for feng shui (reflecting good fortune back into the courtyard) and partly as a status display — elaborate screen walls indicated wealth.</p>
-<p data-search="The Peoples — BAI ARCHITECTURE: THE "THREE COURTYARDS AND ONE SCREEN WALL"">Look for: the screen walls in Xizhou Village (D7). They're more elaborate than anything you'll see in Lijiang. Painted patterns typically use a palette of black, white, and soft colors; the designs combine Chinese motifs (bats = good fortune, clouds, geometric patterns) with local Bai aesthetic sensibilities.</p><h4 class="sub-subsection-title">TIE-DYE (扎染 zhā rǎn)</h4>
-<p data-search="The Peoples — TIE-DYE (扎染 zhā rǎn)">Bai tie-dye uses indigo plant dye and a resist-dyeing technique where cloth is twisted, folded, or bound before dyeing — the tied sections resist the dye, creating patterns when unfolded. Bai tie-dye has been practiced for over 1,000 years and was historically used for everyday clothing, festival dress, and household textiles.</p>
-<p data-search="The Peoples — TIE-DYE (扎染 zhā rǎn)">The craft is centered in Zhoucheng Village near Dali (close to Xizhou). Traditional Bai tie-dye uses a specific local plant, 板藍根 (bǎnlánzēn, Chinese woad/ isatis root) for the indigo base, which also has traditional medicinal properties. You'll do a workshop on D7 — the process takes hours for complex patterns, but you'll likely do simplified versions. The key thing to understand: the pattern emerges from the negative space created by the tied sections. The complexity of the pattern is a function of the complexity of the tying — which takes years to master.</p>
-<p data-search="The Peoples — TIE-DYE (扎染 zhā rǎn)">What to buy: traditionally patterned cloth (避邪 bìxié — ward-off-evil patterns, butterfly patterns, geometric repeats) is more culturally significant than the more touristy versions with panda motifs. Ask whether the dye is synthetic or natural indigo — natural dye items are more expensive but the color ages beautifully.</p>
-</div>
-<div class="subsection">
-  <h3 class="subsection-title">OTHER GROUPS YOU MAY ENCOUNTER</h3>
-  <h4 class="sub-subsection-title">YI (彝族)</h4>
-<p data-search="The Peoples — YI (彝族)">Population: ~9 million (largest ethnic minority in Yunnan, and one of the largest in all of China). The Yi have their own script (Yi syllabary, standardized in 1975) and a distinct solar calendar that divides the year into 10 months of 36 days each (plus 5-6 intercalary days). The Yi Torch Festival (火把節, mid-summer) is one of the most spectacular minority festivals in China — giant bonfires, torch processions, bullfighting, wrestling. The Yi dominated much of the Lijiang area before the Naxi rose to prominence. You may see Yi women in traditional dress in Lijiang markets — typically dark navy/black with colorful embroidery.</p><h4 class="sub-subsection-title">TIBETAN INFLUENCE</h4>
-<p data-search="The Peoples — TIBETAN INFLUENCE">You won't go into Tibetan territory on this trip, but you'll feel the influence everywhere north of Lijiang. The Jinsha River (which Tiger Leaping Gorge cuts through) marks a rough cultural boundary — north toward Shangri-La/Zhongdian is Tibetan Buddhist cultural zone. You'll see Tibetan prayer flags, mani stone walls (stones carved with the Tibetan mantra OM MANI PADME HUM), and yak products at markets. Tibetan Buddhism also heavily influenced Dongba religion, and the trade in Tibetan horses for Yunnan tea was the literal economic engine of the Tea Horse Road. These cultures are deeply intertwined.</p>
-</div>
-</div>
-</section>
-
-<section class="section collapsed" id="tea-horse-road" data-nav-id="tea-horse-road">
-  <span class="section-number">Section 03</span>
-  <h2 class="section-header">The Tea Horse Road (茶馬古道)</h2>
-  
-
-<div class="section-body">
-<div class="subsection">
-  <h3 class="subsection-title">WHAT IT WAS</h3>
-  <p data-search="Tea Horse Road — WHAT IT WAS">The Tea Horse Road was a network of trade routes connecting Yunnan and Sichuan (tea-producing regions) to Tibet, Central Asia, South Asia, and beyond. It was not a single road — it was an interconnected web of paths through some of the most extreme terrain on Earth: river gorges, mountain passes at 4,000–5,000m, dense forests and grasslands. The route from Pu'er (in southern Yunnan) to Lhasa (Tibet) was roughly 2,000 km. Caravans took months to complete a one-way journey.</p>
-  <p data-search="Tea Horse Road — WHAT IT WAS">It was called the "Tea Horse Road" because its two primary commodities were: tea flowing OUT of Yunnan/Sichuan going north and west to Tibet and Mongolia; and horses flowing IN from Tibet and Central Asia going south and east to China.</p>
-</div>
-<div class="subsection">
-  <h3 class="subsection-title">WHY HORSES FOR TEA? — THE ACTUAL STRATEGIC LOGIC</h3>
-  <p data-search="Tea Horse Road — WHY HORSES FOR TEA?">This trade seems simple on the surface, but it was driven by geopolitical necessity on both sides.</p>
-  <p data-search="Tea Horse Road — WHY HORSES FOR TEA?">China needed horses for warfare. The Tang dynasty's military power depended heavily on cavalry — and the best cavalry horses in Asia came from the Tibetan Plateau and Central Asian grasslands. Han Chinese could not breed quality warhorses (wrong climate, wrong grass, wrong altitude). So every Tang general needed a supply chain for horses, and that supply chain ran through Tibet.</p>
-  <p data-search="Tea Horse Road — WHY HORSES FOR TEA?">Tibet needed tea for survival. Tibetan diet is heavily meat and fat-based (altitude and cold climate limits vegetable cultivation). Tea provides vitamins, minerals, and aids digestion of fatty foods — it's genuinely nutritionally important in a high-altitude pastoral diet, not a luxury. The famous Tibetan butter tea (po cha) — brick tea boiled with yak butter and salt — is a calorie-dense, vitamin-supplementing staple, not a beverage. It's closer to soup.</p>
-  <p data-search="Tea Horse Road — WHY HORSES FOR TEA?">So: China had a monopoly on tea. Tibet had a monopoly on good horses. The Tea Horse Road was, in effect, a 1,000-year-long arms-for-food deal.</p>
-</div>
-<div class="subsection">
-  <h3 class="subsection-title">PU'ER TEA'S SPECIAL ROLE</h3>
-  <p data-search="Tea Horse Road — PU'ER TEA'S SPECIAL ROLE">Why Yunnan tea specifically? Because it ferments well. Compressed Yunnan tea (pu'er) was pressed into bricks or discs specifically for the journey — the dense compression reduced volume and protected it from moisture damage. But the real discovery was accidental: the tea improved during the journey. The altitude changes, humidity variations, and duration of the journey triggered a natural microbial fermentation that transformed the tea's chemistry — making it smoother, more complex, and arguably more healthy. Merchants realized aged, traveled tea was more valuable than fresh tea. This is the origin of pu'er as a deliberately aged product.</p>
-</div>
-<div class="subsection">
-  <h3 class="subsection-title">THE ROUTES</h3>
-  <p data-search="Tea Horse Road — THE ROUTES">The main Yunnan routes:</p>
-  <ul>
-    <li>Southern Route: Pu'er → Dali → Lijiang → Shangri-La → Tibet → India/Nepal</li>
-    <li>Western Route: Dali → Baoshan → Myanmar → India</li>
-    <li>Eastern Route: Pu'er → Kunming → Sichuan → Central China</li>
-  </ul>
-  <p data-search="Tea Horse Road — THE ROUTES">Your trip follows significant sections of the Southern Route: Lijiang was a major commercial hub (D1–D4); Lashi Lake was a staging area for caravans (D4); Shuhe was an alternative to Lijiang for traders (D4); Shaxi was a critical market town where traders rested and traded (D6); Dali was the hub before routes diverged toward Tibet or Myanmar (D6–D7).</p>
-</div>
-<div class="subsection">
-  <h3 class="subsection-title">SHAXI: THE MIRACLE PRESERVATION</h3>
-  <p data-search="Tea Horse Road — SHAXI: THE MIRACLE PRESERVATION">Shaxi (沙溪) is special. Of the hundreds of market towns on the Tea Horse Road, it's the only one that has preserved its historic market square — the Sideng Square — largely intact, including the original stables (馬店, mǎdiàn) where caravans kept their horses and mules. UNESCO declared it one of the world's endangered monuments in 2001. A Swiss-Chinese restoration project (starting 2003) saved it without turning it into a theme park. The result is a town that functions for local Bai people while being historically comprehensible to visitors.</p>
-  <p data-search="Tea Horse Road — SHAXI: THE MIRACLE PRESERVATION">What makes Sideng Square historically real: the original caravanserai archway, the Buddhist temple on the square (Xingjiao Temple — note the Tibetan influence in the architecture, showing how culturally mixed these trade towns were), and the market platform in the center where goods were auctioned. On Fridays, the market still runs with Bai villagers selling produce.</p>
-</div>
-<div class="subsection">
-  <h3 class="subsection-title">LASHI LAKE AND THE STAGING AREA</h3>
-  <p data-search="Tea Horse Road — LASHI LAKE AND THE STAGING AREA">Lashi Lake (拉市海, Lāshì Hǎi — "hai" means lake in the local dialect) was the last large flat basin before caravans had to ascend into the mountains northward toward Tiger Leaping Gorge and Tibet. Caravans would stop here to rest animals, resupply, and prepare for the harder mountain sections. The horseback riding you'll do there (D4) uses the original trails. The lake is now a wetland reserve and major migratory bird habitat — a reminder that the biodiversity and the trade history are part of the same landscape.</p>
-  <div class="fact-callout">
-    <div class="fact-callout-label">🤯 Holy Shit Fact</div>
-    <p>The bar-headed goose migrates OVER the Himalayas — the highest-flying migratory bird on Earth — and winters at Lashi Lake. The same lake that staged Tea Horse Road caravans is a pit stop for birds flying higher than most commercial aircraft cruise.</p>
-  </div>
-</div>
-</div>
-</section>
-
+    <!-- ===== ITINERARY TAB ===== -->
+    <div class="tab-panel" id="tab-itinerary">
+      <div class="day-strip" id="day-strip">
+        <a class="day-pill" href="#day1" data-day="day1">D1<span class="day-pill-weather">☀️</span></a>
+        <a class="day-pill" href="#day2" data-day="day2">D2<span class="day-pill-weather">⛅</span></a>
+        <a class="day-pill" href="#day3" data-day="day3">D3<span class="day-pill-weather">🌧️</span></a>
+        <a class="day-pill" href="#day4" data-day="day4">D4<span class="day-pill-weather">🌧️</span></a>
+        <a class="day-pill" href="#day5" data-day="day5">D5<span class="day-pill-weather">🌧️</span></a>
+        <a class="day-pill" href="#day6" data-day="day6">D6<span class="day-pill-weather">🌧️</span></a>
+        <a class="day-pill" href="#day7" data-day="day7">D7<span class="day-pill-weather">🌧️</span></a>
+        <a class="day-pill" href="#day8" data-day="day8">D8<span class="day-pill-weather">🌧️</span></a>
+      </div>
+      <div class="expand-controls">
+        <button id="expand-all-btn" aria-label="Expand all days">Expand All</button>
+        <button id="collapse-all-btn" aria-label="Collapse all days">Collapse All</button>
+      </div>
+      <main class="content">
 <section class="section" id="days" data-nav-id="days">
   <span class="section-number">Section 04</span>
   <h2 class="section-header">Day-by-Day Deep Dives</h2>
@@ -894,6 +646,161 @@
   </div>
 </div>
 </section>
+      </main>
+    </div>
+
+    <!-- ===== INFO TAB ===== -->
+    <div class="tab-panel" id="tab-info">
+      <div class="info-hint">
+        <p>📖 Tap any section header to expand · Use 🔍 to search all content</p>
+      </div>
+      <main class="content">
+<section class="section collapsed" id="overview" data-nav-id="overview">
+  <span class="section-number">Section 01</span>
+  <h2 class="section-header">Yunnan Overview — Why This Place Is Not Like the Rest of China</h2>
+  
+
+<div class="section-body">
+<div class="subsection">
+  <h3 class="subsection-title">THE GEOGRAPHY THAT MADE EVERYTHING</h3>
+  <p data-search="Yunnan Overview — THE GEOGRAPHY THAT MADE EVERYTHING">The name 雲南 (Yúnnán) means "South of the Clouds" — a reference to the Yunnan-Guizhou Plateau, which sits above the cloud line when viewed from the north. That geographic separation from the rest of China isn't just poetic. It explains almost everything about what makes Yunnan different.</p>
+  <p data-search="Yunnan Overview — THE GEOGRAPHY THAT MADE EVERYTHING">Yunnan is roughly the size of California and contains virtually every climate zone on Earth — from tropical rainforest on the Burmese border to alpine tundra on the Tibetan Plateau, all within a few hundred kilometers. You can grow bananas and rear yaks in the same province. This is because Yunnan is essentially a staircase: the western and northern edges tilt sharply upward into the Himalayas, while the south drops down toward Southeast Asia.</p>
+  <p data-search="Yunnan Overview — THE GEOGRAPHY THAT MADE EVERYTHING">This topographic chaos meant that for most of Chinese history, central governments couldn't fully control it. Mountain ranges, river gorges, and altitude made military campaigns expensive and occupation even more so. The result: Yunnan spent centuries operating as a semi-independent frontier — a place where different cultures, trade routes, religions, and ecosystems converged outside the reach of imperial bureaucracy.</p>
+</div>
+<div class="subsection">
+  <h3 class="subsection-title">THE BIODIVERSITY</h3>
+  <div class="fact-callout">
+    <div class="fact-callout-label">🤯 Holy Shit Fact</div>
+    <p>Yunnan has more plant species than any other province in China — roughly 18,000, which is about half of China's total. It has 1,700+ species of birds (Europe has around 800 total). The province sits at the collision point of three tectonic plates: the Indian subcontinent pushing into Asia created the gorges (Tiger Leaping Gorge is a direct result), the altitude gradients created micro-climates, and the relative isolation allowed species to evolve independently. This is why Yunnan is considered one of the world's top biodiversity hotspots. Botanists like Joseph Rock — whose base in Yuhu Village you'll actually visit — were genuinely discovering new-to-science species on a weekly basis.</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-title">THE ETHNIC DIVERSITY</h3>
+  <p data-search="Yunnan Overview — THE ETHNIC DIVERSITY">China officially recognizes 56 ethnic groups. Yunnan alone is home to 26 of them. No other province comes close. These aren't remnant communities — many have distinct languages, scripts, religions, architectural traditions, and agricultural systems. The Naxi have a living pictographic script. The Bai built an independent kingdom that defeated Tang Dynasty armies. The Yi have their own solar calendar. The Tibetans you might see near the Shangri-La border have a continuous monastic tradition going back to the 7th century.</p>
+  <p data-search="Yunnan Overview — THE ETHNIC DIVERSITY">The reason for this diversity: Yunnan was a refuge. When Han expansion pushed south over millennia, the minorities that couldn't or wouldn't assimilate retreated into the mountains and river valleys of Yunnan. The terrain protected them. So what you're looking at isn't "colorful tourism heritage" — it's genuine cultural survival over thousands of years, maintained precisely because the geography made it possible.</p>
+</div>
+<div class="subsection">
+  <h3 class="subsection-title">THE STRATEGIC POSITION</h3>
+  <p data-search="Yunnan Overview — THE STRATEGIC POSITION">Yunnan borders Myanmar, Laos, and Vietnam. During the Tang dynasty, this made it a buffer state between China and the expansionist kingdoms of Southeast Asia. During WWII, it became critical: the Burma Road ran through Yunnan, supplying Nationalist China after Japan closed the coast. The famous "Hump" air route over the Himalayas terminated here. During the Vietnam War, Chinese logistics to North Vietnam ran through Yunnan.</p>
+  <p data-search="Yunnan Overview — THE STRATEGIC POSITION">Even today, Yunnan is China's primary land gateway to Southeast Asia. The Kunming-Vientiane high-speed rail (opened 2021 to Laos) is part of China's Belt and Road strategy to connect Yunnan to the rest of ASEAN — a modern version of what the Tea Horse Road did for a millennium.</p>
+</div>
+<div class="subsection">
+  <h3 class="subsection-title">THE HISTORICAL NARRATIVE</h3>
+  <p data-search="Yunnan Overview — THE HISTORICAL NARRATIVE">Most of Chinese history is told from the north (Beijing, Xi'an) or the east (Shanghai, Nanjing). Yunnan's story runs perpendicular. It's the story of:</p>
+  <ul>
+    <li>Kingdoms that resisted Tang and Song empires</li>
+    <li>Trade routes that connected China to South Asia before maritime routes existed</li>
+    <li>Ethnic cultures that maintained distinct identities despite centuries of Han migration and governance</li>
+    <li>A landscape so extreme it forced adaptations in food, architecture, religion, and daily life that you won't find anywhere else in China</li>
+  </ul>
+  <p data-search="Yunnan Overview — THE HISTORICAL NARRATIVE">You're not visiting a theme park version of China's minority cultures. You're visiting the place where those cultures actually lived — and still live.</p>
+</div>
+</div>
+</section>
+
+<section class="section collapsed" id="peoples" data-nav-id="peoples">
+  <span class="section-number">Section 02</span>
+  <h2 class="section-header">The Peoples</h2>
+  
+
+<div class="section-body">
+<div class="subsection">
+  <h3 class="subsection-title">NAXI (纳西族) — THE PEOPLE OF LIJIANG</h3>
+  <div class="photo-gallery two-col">
+<figure class="photo-card">
+  <img src="?v=1772517441" alt="Lijiang Old Town — UNESCO World Heritage" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Lijiang Old Town — UNESCO World Heritage</figcaption>
+</figure>
+<figure class="photo-card">
+  <img src="?v=1772517441" alt="Jade Dragon Snow Mountain from Lijiang" loading="lazy" onerror="this.style.display='none'">
+  <figcaption>Jade Dragon Snow Mountain from Lijiang</figcaption>
+</figure>
+</div>
+<p data-search="The Peoples — NAXI (纳西族) — THE PEOPLE OF LIJIANG">Population: ~330,000, concentrated in Lijiang prefecture. Language: Naxi, a Tibeto-Burman language, related to Tibetan and Burmese but distinct. Most Naxi today also speak Mandarin.</p>
+<p data-search="The Peoples — NAXI (纳西族) — THE PEOPLE OF LIJIANG">The Naxi are probably the most culturally fascinating ethnic group you'll encounter on this trip — partly because they're so well-documented, and partly because some of their cultural practices are genuinely unlike anything else on Earth.</p><h4 class="sub-subsection-title">THE DONGBA SCRIPT: THE WORLD'S ONLY LIVING PICTOGRAPHIC WRITING SYSTEM</h4>
+<p data-search="The Peoples — THE DONGBA SCRIPT: THE WORLD'S ONLY LIVING PICTOGRAPHIC WRITING SYSTEM">Most ancient writing systems started as pictographs and evolved toward abstraction (think: Egyptian hieroglyphs eventually became Coptic; Chinese characters shed much of their pictographic nature after standardization). The Dongba script never made that transition. It's still in use, still taught, and still fully pictographic — each character is a small drawing. A man, a river, a mountain. About 1,400 characters exist. It was used exclusively by Dongba priests (shamans/religious specialists) to write ritual texts, and it's estimated there are around 20,000+ Dongba manuscripts in existence, held in libraries worldwide.</p>
+<div class="fact-callout">
+  <div class="fact-callout-label">🤯 Holy Shit Fact</div>
+  <p data-search="The Peoples — THE DONGBA SCRIPT: THE WORLD'S ONLY LIVING PICTOGRAPHIC WRITING SYSTEM">The holy shit fact: Western scholars rediscovered Dongba texts in the early 1900s and initially couldn't decode them because they didn't realize they were reading a script — they thought they were looking at illustrated manuscripts. It took years to understand that the images were phonetically and semantically loaded characters.</p>
+</div>
+<p data-search="The Peoples — THE DONGBA SCRIPT: THE WORLD'S ONLY LIVING PICTOGRAPHIC WRITING SYSTEM">UNESCO declared Dongba manuscripts part of the Memory of the World register. The script is now taught in Lijiang schools, partly as cultural revival, partly as tourist economy.</p>
+<p data-search="The Peoples — THE DONGBA SCRIPT: THE WORLD'S ONLY LIVING PICTOGRAPHIC WRITING SYSTEM">What to look for in Lijiang: Dongba script appears on signs, souvenirs, and carved wooden plaques throughout the old town. You'll also see it on the entrance to the Dongba Cultural Research Institute. The characters are instantly recognizable — they look like little drawings because they ARE little drawings.</p><h4 class="sub-subsection-title">DONGBA RELIGION</h4>
+<p data-search="The Peoples — DONGBA RELIGION">Dongba religion is animist and shamanistic, with elements absorbed from Tibetan Bon (pre-Buddhist Tibet), Taoism, and local ancestor worship. The universe, in Dongba cosmology, is divided into the realms of gods (above), humans (middle), and demons (below). Dongba priests mediate between these realms through ritual, music, and sacrifices. They're the ones who can read and write the Dongba script — making literacy itself a sacred, priestly skill rather than a civic one.</p>
+<p data-search="The Peoples — DONGBA RELIGION">Interestingly, Dongba religion never developed a centralized church or hierarchy. Each Dongba priest operated somewhat independently, passing knowledge to a son or chosen student. This means there's significant regional variation in ritual texts — you can find two Dongba manuscripts describing the "same" ceremony very differently because they were written by different regional priests.</p><h4 class="sub-subsection-title">THE MATRILINEAL TRADITION (AND ITS NUANCES)</h4>
+<p data-search="The Peoples — THE MATRILINEAL TRADITION (AND ITS NUANCES)">You'll hear that the Naxi are matrilineal. This is true but nuanced. "Matrilineal" means descent and inheritance are traced through the mother's line — children belong to their mother's family, property passes through female lines. This is different from "matriarchal" (women rule) — it's more accurate to say Naxi women traditionally had significant economic and social autonomy.</p>
+<p data-search="The Peoples — THE MATRILINEAL TRADITION (AND ITS NUANCES)">The walking marriage (走婚, zǒuhūn) is often associated with Naxi, but it's actually more specific to the Mosuo people, a subgroup of the Naxi. In the walking marriage tradition: men and women maintain separate households (with their respective birth families); romantic relationships are conducted nightly (the man "walks" to the woman's home and returns before dawn); children are raised by the mother's family; biological fathers have minimal obligation to their children. It's essentially a system where the nuclear family unit (husband-wife-children) is replaced by the maternal extended family as the primary social unit.</p>
+<p data-search="The Peoples — THE MATRILINEAL TRADITION (AND ITS NUANCES)">This system made economic sense in an agricultural context: women manage the household and fields; men's labor and romantic lives are flexible. It was also self-reinforcing: because children always belonged to the mother's clan, there was no inheritance dispute about whose child got what.</p>
+<p data-search="The Peoples — THE MATRILINEAL TRADITION (AND ITS NUANCES)">Modern Naxi in urban Lijiang increasingly follow Han Chinese family structures. Walking marriage is more associated with the Mosuo around Lugu Lake (southwest of Lijiang). But the matrilineal underpinning still shapes how older Naxi communities organize property and kinship.</p><h4 class="sub-subsection-title">NAXI ANCIENT MUSIC (纳西古乐)</h4>
+<p data-search="The Peoples — NAXI ANCIENT MUSIC (纳西古乐)">Here's something that'll stop you cold: Lijiang's Naxi musicians play Tang dynasty court music that has essentially been lost everywhere else in China. When the Tang dynasty (618-907 AD) collapsed, the court music went with it — instruments were lost, notation abandoned, performers scattered. But in Lijiang, the Naxi preserved it. They received it as a diplomatic gift from early emperors, treated it as sacred, and passed it down through ensembles for 1,000+ years.</p>
+<p data-search="The Peoples — NAXI ANCIENT MUSIC (纳西古乐)">The music uses instruments that are now extinct or extremely rare in the rest of China: the sugudu (a type of fiddle), specific ancient flutes, and a type of zither with distinctive tuning. When ethnomusicologists first documented it in the 20th century, they compared it to ancient scores preserved in Japanese imperial archives (Japan received the same Tang court music and preserved it as "gagaku") — and they matched. This confirmed the music's antiquity.</p>
+<p data-search="The Peoples — NAXI ANCIENT MUSIC (纳西古乐)">You can catch Naxi Ancient Music performances in Lijiang Old Town most evenings. The ensemble is typically older musicians — this is genuinely endangered culture, not a tourist recreation.</p>
+</div>
+<div class="subsection">
+  <h3 class="subsection-title">BAI (白族) — THE PEOPLE OF DALI</h3>
+  <p data-search="The Peoples — BAI (白族) — THE PEOPLE OF DALI">Population: ~1.9 million, concentrated in the Dali Bai Autonomous Prefecture. Language: Bai, a Sino-Tibetan language with significant Chinese loanwords. The Bai have been in close contact with Chinese civilization for over 2,000 years, and it shows in their language and material culture — but they've maintained distinct identity throughout.</p>
+<p data-search="The Peoples — BAI (白族) — THE PEOPLE OF DALI">The name "Bai" means "white" — a reference to their traditional love of white in dress and architecture. Bai women's traditional dress is white with colorful trim; Bai houses are white-plastered with gray tile roofs and colorful painted wooden panels and eaves.</p><h4 class="sub-subsection-title">BAI ARCHITECTURE: THE "THREE COURTYARDS AND ONE SCREEN WALL"</h4>
+<p data-search="The Peoples — BAI ARCHITECTURE: THE "THREE COURTYARDS AND ONE SCREEN WALL"">The signature Bai architectural form is the 三坊一照壁 (sān fāng yī zhàobì) — three buildings arranged in a U-shape around a courtyard, with a decorated wall closing the fourth side. That fourth wall (the "screen wall") faces the main hall and is typically painted or plastered with intricate colored geometric patterns and calligraphy. It exists partly for feng shui (reflecting good fortune back into the courtyard) and partly as a status display — elaborate screen walls indicated wealth.</p>
+<p data-search="The Peoples — BAI ARCHITECTURE: THE "THREE COURTYARDS AND ONE SCREEN WALL"">Look for: the screen walls in Xizhou Village (D7). They're more elaborate than anything you'll see in Lijiang. Painted patterns typically use a palette of black, white, and soft colors; the designs combine Chinese motifs (bats = good fortune, clouds, geometric patterns) with local Bai aesthetic sensibilities.</p><h4 class="sub-subsection-title">TIE-DYE (扎染 zhā rǎn)</h4>
+<p data-search="The Peoples — TIE-DYE (扎染 zhā rǎn)">Bai tie-dye uses indigo plant dye and a resist-dyeing technique where cloth is twisted, folded, or bound before dyeing — the tied sections resist the dye, creating patterns when unfolded. Bai tie-dye has been practiced for over 1,000 years and was historically used for everyday clothing, festival dress, and household textiles.</p>
+<p data-search="The Peoples — TIE-DYE (扎染 zhā rǎn)">The craft is centered in Zhoucheng Village near Dali (close to Xizhou). Traditional Bai tie-dye uses a specific local plant, 板藍根 (bǎnlánzēn, Chinese woad/ isatis root) for the indigo base, which also has traditional medicinal properties. You'll do a workshop on D7 — the process takes hours for complex patterns, but you'll likely do simplified versions. The key thing to understand: the pattern emerges from the negative space created by the tied sections. The complexity of the pattern is a function of the complexity of the tying — which takes years to master.</p>
+<p data-search="The Peoples — TIE-DYE (扎染 zhā rǎn)">What to buy: traditionally patterned cloth (避邪 bìxié — ward-off-evil patterns, butterfly patterns, geometric repeats) is more culturally significant than the more touristy versions with panda motifs. Ask whether the dye is synthetic or natural indigo — natural dye items are more expensive but the color ages beautifully.</p>
+</div>
+<div class="subsection">
+  <h3 class="subsection-title">OTHER GROUPS YOU MAY ENCOUNTER</h3>
+  <h4 class="sub-subsection-title">YI (彝族)</h4>
+<p data-search="The Peoples — YI (彝族)">Population: ~9 million (largest ethnic minority in Yunnan, and one of the largest in all of China). The Yi have their own script (Yi syllabary, standardized in 1975) and a distinct solar calendar that divides the year into 10 months of 36 days each (plus 5-6 intercalary days). The Yi Torch Festival (火把節, mid-summer) is one of the most spectacular minority festivals in China — giant bonfires, torch processions, bullfighting, wrestling. The Yi dominated much of the Lijiang area before the Naxi rose to prominence. You may see Yi women in traditional dress in Lijiang markets — typically dark navy/black with colorful embroidery.</p><h4 class="sub-subsection-title">TIBETAN INFLUENCE</h4>
+<p data-search="The Peoples — TIBETAN INFLUENCE">You won't go into Tibetan territory on this trip, but you'll feel the influence everywhere north of Lijiang. The Jinsha River (which Tiger Leaping Gorge cuts through) marks a rough cultural boundary — north toward Shangri-La/Zhongdian is Tibetan Buddhist cultural zone. You'll see Tibetan prayer flags, mani stone walls (stones carved with the Tibetan mantra OM MANI PADME HUM), and yak products at markets. Tibetan Buddhism also heavily influenced Dongba religion, and the trade in Tibetan horses for Yunnan tea was the literal economic engine of the Tea Horse Road. These cultures are deeply intertwined.</p>
+</div>
+</div>
+</section>
+
+<section class="section collapsed" id="tea-horse-road" data-nav-id="tea-horse-road">
+  <span class="section-number">Section 03</span>
+  <h2 class="section-header">The Tea Horse Road (茶馬古道)</h2>
+  
+
+<div class="section-body">
+<div class="subsection">
+  <h3 class="subsection-title">WHAT IT WAS</h3>
+  <p data-search="Tea Horse Road — WHAT IT WAS">The Tea Horse Road was a network of trade routes connecting Yunnan and Sichuan (tea-producing regions) to Tibet, Central Asia, South Asia, and beyond. It was not a single road — it was an interconnected web of paths through some of the most extreme terrain on Earth: river gorges, mountain passes at 4,000–5,000m, dense forests and grasslands. The route from Pu'er (in southern Yunnan) to Lhasa (Tibet) was roughly 2,000 km. Caravans took months to complete a one-way journey.</p>
+  <p data-search="Tea Horse Road — WHAT IT WAS">It was called the "Tea Horse Road" because its two primary commodities were: tea flowing OUT of Yunnan/Sichuan going north and west to Tibet and Mongolia; and horses flowing IN from Tibet and Central Asia going south and east to China.</p>
+</div>
+<div class="subsection">
+  <h3 class="subsection-title">WHY HORSES FOR TEA? — THE ACTUAL STRATEGIC LOGIC</h3>
+  <p data-search="Tea Horse Road — WHY HORSES FOR TEA?">This trade seems simple on the surface, but it was driven by geopolitical necessity on both sides.</p>
+  <p data-search="Tea Horse Road — WHY HORSES FOR TEA?">China needed horses for warfare. The Tang dynasty's military power depended heavily on cavalry — and the best cavalry horses in Asia came from the Tibetan Plateau and Central Asian grasslands. Han Chinese could not breed quality warhorses (wrong climate, wrong grass, wrong altitude). So every Tang general needed a supply chain for horses, and that supply chain ran through Tibet.</p>
+  <p data-search="Tea Horse Road — WHY HORSES FOR TEA?">Tibet needed tea for survival. Tibetan diet is heavily meat and fat-based (altitude and cold climate limits vegetable cultivation). Tea provides vitamins, minerals, and aids digestion of fatty foods — it's genuinely nutritionally important in a high-altitude pastoral diet, not a luxury. The famous Tibetan butter tea (po cha) — brick tea boiled with yak butter and salt — is a calorie-dense, vitamin-supplementing staple, not a beverage. It's closer to soup.</p>
+  <p data-search="Tea Horse Road — WHY HORSES FOR TEA?">So: China had a monopoly on tea. Tibet had a monopoly on good horses. The Tea Horse Road was, in effect, a 1,000-year-long arms-for-food deal.</p>
+</div>
+<div class="subsection">
+  <h3 class="subsection-title">PU'ER TEA'S SPECIAL ROLE</h3>
+  <p data-search="Tea Horse Road — PU'ER TEA'S SPECIAL ROLE">Why Yunnan tea specifically? Because it ferments well. Compressed Yunnan tea (pu'er) was pressed into bricks or discs specifically for the journey — the dense compression reduced volume and protected it from moisture damage. But the real discovery was accidental: the tea improved during the journey. The altitude changes, humidity variations, and duration of the journey triggered a natural microbial fermentation that transformed the tea's chemistry — making it smoother, more complex, and arguably more healthy. Merchants realized aged, traveled tea was more valuable than fresh tea. This is the origin of pu'er as a deliberately aged product.</p>
+</div>
+<div class="subsection">
+  <h3 class="subsection-title">THE ROUTES</h3>
+  <p data-search="Tea Horse Road — THE ROUTES">The main Yunnan routes:</p>
+  <ul>
+    <li>Southern Route: Pu'er → Dali → Lijiang → Shangri-La → Tibet → India/Nepal</li>
+    <li>Western Route: Dali → Baoshan → Myanmar → India</li>
+    <li>Eastern Route: Pu'er → Kunming → Sichuan → Central China</li>
+  </ul>
+  <p data-search="Tea Horse Road — THE ROUTES">Your trip follows significant sections of the Southern Route: Lijiang was a major commercial hub (D1–D4); Lashi Lake was a staging area for caravans (D4); Shuhe was an alternative to Lijiang for traders (D4); Shaxi was a critical market town where traders rested and traded (D6); Dali was the hub before routes diverged toward Tibet or Myanmar (D6–D7).</p>
+</div>
+<div class="subsection">
+  <h3 class="subsection-title">SHAXI: THE MIRACLE PRESERVATION</h3>
+  <p data-search="Tea Horse Road — SHAXI: THE MIRACLE PRESERVATION">Shaxi (沙溪) is special. Of the hundreds of market towns on the Tea Horse Road, it's the only one that has preserved its historic market square — the Sideng Square — largely intact, including the original stables (馬店, mǎdiàn) where caravans kept their horses and mules. UNESCO declared it one of the world's endangered monuments in 2001. A Swiss-Chinese restoration project (starting 2003) saved it without turning it into a theme park. The result is a town that functions for local Bai people while being historically comprehensible to visitors.</p>
+  <p data-search="Tea Horse Road — SHAXI: THE MIRACLE PRESERVATION">What makes Sideng Square historically real: the original caravanserai archway, the Buddhist temple on the square (Xingjiao Temple — note the Tibetan influence in the architecture, showing how culturally mixed these trade towns were), and the market platform in the center where goods were auctioned. On Fridays, the market still runs with Bai villagers selling produce.</p>
+</div>
+<div class="subsection">
+  <h3 class="subsection-title">LASHI LAKE AND THE STAGING AREA</h3>
+  <p data-search="Tea Horse Road — LASHI LAKE AND THE STAGING AREA">Lashi Lake (拉市海, Lāshì Hǎi — "hai" means lake in the local dialect) was the last large flat basin before caravans had to ascend into the mountains northward toward Tiger Leaping Gorge and Tibet. Caravans would stop here to rest animals, resupply, and prepare for the harder mountain sections. The horseback riding you'll do there (D4) uses the original trails. The lake is now a wetland reserve and major migratory bird habitat — a reminder that the biodiversity and the trade history are part of the same landscape.</p>
+  <div class="fact-callout">
+    <div class="fact-callout-label">🤯 Holy Shit Fact</div>
+    <p>The bar-headed goose migrates OVER the Himalayas — the highest-flying migratory bird on Earth — and winters at Lashi Lake. The same lake that staged Tea Horse Road caravans is a pit stop for birds flying higher than most commercial aircraft cruise.</p>
+  </div>
+</div>
+</div>
+</section>
 
 <section class="section collapsed" id="jade-dragon" data-nav-id="jade-dragon">
   <span class="section-number">Section 05</span>
@@ -1429,17 +1336,20 @@
 </div>
 </section>
 
-    <!-- Footer / Final Note -->
-    <footer class="footer">
-      <p><p data-search="Final Note">You're visiting a place where the history isn't over. The Tea Horse Road caravans stopped in the 20th century but the routes remain. The Naxi are navigating between cultural preservation and modernity in real time. The glaciers on Jade Dragon Snow Mountain are measurably smaller than when Joseph Rock photographed them a century ago. The dam that would have flooded Tiger Leaping Gorge was stopped by activism that's still remembered. The Catholic church in Dali is still receiving congregation.</p>
+
+<footer class="footer">
+      <div><p data-search="Final Note">You're visiting a place where the history isn't over. The Tea Horse Road caravans stopped in the 20th century but the routes remain. The Naxi are navigating between cultural preservation and modernity in real time. The glaciers on Jade Dragon Snow Mountain are measurably smaller than when Joseph Rock photographed them a century ago. The dam that would have flooded Tiger Leaping Gorge was stopped by activism that's still remembered. The Catholic church in Dali is still receiving congregation.</p>
 <p data-search="Final Note">Everything you'll see has layers. The tourist surface is just the beginning. Pull on any thread and you'll find a story that connects to something bigger — a trade empire, a defeated dynasty, a script that survived when it should have died, a mountain nobody has ever stood on.</p>
-<p data-search="Final Note">That's Yunnan. It rewards the curious more than almost anywhere else.</p></p>
+<p data-search="Final Note">That's Yunnan. It rewards the curious more than almost anywhere else.</p></div>
       <br>
       <p><strong>Prepared March 2026</strong> · Harry Clawford for Karl<br>
       Sources: field research, academic ethnography (Rock, McKhann, Mathieu), historical records, UNESCO documentation.<br>
       ~13,000 words · 45–60 min read</p>
     </footer>
-  </main>
+      </main>
+    </div>
+
+  </div><!-- /tab-content -->
 
   <!-- Quick Reference FAB -->
   <button class="qr-fab" id="qr-fab" aria-label="Quick Reference">中</button>
@@ -1478,126 +1388,23 @@
     </div>
   </div>
 
+  <!-- Bottom Tab Bar -->
+  <nav class="tab-bar" id="tab-bar" role="tablist">
+    <button class="tab-btn active" data-tab="tab-map" role="tab" aria-selected="true" aria-label="Map">
+      <span class="tab-icon">🗺️</span>
+      <span class="tab-label">Map</span>
+    </button>
+    <button class="tab-btn" data-tab="tab-itinerary" role="tab" aria-selected="false" aria-label="Itinerary">
+      <span class="tab-icon">📅</span>
+      <span class="tab-label">Itinerary</span>
+    </button>
+    <button class="tab-btn" data-tab="tab-info" role="tab" aria-selected="false" aria-label="Info">
+      <span class="tab-icon">ℹ️</span>
+      <span class="tab-label">Info</span>
+    </button>
+  </nav>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="script.js"></script>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-(function() {
-  var map = L.map('yn-map', {
-    center: [26.5, 100.15],
-    zoom: 8,
-    scrollWheelZoom: false,
-    zoomControl: true
-  });
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap',
-    maxZoom: 18
-  }).addTo(map);
-
-  var locs = [
-  {name:"Dayan Old Town (大研古城)",lat:26.8724,lng:100.2257,day:"D1-D2",desc:"UNESCO World Heritage Naxi old town. 354 stone bridges, three-tier water system.",icon:"🏘️"},
-  {name:"Black Dragon Pool (黑龍潭)",lat:26.8874,lng:100.227,day:"D2",desc:"Spring-fed pool with iconic Jade Dragon Snow Mountain reflections. Home to Dongba Culture Museum.",icon:"💧"},
-  {name:"Baisha Old Town (白沙古镇)",lat:26.9195,lng:100.2095,day:"D2",desc:"Original Naxi capital. Famous Baisha Murals — Buddhist/Taoist/Dongba fusion art from 14th-16th century.",icon:"🎨"},
-  {name:"Jade Dragon Snow Mountain (玉龍雪山)",lat:27.1215,lng:100.1865,day:"D3",desc:"Sacred Naxi peak at 5,596m. Never summited — religious prohibition. Blue Moon Valley + Impressions Lijiang. Glacier Park NOT included.",icon:"🏔️"},
-  {name:"Blue Moon Valley (藍月谷)",lat:27.0858,lng:100.2074,day:"D3",desc:"Glacial meltwater lakes in turquoise, jade green, and electric blue. Rayleigh scattering from glacial flour.",icon:"💎"},
-  {name:"Yuhu Village (玉湖村)",lat:27.0036,lng:100.1894,day:"D3",desc:"Joseph Rock's base for 27 years. Naxi home visits. Tolkien reportedly drew Middle Earth inspiration from Rock's photos.",icon:"🏡"},
-  {name:"Lashi Lake (拉市海)",lat:26.84,lng:100.08,day:"D4",desc:"Tea Horse Road origin point. Horseback trails on original caravan routes. Migratory bird wetland.",icon:"🐎"},
-  {name:"Shuhe Old Town (束河古镇)",lat:26.9065,lng:100.255,day:"D4",desc:"Older than Dayan. Historic leather crafting hub for Tea Horse Road caravans. UNESCO listed.",icon:"🏘️"},
-  {name:"Tiger Leaping Gorge (虎跳峡)",lat:27.1844,lng:100.1147,day:"D5",desc:"One of Earth's deepest gorges — 3,900m from river to summit. The Jinsha (upper Yangtze) at its most dramatic.",icon:"🐅"},
-  {name:"Shaxi / Sideng Square (沙溪)",lat:26.2916,lng:99.8958,day:"D5-D6",desc:"Only intact Tea Horse Road market square. UNESCO restored. Xingjiao Temple shows Tibetan Buddhist influence.",icon:"🏛️"},
-  {name:"Dali Old Town (大理古城)",lat:25.6986,lng:100.1625,day:"D6",desc:"Former Nanzhao/Dali Kingdom territory. Ming-dynasty layout. Catholic church with Bai-European fusion architecture.",icon:"⛩️"},
-  {name:"Three Pagodas (崇圣寺三塔)",lat:25.7278,lng:100.1425,day:"D6",desc:"Main pagoda 69m tall, built 823-840 AD during Nanzhao. Serious state investment in Buddhist architecture.",icon:"🗼"},
-  {name:"Xizhou Village (喜洲)",lat:25.8175,lng:100.1278,day:"D7",desc:"Best-preserved Bai architecture. Spectacular screen walls (照壁). Yan Family Compound.",icon:"🏘️"},
-  {name:"Erhai Lake / Longkan Wharf",lat:25.75,lng:100.18,day:"D7",desc:"250 km² lake at 1,974m. Historical Bai water highway. Cycling route with Cangshan mountain views.",icon:"🚲"},
-];
-  var markers = [];
-  var dayColors = {
-    'D1-D2': '#c2583a',
-    'D2': '#c2583a',
-    'D3': '#4a7c6f',
-    'D4': '#4a7c6f',
-    'D5': '#2c3e6b',
-    'D5-D6': '#2c3e6b',
-    'D6': '#5a6fa0',
-    'D7': '#c9a84c',
-  };
-  locs.forEach(function(loc) {
-    var color = dayColors[loc.day] || '#c2583a';
-    var icon = L.divIcon({
-      className: 'yn-marker',
-      html: '<div style="background:' + color + ';color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.3);border:2px solid #fff">' + loc.icon + '</div>',
-      iconSize: [32, 32],
-      iconAnchor: [16, 16],
-      popupAnchor: [0, -20]
-    });
-    var m = L.marker([loc.lat, loc.lng], {icon: icon}).addTo(map);
-    m.bindPopup('<div style="font-family:Inter,sans-serif;max-width:220px"><strong style="font-size:0.95rem">' + loc.name + '</strong><br><span style="display:inline-block;margin:4px 0;padding:2px 8px;border-radius:10px;background:' + color + ';color:#fff;font-size:0.7rem;font-weight:600">' + loc.day + '</span><br><span style="font-size:0.82rem;color:#555;line-height:1.4">' + loc.desc + '</span></div>', {closeButton: false});
-    markers.push(m);
-  });
-
-  // Draw route line
-  var routeCoords = locs.map(function(l) { return [l.lat, l.lng]; });
-  L.polyline(routeCoords, {color: '#c2583a', weight: 2, opacity: 0.5, dashArray: '8 6'}).addTo(map);
-
-  // Fit bounds
-  var group = L.featureGroup(markers);
-  map.fitBounds(group.getBounds().pad(0.1));
-})();
-</script>
-
-
-<script>
-// Day card toggle
-document.querySelectorAll('.day-card-header').forEach(function(header) {
-  header.addEventListener('click', function() {
-    var card = this.closest('.day-card');
-    card.classList.toggle('collapsed');
-  });
-});
-
-// Section toggle
-document.querySelectorAll('.section-header').forEach(function(header) {
-  header.addEventListener('click', function(e) {
-    // Don't toggle if clicking a link inside
-    if (e.target.tagName === 'A') return;
-    var section = this.closest('.section');
-    if (section.querySelector('.section-body')) {
-      section.classList.toggle('collapsed');
-    }
-  });
-});
-
-// Expand/collapse all
-function toggleAll(collapse) {
-  document.querySelectorAll('.day-card').forEach(function(card) {
-    if (collapse) card.classList.add('collapsed');
-    else card.classList.remove('collapsed');
-  });
-  document.querySelectorAll('.section').forEach(function(sec) {
-    if (sec.querySelector('.section-body')) {
-      if (collapse) sec.classList.add('collapsed');
-      else sec.classList.remove('collapsed');
-    }
-  });
-}
-
-// Auto-expand when navigating via day pills or menu
-document.querySelectorAll('a[href^="#day"], a[href^="#"]').forEach(function(link) {
-  link.addEventListener('click', function() {
-    var targetId = this.getAttribute('href').substring(1);
-    var target = document.getElementById(targetId);
-    if (target) {
-      if (target.classList.contains('day-card')) {
-        target.classList.remove('collapsed');
-      }
-      if (target.classList.contains('section')) {
-        target.classList.remove('collapsed');
-      }
-    }
-  });
-});
-</script>
-
 </body>
 </html>
