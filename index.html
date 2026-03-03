@@ -24,13 +24,17 @@
 .logistics-bar .group-info { display:inline-block; background:var(--indigo,#2c3e6b); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.78rem; margin-right:6px; }
 
 .day-card-header { cursor: pointer; position: relative; }
-.day-card-header::after { content: '▼'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: var(--warm-gray); transition: transform 0.3s; }
+.day-card-header::after { content: '▼'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: var(--terracotta,#c2583a); transition: transform 0.3s; font-weight: bold; }
 .day-card.collapsed .day-card-header::after { transform: translateY(-50%) rotate(-90deg); }
 .day-card-body { transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease; overflow: hidden; }
 .day-card.collapsed .day-card-body { max-height: 0 !important; opacity: 0; padding-top: 0; padding-bottom: 0; margin: 0; }
 .day-card:not(.collapsed) .day-card-body { max-height: none; opacity: 1; }
 .section-header { cursor: pointer; position: relative; }
 .section-header::after { content: '▼'; margin-left: 10px; font-size: 0.7em; color: var(--warm-gray); transition: transform 0.3s; display: inline-block; }
+.section.collapsed .section-header { opacity: 0.85; }
+.section.collapsed .section-header::after { content: '▶ tap to expand'; font-size: 0.6em; color: var(--terracotta,#c2583a); font-style: italic; }
+.section:not(.collapsed) .section-header::after { content: '▼'; }
+.section { margin-bottom: 8px; }
 .section.collapsed .section-header::after { transform: rotate(-90deg); }
 .section-body { transition: max-height 0.4s ease, opacity 0.3s ease; overflow: hidden; }
 .section.collapsed .section-body { max-height: 0 !important; opacity: 0; }
@@ -51,7 +55,7 @@
       <div class="nav-controls">
         <button class="nav-btn" id="search-btn" aria-label="Search">🔍</button>
         <button class="nav-btn" id="theme-btn" aria-label="Toggle dark mode">🌙</button>
-        <button class="nav-btn" id="menu-btn" aria-label="Menu">☰</button>
+        <button class="nav-btn" id="search-close-btn" style="display:none" aria-label="Close search">✕</button><button class="nav-btn" id="menu-btn" aria-label="Menu">☰</button>
       </div>
     </div>
   </nav>
@@ -60,10 +64,7 @@
   <div class="day-strip" id="day-strip">
     <a class="day-pill" href="#day1">D1</a><a class="day-pill" href="#day2">D2</a><a class="day-pill" href="#day3">D3</a><a class="day-pill" href="#day4">D4</a><a class="day-pill" href="#day5">D5</a><a class="day-pill" href="#day6">D6</a><a class="day-pill" href="#day7">D7</a><a class="day-pill" href="#day8">D8</a>
   
-<div class="expand-controls" id="expand-controls">
-  <button onclick="toggleAll(false)">📖 Expand All</button>
-  <button onclick="toggleAll(true)">📕 Collapse All</button>
-</div>
+
 
   <!-- Mobile menu overlay -->
   <div class="menu-overlay" id="menu-overlay">
@@ -345,7 +346,7 @@
   <span class="section-number">Section 04</span>
   <h2 class="section-header">Day-by-Day Deep Dives</h2>
   
-<div class="day-card collapsed" id="day1" data-nav-id="day1">
+<div class="day-card" id="day1" data-nav-id="day1">
   <div class="day-card-header">
     <span class="day-badge">D1</span>
     <div class="day-info">
@@ -438,7 +439,7 @@
   </div>
 </div>
 
-<div class="day-card collapsed" id="day2" data-nav-id="day2">
+<div class="day-card" id="day2" data-nav-id="day2">
   <div class="day-card-header">
     <span class="day-badge">D2</span>
     <div class="day-info">
@@ -523,7 +524,7 @@
   </div>
 </div>
 
-<div class="day-card collapsed" id="day3" data-nav-id="day3">
+<div class="day-card" id="day3" data-nav-id="day3">
   <div class="day-card-header">
     <span class="day-badge">D3</span>
     <div class="day-info">
@@ -595,7 +596,7 @@
   </div>
 </div>
 
-<div class="day-card collapsed" id="day4" data-nav-id="day4">
+<div class="day-card" id="day4" data-nav-id="day4">
   <div class="day-card-header">
     <span class="day-badge">D4</span>
     <div class="day-info">
@@ -654,7 +655,7 @@
   </div>
 </div>
 
-<div class="day-card collapsed" id="day5" data-nav-id="day5">
+<div class="day-card" id="day5" data-nav-id="day5">
   <div class="day-card-header">
     <span class="day-badge">D5</span>
     <div class="day-info">
@@ -702,7 +703,7 @@
   </div>
 </div>
 
-<div class="day-card collapsed" id="day6" data-nav-id="day6">
+<div class="day-card" id="day6" data-nav-id="day6">
   <div class="day-card-header">
     <span class="day-badge">D6</span>
     <div class="day-info">
@@ -784,7 +785,7 @@
   </div>
 </div>
 
-<div class="day-card collapsed" id="day7" data-nav-id="day7">
+<div class="day-card" id="day7" data-nav-id="day7">
   <div class="day-card-header">
     <span class="day-badge">D7</span>
     <div class="day-info">
@@ -876,7 +877,7 @@
   </div>
 </div>
 
-<div class="day-card collapsed" id="day8" data-nav-id="day8">
+<div class="day-card" id="day8" data-nav-id="day8">
   <div class="day-card-header">
     <span class="day-badge">D8</span>
     <div class="day-info">
