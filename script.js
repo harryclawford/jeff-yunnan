@@ -468,7 +468,15 @@
      SERVICE WORKER
      ======================================== */
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(function () {});
+    // Force clear old caches, then re-register
+    caches.keys().then(function(names) {
+      names.forEach(function(name) { caches.delete(name); });
+    });
+    navigator.serviceWorker.getRegistrations().then(function(regs) {
+      regs.forEach(function(reg) { reg.unregister(); });
+    }).then(function() {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
   }
 
 })();
