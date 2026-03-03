@@ -25,6 +25,7 @@
   var tabPanels = document.querySelectorAll('.tab-panel');
   var leafletMap = null;
   var currentTab = 'tab-map';
+  document.body.classList.add('map-tab-active');
 
   function switchTab(tabId) {
     if (tabId === currentTab) return;
@@ -50,6 +51,9 @@
         hero.classList.add('compact');
       }
     }
+
+    // Hide quick-reference FAB on map for cleaner view
+    document.body.classList.toggle('map-tab-active', tabId === 'tab-map');
 
     // Resize map when switching to map tab
     if (tabId === 'tab-map' && leafletMap) {

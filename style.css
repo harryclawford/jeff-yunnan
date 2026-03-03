@@ -205,9 +205,16 @@ body {
 }
 #yunnan-map {
   width: 100%;
-  height: calc(100vh - var(--nav-height) - var(--tab-bar-height) - 40px);
-  min-height: 400px;
+  height: clamp(320px, 58vh, 520px);
+  min-height: 320px;
   border: none;
+  border-radius: 14px;
+  margin: 8px 12px 0;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+body.map-tab-active .qr-fab {
+  display: none;
 }
 #yunnan-map .leaflet-popup-content-wrapper {
   border-radius: 10px;
