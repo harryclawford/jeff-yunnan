@@ -105,14 +105,36 @@
       'D5': '#2c3e6b', 'D5–D6': '#2c3e6b', 'D6': '#5a6fa0', 'D6–D7': '#5a6fa0', 'D7': '#c9a84c'
     };
 
-    var markers = [];
+    var dayLabels = {
+      'D1–D4': 'D1', 'D2': 'D2', 'D3': 'D3', 'D4': 'D4',
+      'D5': 'D5', 'D5–D6': 'D5', 'D6': 'D6', 'D6–D7': 'D6', 'D7': 'D7'
+    };
+
+    // Offset overlapping markers slightly for visibility
+    var seen = {};
     locations.forEach(function (loc) {
+      var key = loc.lat.toFixed(2) + ',' + loc.lng.toFixed(2);
+      if (!seen[key]) { seen[key] = 0; }
+      var offset = seen[key];
+      seen[key]++;
+      if (offset > 0) {
+        // Spiral offset for dense clusters
+        var angle = offset * 1.2;
+        loc.lat += Math.cos(angle) * 0.008 * offset;
+        loc.lng += Math.sin(angle) * 0.008 * offset;
+      }
+    });
+
+    var markers = [];
+    locations.forEach(function (loc, idx) {
       var color = dayColors[loc.day] || '#c2583a';
+      var label = dayLabels[loc.day] || 'D' + (idx + 1);
+      var num = idx + 1;
       var divIcon = L.divIcon({
         className: 'yn-marker',
-        html: '<div style="background:' + color + ';color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.3);border:2px solid #fff">' + loc.icon + '</div>',
-        iconSize: [34, 34],
-        iconAnchor: [17, 17],
+        html: '<div style="background:' + color + ';color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.35);border:2.5px solid #fff;letter-spacing:-0.5px">' + num + '</div>',
+        iconSize: [36, 36],
+        iconAnchor: [18, 18],
         popupAnchor: [0, -20]
       });
 
@@ -120,7 +142,7 @@
       if (loc.img) {
         popupHtml += '<img src="' + loc.img + '" alt="' + loc.imgAlt + '" loading="lazy" style="width:100%;border-radius:6px;margin-bottom:8px;height:140px;object-fit:cover">';
       }
-      popupHtml += '<strong style="font-size:0.95rem">' + loc.name + '</strong><br>';
+      popupHtml += '<strong style="font-size:0.95rem">' + loc.icon + ' ' + loc.name + '</strong><br>';
       popupHtml += '<span style="display:inline-block;margin:4px 0;padding:2px 8px;border-radius:10px;background:' + color + ';color:#fff;font-size:0.7rem;font-weight:600">' + loc.day + '</span><br>';
       popupHtml += '<span style="font-size:0.82rem;color:#5a5650;line-height:1.4">' + loc.desc + '</span></div>';
 
@@ -151,6 +173,38 @@
         color: seg[2], weight: 3, opacity: 0.6, dashArray: '8 6'
       }).addTo(leafletMap);
     });
+
+    // Day legend
+    var legend = L.control({ position: 'bottomleft' });
+    legend.onAdd = function () {
+      var div = L.DomUtil.create('div', 'map-legend');
+      div.innerHTML = '<div style="background:rgba(255,255,255,0.92);padding:8px 10px;border-radius:8px;font-family:Inter,sans-serif;font-size:0.72rem;box-shadow:0 2px 6px rgba(0,0,0,0.15);line-height:1.6">' +
+        '<div style="font-weight:700;margin-bottom:4px;font-size:0.75rem">Route by Day</div>' +
+        '<div><span style="display:inline-block;width:12px;height:3px;background:#c2583a;border-radius:2px;vertical-align:middle;margin-right:5px"></span> D1–D2 Lijiang</div>' +
+        '<div><span style="display:inline-block;width:12px;height:3px;background:#4a7c6f;border-radius:2px;vertical-align:middle;margin-right:5px"></span> D3–D4 Mountain & Lake</div>' +
+        '<div><span style="display:inline-block;width:12px;height:3px;background:#2c3e6b;border-radius:2px;vertical-align:middle;margin-right:5px"></span> D5 Gorge → Shaxi</div>' +
+        '<div><span style="display:inline-block;width:12px;height:3px;background:#c9a84c;border-radius:2px;vertical-align:middle;margin-right:5px"></span> D6–D7 Dali</div>' +
+        '</div>';
+      return div;
+    };
+    legend.addTo(leafletMap);
+
+    // Numbered marker legend
+    var markerLegend = L.control({ position: 'topright' });
+    markerLegend.onAdd = function () {
+      var div = L.DomUtil.create('div', 'marker-legend');
+      var html = '<div style="background:rgba(255,255,255,0.92);padding:8px 10px;border-radius:8px;font-family:Inter,sans-serif;font-size:0.68rem;box-shadow:0 2px 6px rgba(0,0,0,0.15);line-height:1.5;max-height:50vh;overflow-y:auto">';
+      html += '<div style="font-weight:700;margin-bottom:4px;font-size:0.72rem">Stops</div>';
+      locations.forEach(function (loc, idx) {
+        var color = dayColors[loc.day] || '#c2583a';
+        var shortName = loc.name.split('(')[0].trim();
+        html += '<div style="white-space:nowrap"><span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:' + color + ';color:#fff;text-align:center;line-height:18px;font-size:0.6rem;font-weight:700;margin-right:4px;vertical-align:middle">' + (idx + 1) + '</span>' + shortName + '</div>';
+      });
+      html += '</div>';
+      div.innerHTML = html;
+      return div;
+    };
+    markerLegend.addTo(leafletMap);
 
     // Fit bounds
     var group = L.featureGroup(markers);
