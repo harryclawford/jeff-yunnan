@@ -205,14 +205,14 @@ body {
   margin: 0;
 }
 #yunnan-map {
-  width: 100%;
-  height: clamp(320px, 58vh, 520px);
-  min-height: 320px;
+  width: calc(100% - 24px);
+  height: calc(100vh - var(--nav-height) - var(--tab-bar-height) - 80px);
+  min-height: 300px;
   border: none;
   border-radius: 14px;
-  margin: 8px 12px 0;
+  margin: 8px 12px 12px;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
 }
 body.map-tab-active .qr-fab {
   display: none;

@@ -178,37 +178,19 @@
       }).addTo(leafletMap);
     });
 
-    // Day legend
+    // Compact route legend (bottom-left, minimal)
     var legend = L.control({ position: 'bottomleft' });
     legend.onAdd = function () {
       var div = L.DomUtil.create('div', 'map-legend');
-      div.innerHTML = '<div style="background:rgba(255,255,255,0.92);padding:8px 10px;border-radius:8px;font-family:Inter,sans-serif;font-size:0.72rem;box-shadow:0 2px 6px rgba(0,0,0,0.15);line-height:1.6">' +
-        '<div style="font-weight:700;margin-bottom:4px;font-size:0.75rem">Route by Day</div>' +
-        '<div><span style="display:inline-block;width:12px;height:3px;background:#c2583a;border-radius:2px;vertical-align:middle;margin-right:5px"></span> D1–D2 Lijiang</div>' +
-        '<div><span style="display:inline-block;width:12px;height:3px;background:#4a7c6f;border-radius:2px;vertical-align:middle;margin-right:5px"></span> D3–D4 Mountain & Lake</div>' +
-        '<div><span style="display:inline-block;width:12px;height:3px;background:#2c3e6b;border-radius:2px;vertical-align:middle;margin-right:5px"></span> D5 Gorge → Shaxi</div>' +
-        '<div><span style="display:inline-block;width:12px;height:3px;background:#c9a84c;border-radius:2px;vertical-align:middle;margin-right:5px"></span> D6–D7 Dali</div>' +
+      div.innerHTML = '<div style="background:rgba(255,255,255,0.88);padding:5px 8px;border-radius:6px;font-family:Inter,sans-serif;font-size:0.62rem;line-height:1.5;backdrop-filter:blur(4px)">' +
+        '<span style="color:#c2583a;font-weight:700">● D1–2</span> ' +
+        '<span style="color:#4a7c6f;font-weight:700">● D3–4</span> ' +
+        '<span style="color:#2c3e6b;font-weight:700">● D5</span> ' +
+        '<span style="color:#c9a84c;font-weight:700">● D6–7</span>' +
         '</div>';
       return div;
     };
     legend.addTo(leafletMap);
-
-    // Numbered marker legend
-    var markerLegend = L.control({ position: 'topright' });
-    markerLegend.onAdd = function () {
-      var div = L.DomUtil.create('div', 'marker-legend');
-      var html = '<div style="background:rgba(255,255,255,0.92);padding:8px 10px;border-radius:8px;font-family:Inter,sans-serif;font-size:0.68rem;box-shadow:0 2px 6px rgba(0,0,0,0.15);line-height:1.5;max-height:50vh;overflow-y:auto">';
-      html += '<div style="font-weight:700;margin-bottom:4px;font-size:0.72rem">Stops</div>';
-      locations.forEach(function (loc, idx) {
-        var color = dayColors[loc.day] || '#c2583a';
-        var shortName = loc.name.split('(')[0].trim();
-        html += '<div style="white-space:nowrap"><span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:' + color + ';color:#fff;text-align:center;line-height:18px;font-size:0.6rem;font-weight:700;margin-right:4px;vertical-align:middle">' + (idx + 1) + '</span>' + shortName + '</div>';
-      });
-      html += '</div>';
-      div.innerHTML = html;
-      return div;
-    };
-    markerLegend.addTo(leafletMap);
 
     // Fit bounds
     var group = L.featureGroup(markers);
