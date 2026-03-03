@@ -17,6 +17,11 @@
 .photo-card { border-radius:var(--radius-sm); overflow:hidden; border:1px solid var(--border); }
 .photo-card img { width:100%; height:200px; object-fit:cover; display:block; background:var(--cream-dark); }
 .photo-card figcaption { padding:8px 12px; font-size:0.78rem; color:var(--warm-gray); line-height:1.4; }
+.logistics-bar { background:var(--cream-dark,#f5f0eb); border-left:3px solid var(--terracotta,#c2583a); padding:10px 14px; margin:10px 0 16px; border-radius:0 var(--radius-sm,6px) var(--radius-sm,6px) 0; font-size:0.85rem; line-height:1.6; }
+.logistics-bar strong { color:var(--charcoal,#2d2a26); }
+.logistics-bar .flight-info { display:inline-block; background:var(--terracotta,#c2583a); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.78rem; margin-right:6px; }
+.logistics-bar .restaurant-info { display:inline-block; background:var(--jade,#4a7c6f); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.78rem; margin-right:6px; }
+.logistics-bar .group-info { display:inline-block; background:var(--indigo,#2c3e6b); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.78rem; margin-right:6px; }
 </style>
 </head>
 <body>
@@ -136,7 +141,7 @@
   L.marker([26.8724, 100.226]).addTo(map).bindPopup('<div style="max-width:260px"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/1_lijiang_old_town_2012.jpg/800px-1_lijiang_old_town_2012.jpg" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Dayan Old Town canal at dusk" loading="lazy"><strong style="font-size:14px">Dayan Old Town (大研古城)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D1–D4</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">UNESCO World Heritage Naxi old town. 354 stone bridges, 3-tier water system, Sifang Square market center.</span></div>');
   L.marker([26.885, 100.228]).addTo(map).bindPopup('<div style="max-width:260px"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Lijiang_Yunnan_China-Heilongtan-Park-01.jpg/800px-Lijiang_Yunnan_China-Heilongtan-Park-01.jpg" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Black Dragon Pool with Jade Dragon Snow Mountain" loading="lazy"><strong style="font-size:14px">Black Dragon Pool (黑龍潭)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D2</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Spring-fed pool with cyan-blue water. Classic view: Deyue Pavilion reflected with Jade Dragon Snow Mountain behind. Home to the Dongba Culture Museum.</span></div>');
   L.marker([26.9085, 100.169]).addTo(map).bindPopup('<div style="max-width:260px"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Baisha_Old_Town%2CLiJiang.jpg/800px-Baisha_Old_Town%2CLiJiang.jpg" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Baisha Old Town with mountain backdrop" loading="lazy"><strong style="font-size:14px">Baisha Old Town (白沙古鎮)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D2</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Original Naxi capital before Lijiang. Home to the Baisha Murals — 14th-16th century Buddhist/Taoist/Dongba paintings by Han, Tibetan, and Naxi artists.</span></div>');
-  L.marker([27.1167, 100.1833]).addTo(map).bindPopup('<div style="max-width:260px"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Jade_Dragon_Snow_Mountain%2C_September_2019.jpg/800px-Jade_Dragon_Snow_Mountain%2C_September_2019.jpg" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Jade Dragon Snow Mountain from Lijiang" loading="lazy"><strong style="font-size:14px">Jade Dragon Snow Mountain (玉龍雪山)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D3</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Sacred Naxi mountain, 5,596m. Never summited (religious prohibition). Cable car to 4,506m. Glacier, Blue Moon Valley, Impressions Lijiang show.</span></div>');
+  L.marker([27.1167, 100.1833]).addTo(map).bindPopup('<div style="max-width:260px"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Jade_Dragon_Snow_Mountain%2C_September_2019.jpg/800px-Jade_Dragon_Snow_Mountain%2C_September_2019.jpg" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Jade Dragon Snow Mountain from Lijiang" loading="lazy"><strong style="font-size:14px">Jade Dragon Snow Mountain (玉龍雪山)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D3</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Sacred Naxi mountain, 5,596m. Never summited (religious prohibition). Blue Moon Valley, Impressions Lijiang show. Note: Glacier Park NOT included in itinerary.</span></div>');
   L.marker([27.091, 100.192]).addTo(map).bindPopup('<div style="max-width:260px"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Blue_Moon_Valley_%2820171107135428%29.jpg/800px-Blue_Moon_Valley_%2820171107135428%29.jpg" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Blue Moon Valley\'s turquoise glacial lakes" loading="lazy"><strong style="font-size:14px">Blue Moon Valley (藍月谷)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D3</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Series of glacial meltwater lakes — turquoise to electric blue from suspended glacial flour. Jade Lake, Pearl Shoal, Blue Moon Lake.</span></div>');
   L.marker([27.04, 100.185]).addTo(map).bindPopup('<div style="max-width:260px"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Yuhu-village-china-2.jpg/800px-Yuhu-village-china-2.jpg" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Yuhu Village at the foot of Jade Dragon Snow Mountain" loading="lazy"><strong style="font-size:14px">Yuhu Village (玉湖村)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D3</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Joseph Rock\'s base for 27 years. His preserved house is now a museum. Naxi home visits here connect to descendants of families who hosted Rock.</span></div>');
   L.marker([26.858, 100.115]).addTo(map).bindPopup('<div style="max-width:260px"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Lashihai1.jpg/800px-Lashihai1.jpg" style="width:100%;border-radius:6px;margin-bottom:8px" alt="Lashi Lake wetland" loading="lazy"><strong style="font-size:14px">Lashi Lake (拉市海)</strong><br><span style="display:inline-block;background:#c2583a;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin:4px 0">D4</span><br><span style="font-size:12px;color:#5a5650;line-height:1.4">Where the Tea Horse Road originated. Horseback trails follow the ancient caravan routes. Migratory bird wetland — bar-headed geese fly over the Himalayas.</span></div>');
@@ -247,6 +252,10 @@
     <span class="weather-badge">☀️ 5–23°C · Clear skies</span>
   </div>
   <div class="hotel-badge">🏨 Kuanshang Lijiang</div>
+  <div class="logistics-bar">
+    <span class="flight-info">✈️ CZ3423</span> CAN → LJG · 13:55–17:05<br>
+    <span class="restaurant-info">🍽️ Dinner</span> 云雪丽
+  </div>
   <div class="day-card-body">
 <div class="photo-gallery two-col">
 <figure class="photo-card">
@@ -336,6 +345,9 @@
     <span class="weather-badge">⛅ 7–22°C · Partly cloudy</span>
   </div>
   <div class="hotel-badge">🏨 Kuanshang Lijiang</div>
+  <div class="logistics-bar">
+    <span class="restaurant-info">🍽️ Dinner</span> Mr Wu (optional private kitchen nearby)
+  </div>
   <div class="day-card-body">
 <div class="photo-gallery two-col">
 <figure class="photo-card">
@@ -417,6 +429,9 @@
     <span class="weather-badge" style="border-color:var(--terracotta);color:var(--terracotta)">🌧️ 6–13°C · Drizzle — cold front</span>
   </div>
   <div class="hotel-badge">🏨 Kuanshang Lijiang</div>
+  <div class="logistics-bar">
+    <span class="restaurant-info">🍽️ Dinner</span> 炊烟
+  </div>
   <div class="day-card-body">
 <div class="photo-gallery two-col">
 <figure class="photo-card">
@@ -482,6 +497,9 @@
     <span class="weather-badge">🌧️ 7–14°C · Light rain</span>
   </div>
   <div class="hotel-badge">🏨 Kuanshang Lijiang</div>
+  <div class="logistics-bar">
+    <span class="restaurant-info">🍽️ Dinner</span> Xingrong
+  </div>
   <div class="day-card-body">
 <div class="photo-gallery two-col">
 <figure class="photo-card">
@@ -540,6 +558,9 @@
     <span class="weather-badge">🌧️ 8–17°C · Light drizzle</span>
   </div>
   <div class="hotel-badge">🏨 Sunyata Shaxi</div>
+  <div class="logistics-bar">
+    <span class="restaurant-info">🍽️ Dinner</span> 一麓有山
+  </div>
   <div class="day-card-body">
 <div class="photo-gallery ">
 <figure class="photo-card">
@@ -591,6 +612,9 @@
     <span class="weather-badge">🌧️ 7–10°C · Drizzle — coldest day</span>
   </div>
   <div class="hotel-badge">🏨 Daji Dali</div>
+  <div class="logistics-bar">
+    <span class="restaurant-info">🍽️ Lunch</span> 薄荷咖啡 &nbsp;|&nbsp; <span class="restaurant-info">🍽️ Dinner</span> 蝶翠
+  </div>
   <div class="day-card-body">
 <div class="photo-gallery two-col">
 <figure class="photo-card">
@@ -661,11 +685,16 @@
     <span class="day-badge">D7</span>
     <div class="day-info">
       <div class="day-date">March 14</div>
-      <div class="day-title">Xizhou, Mushroom Hotpot, Tie-Dye, Erhai Lake</div>
+      <div class="day-title">Xizhou, Mushroom Hotpot, Tie-Dye, Longkan Wharf</div>
     </div>
     <span class="weather-badge">🌧️ 8–12°C · Light drizzle</span>
   </div>
   <div class="hotel-badge">🏨 Daji Dali</div>
+  <div class="logistics-bar">
+    <span class="restaurant-info">🍽️ Lunch</span> 椿堂 &nbsp;|&nbsp; <span class="restaurant-info">🍽️ Dinner</span> Daji<br>
+    <span class="group-info">👥 Group 2 (7 pax)</span> Departs for airport at 15:30<br>
+    <span class="flight-info">✈️ MU9741</span> Group 1 (2 pax) · DLU → CAN · 18:45–21:05
+  </div>
   <div class="day-card-body">
 <div class="photo-gallery two-col">
 <figure class="photo-card">
@@ -754,9 +783,13 @@
     <span class="weather-badge">🌧️ 9–13°C · Drizzle</span>
   </div>
   <div class="hotel-badge">🏨 Depart DLU → CAN</div>
+  <div class="logistics-bar">
+    <span class="flight-info">✈️ CZ3482</span> Group 2 (7 pax) · DLU → CAN · 10:30–12:45<br>
+    <span class="group-info">👥 Group 1 (2 pax)</span> Already departed D7 evening
+  </div>
   <div class="day-card-body">
     <p data-search="Day 8">MARCH 15 — DEPART DLU → CAN ---</p>
-<p data-search="Day 8">Dali Daxue Airport (DLU) is small and relatively new. Allow 2 hours before departure. DLU to Guangzhou (CAN) is roughly 1.5-2 hours.</p>
+<p data-search="Day 8">Dali Daxue Airport (DLU) is small and relatively new. Allow 2 hours before departure. Flight CZ3482 departs 10:30, arrives Guangzhou 12:45.</p>
 <p data-search="Day 8">If you have morning time before the airport: walk along Dali Old Town's west gate (西門) and the wall section near it — the morning light on the Cangshan mountains from this angle is excellent. Also good time for a final coffee at one of the Yunnan-specialty coffee shops (Yunnan produces excellent Arabica — grown at altitude in the south of the province, it's underrated globally).</p>
   </div>
 </div>
@@ -1283,7 +1316,7 @@
   {name:"Dayan Old Town (大研古城)",lat:26.8724,lng:100.2257,day:"D1-D2",desc:"UNESCO World Heritage Naxi old town. 354 stone bridges, three-tier water system.",icon:"🏘️"},
   {name:"Black Dragon Pool (黑龍潭)",lat:26.8874,lng:100.227,day:"D2",desc:"Spring-fed pool with iconic Jade Dragon Snow Mountain reflections. Home to Dongba Culture Museum.",icon:"💧"},
   {name:"Baisha Old Town (白沙古镇)",lat:26.9195,lng:100.2095,day:"D2",desc:"Original Naxi capital. Famous Baisha Murals — Buddhist/Taoist/Dongba fusion art from 14th-16th century.",icon:"🎨"},
-  {name:"Jade Dragon Snow Mountain (玉龍雪山)",lat:27.1215,lng:100.1865,day:"D3",desc:"Sacred Naxi peak at 5,596m. Never summited — religious prohibition. Cable car to 4,506m.",icon:"🏔️"},
+  {name:"Jade Dragon Snow Mountain (玉龍雪山)",lat:27.1215,lng:100.1865,day:"D3",desc:"Sacred Naxi peak at 5,596m. Never summited — religious prohibition. Blue Moon Valley + Impressions Lijiang. Glacier Park NOT included.",icon:"🏔️"},
   {name:"Blue Moon Valley (藍月谷)",lat:27.0858,lng:100.2074,day:"D3",desc:"Glacial meltwater lakes in turquoise, jade green, and electric blue. Rayleigh scattering from glacial flour.",icon:"💎"},
   {name:"Yuhu Village (玉湖村)",lat:27.0036,lng:100.1894,day:"D3",desc:"Joseph Rock's base for 27 years. Naxi home visits. Tolkien reportedly drew Middle Earth inspiration from Rock's photos.",icon:"🏡"},
   {name:"Lashi Lake (拉市海)",lat:26.84,lng:100.08,day:"D4",desc:"Tea Horse Road origin point. Horseback trails on original caravan routes. Migratory bird wetland.",icon:"🐎"},
