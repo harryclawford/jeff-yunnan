@@ -323,9 +323,72 @@
     };
     legend.addTo(leafletMap);
 
-    // Fit bounds
-    var group = L.featureGroup(markers);
-    leafletMap.fitBounds(group.getBounds().pad(0.12));
+    // Store markers with day info for filtering
+    leafletMap._ynMarkers = markers;
+    leafletMap._ynLocations = locations;
+
+    // Zoom to today's day, or fit all
+    var todayDayNum = getTodayDayNum();
+    if (todayDayNum) {
+      zoomToDay(todayDayNum, markers, locations);
+    } else {
+      var group = L.featureGroup(markers);
+      leafletMap.fitBounds(group.getBounds().pad(0.12));
+    }
+  }
+
+  /* ========================================
+     MAP: ZOOM TO DAY
+     ======================================== */
+  // Map trip dates to day numbers
+  function getTodayDayNum() {
+    var tripStart = new Date(2026, 2, 8); // Mar 8
+    var tripEnd = new Date(2026, 2, 15);  // Mar 15
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    if (today < tripStart || today > tripEnd) return null;
+
+    var diff = Math.floor((today - tripStart) / 86400000) + 1; // 1-8
+    return diff;
+  }
+
+  function dayMatchesNum(dayStr, num) {
+    // dayStr examples: "D1–D4", "D2", "D5–D6"
+    var label = 'D' + num;
+    if (dayStr === label) return true;
+    // Handle ranges like "D1–D4", "D5–D6", "D6–D7"
+    var rangeMatch = dayStr.match(/D(\d+)[–-]D(\d+)/);
+    if (rangeMatch) {
+      var lo = parseInt(rangeMatch[1]);
+      var hi = parseInt(rangeMatch[2]);
+      return num >= lo && num <= hi;
+    }
+    return false;
+  }
+
+  function zoomToDay(dayNum, markers, locations) {
+    var todayMarkers = [];
+    for (var i = 0; i < locations.length; i++) {
+      if (dayMatchesNum(locations[i].day, dayNum)) {
+        todayMarkers.push(markers[i]);
+      }
+    }
+
+    if (todayMarkers.length === 0) {
+      // Fallback: fit all
+      var group = L.featureGroup(markers);
+      leafletMap.fitBounds(group.getBounds().pad(0.12));
+      return;
+    }
+
+    if (todayMarkers.length === 1) {
+      leafletMap.setView(todayMarkers[0].getLatLng(), 13);
+      todayMarkers[0].openPopup();
+    } else {
+      var todayGroup = L.featureGroup(todayMarkers);
+      leafletMap.fitBounds(todayGroup.getBounds().pad(0.3));
+    }
   }
 
   // Initialize map
