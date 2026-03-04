@@ -916,6 +916,8 @@ li { margin-bottom: 6px; }
   outline: none;
 }
 .search-input::placeholder { color: var(--warm-gray); }
+.search-input:focus-visible { outline: none; }
+.search-input:focus { outline: none; }
 .search-results {
   max-height: 50vh;
   overflow-y: auto;
