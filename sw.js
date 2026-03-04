@@ -1,4 +1,4 @@
-var CACHE = 'yunnan-v11';
+var CACHE = 'yunnan-v12';
 var URLS = [
   './',
   './index.html',
