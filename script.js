@@ -118,8 +118,79 @@
     }
   }
 
-  // Restore on load
-  restoreFromHash();
+  /* ========================================
+     AUTO-SCROLL TO TODAY'S DAY
+     ======================================== */
+  function scrollToToday() {
+    // Trip dates: Mar 8-15, 2026
+    var tripDays = [
+      { id: 'day1', date: new Date(2026, 2, 8) },
+      { id: 'day2', date: new Date(2026, 2, 9) },
+      { id: 'day3', date: new Date(2026, 2, 10) },
+      { id: 'day4', date: new Date(2026, 2, 11) },
+      { id: 'day5', date: new Date(2026, 2, 12) },
+      { id: 'day6', date: new Date(2026, 2, 13) },
+      { id: 'day7', date: new Date(2026, 2, 14) },
+      { id: 'day8', date: new Date(2026, 2, 15) }
+    ];
+
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var matchId = null;
+
+    for (var i = 0; i < tripDays.length; i++) {
+      if (today.getTime() === tripDays[i].date.getTime()) {
+        matchId = tripDays[i].id;
+        break;
+      }
+    }
+
+    // Before trip: show day1. After trip: don't auto-scroll.
+    if (!matchId && today < tripDays[0].date) {
+      matchId = 'day1';
+    }
+
+    if (!matchId) return;
+
+    var target = document.getElementById(matchId);
+    if (!target) return;
+
+    // Expand the day card
+    target.classList.remove('collapsed');
+    var header = target.querySelector('.day-card-header');
+    if (header) header.setAttribute('aria-expanded', 'true');
+
+    // Update active day pill
+    document.querySelectorAll('.day-pill').forEach(function (p) {
+      var pillDay = p.getAttribute('data-day') || p.getAttribute('href').substring(1);
+      p.classList.toggle('active', pillDay === matchId);
+    });
+
+    // Scroll to it after a short delay
+    setTimeout(function () {
+      target.scrollIntoView({ behavior: prefersReducedMotion ? 'instant' : 'smooth', block: 'start' });
+    }, 300);
+  }
+
+  // Restore on load — hash takes priority, otherwise scroll to today
+  if (window.location.hash) {
+    restoreFromHash();
+  } else {
+    // Auto-scroll to today when on itinerary tab
+    if (currentTab === 'tab-itinerary') {
+      scrollToToday();
+    }
+    // Also trigger on first switch to itinerary
+    var todayScrolled = currentTab === 'tab-itinerary';
+    var origSwitchTab = switchTab;
+    switchTab = function (tabId, skipHistory) {
+      origSwitchTab(tabId, skipHistory);
+      if (tabId === 'tab-itinerary' && !todayScrolled) {
+        todayScrolled = true;
+        scrollToToday();
+      }
+    };
+  }
 
   // Handle back/forward
   window.addEventListener('popstate', function (e) {
