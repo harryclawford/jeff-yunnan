@@ -449,89 +449,111 @@ li { margin-bottom: 6px; }
 
 /* === DAY CARDS === */
 .day-card {
-  background: var(--cream-dark);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  margin-bottom: 24px;
-  overflow: hidden;
+  background: transparent;
+  border: none;
+  border-left: 3px solid var(--border);
+  border-radius: 0;
+  margin-bottom: 8px;
+  padding-left: 16px;
   scroll-margin-top: calc(var(--nav-height) + 80px);
-  transition: box-shadow 0.2s;
+  transition: border-color 0.2s, background 0.2s;
 }
-.day-card:hover {
-  box-shadow: 0 2px 12px var(--shadow-md);
+.day-card:not(.collapsed) {
+  border-left-color: var(--terracotta);
+  background: var(--cream-dark);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding-bottom: 4px;
+  margin-bottom: 20px;
+}
+.day-card.collapsed:hover {
+  border-left-color: var(--terracotta-light);
 }
 .day-card-header {
-  padding: 16px 20px;
+  padding: 12px 4px;
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 12px;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 0;
   cursor: pointer;
   position: relative;
-  min-height: 48px;
+  min-height: 44px;
   -webkit-tap-highlight-color: transparent;
 }
 .day-card-header::after {
-  content: '▼';
+  content: '▸';
   position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.9rem;
-  color: var(--terracotta);
-  transition: transform 0.3s;
-  font-weight: bold;
+  right: 4px;
+  top: 14px;
+  font-size: 0.85rem;
+  color: var(--warm-gray);
+  transition: transform 0.2s;
 }
-.day-card.collapsed .day-card-header::after {
-  transform: translateY(-50%) rotate(-90deg);
+.day-card:not(.collapsed) .day-card-header::after {
+  content: '▾';
+  color: var(--terracotta);
 }
 .day-badge {
-  background: var(--terracotta);
-  color: #fff;
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  padding: 6px 16px;
-  border-radius: 6px;
+  background: none;
+  color: var(--terracotta);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0;
+  border-radius: 0;
   white-space: nowrap;
+  min-width: 28px;
+  letter-spacing: 0.02em;
 }
-.day-info { flex: 1; min-width: 160px; }
+.day-info { flex: 1; min-width: 0; }
 .day-date {
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
   color: var(--charcoal);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 .day-title {
   font-size: 0.82rem;
   color: var(--warm-gray);
-  margin-top: 2px;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .weather-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: var(--cream);
-  border: 1px solid var(--border);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--charcoal-light);
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--warm-gray);
   white-space: nowrap;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 .hotel-badge {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 6px;
-  padding: 8px 20px;
+  padding: 6px 20px;
   background: var(--jade-light);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 500;
   color: var(--jade);
+}
+.day-card:not(.collapsed) .hotel-badge {
+  display: flex;
 }
 [data-theme="dark"] .hotel-badge { color: var(--jade); }
 
 .day-card-body {
-  padding: 0 20px 20px;
+  padding: 0 16px 16px;
   transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
   overflow: hidden;
 }
@@ -545,6 +567,20 @@ li { margin-bottom: 6px; }
 .day-card:not(.collapsed) .day-card-body {
   max-height: none;
   opacity: 1;
+}
+
+/* Day highlights (always visible) */
+.day-highlights {
+  font-size: 0.78rem;
+  color: var(--warm-gray);
+  font-style: italic;
+  padding: 0 4px 8px;
+  line-height: 1.4;
+}
+.day-card:not(.collapsed) .day-highlights {
+  padding: 0 16px 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
 }
 
 /* === COLLAPSIBLES WITHIN DAYS === */
