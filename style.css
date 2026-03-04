@@ -469,7 +469,7 @@ li { margin-bottom: 6px; }
   border-left-color: var(--terracotta-light);
 }
 .day-card-header {
-  padding: 12px 4px;
+  padding: 12px 24px 12px 4px;
   display: flex;
   flex-wrap: nowrap;
   align-items: baseline;
@@ -514,14 +514,12 @@ li { margin-bottom: 6px; }
   align-items: baseline;
   gap: 8px;
   flex-wrap: wrap;
+  padding-right: 4px;
 }
 .day-title {
   font-size: 0.82rem;
   color: var(--warm-gray);
   margin-top: 1px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 .weather-badge {
   display: inline-flex;
