@@ -612,6 +612,58 @@
   }
 
   /* ========================================
+     INFO TOC CARD NAVIGATION
+     ======================================== */
+  document.querySelectorAll('.info-toc-card').forEach(function (card) {
+    card.addEventListener('click', function () {
+      var targetId = this.getAttribute('data-target');
+      var targetEl = document.getElementById(targetId);
+      if (!targetEl) return;
+
+      // Expand the section if collapsed
+      targetEl.classList.remove('collapsed');
+      var header = targetEl.querySelector('.section-header');
+      if (header) header.setAttribute('aria-expanded', 'true');
+
+      // Scroll to it after a short delay to let expansion animate
+      setTimeout(function () {
+        targetEl.scrollIntoView({ behavior: prefersReducedMotion ? 'instant' : 'smooth', block: 'start' });
+      }, 80);
+    });
+  });
+
+  /* ========================================
+     BACK TO TOP BUTTON
+     ======================================== */
+  var backToTopBtn = document.getElementById('back-to-top');
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'instant' : 'smooth' });
+    });
+
+    // Show/hide on scroll — integrated into existing scroll handler
+    function updateBackToTop() {
+      if (backToTopBtn) {
+        var show = window.scrollY > 600 && currentTab !== 'tab-map';
+        backToTopBtn.classList.toggle('visible', show);
+      }
+    }
+
+    // Patch the existing scroll handler to also call updateBackToTop
+    window.addEventListener('scroll', function () {
+      updateBackToTop();
+    }, { passive: true });
+
+    // Also update when tab switches
+    var origSwitchTab = switchTab;
+    switchTab = function (tabId, skipHistory) {
+      origSwitchTab(tabId, skipHistory);
+      updateBackToTop();
+    };
+    updateBackToTop();
+  }
+
+  /* ========================================
      SERVICE WORKER
      ======================================== */
   if ('serviceWorker' in navigator) {
