@@ -27,7 +27,10 @@
   var currentTab = 'tab-map';
   document.body.classList.add('map-tab-active');
 
-  function switchTab(tabId) {
+  /* === REDUCED MOTION CHECK === */
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function switchTab(tabId, skipHistory) {
     if (tabId === currentTab) return;
     currentTab = tabId;
 
@@ -60,14 +63,71 @@
       setTimeout(function () { leafletMap.invalidateSize(); }, 150);
     }
 
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Scroll to top (respect reduced motion)
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'instant' : 'instant' });
+
+    // Update URL state
+    if (!skipHistory) {
+      var tabName = tabId.replace('tab-', '');
+      var newHash = '#' + tabName;
+      history.pushState({ tab: tabId }, '', newHash);
+    }
   }
 
   tabBtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
       switchTab(this.getAttribute('data-tab'));
     });
+  });
+
+  /* ========================================
+     URL STATE RESTORATION
+     ======================================== */
+  function restoreFromHash() {
+    var hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+
+    // Check if hash is a tab name
+    var tabMap = { map: 'tab-map', itinerary: 'tab-itinerary', info: 'tab-info' };
+    if (tabMap[hash]) {
+      switchTab(tabMap[hash], true);
+      return;
+    }
+
+    // Check if hash is a day (e.g., #day3)
+    if (hash.match(/^day\d$/)) {
+      switchTab('tab-itinerary', true);
+      var target = document.getElementById(hash);
+      if (target) {
+        target.classList.remove('collapsed');
+        setTimeout(function () {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
+      }
+      return;
+    }
+
+    // Check if hash is a section id (info tab)
+    var sectionEl = document.getElementById(hash);
+    if (sectionEl && sectionEl.classList.contains('section')) {
+      switchTab('tab-info', true);
+      sectionEl.classList.remove('collapsed');
+      setTimeout(function () {
+        sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    }
+  }
+
+  // Restore on load
+  restoreFromHash();
+
+  // Handle back/forward
+  window.addEventListener('popstate', function (e) {
+    if (e.state && e.state.tab) {
+      switchTab(e.state.tab, true);
+    } else {
+      restoreFromHash();
+    }
   });
 
   /* ========================================
@@ -206,6 +266,11 @@
   function setTheme(dark) {
     document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
     themeBtn.textContent = dark ? '☀️' : '🌙';
+    // Update theme-color meta for status bar
+    var themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) {
+      themeMeta.setAttribute('content', dark ? '#1a1916' : '#c2583a');
+    }
     try { localStorage.setItem('yn-theme', dark ? 'dark' : 'light'); } catch (e) {}
   }
 
@@ -335,8 +400,10 @@
   document.querySelectorAll('.collapsible-toggle').forEach(function (btn) {
     btn.addEventListener('click', function () {
       this.classList.toggle('open');
+      var isOpen = this.classList.contains('open');
+      this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       var content = this.nextElementSibling;
-      if (this.classList.contains('open')) {
+      if (isOpen) {
         content.style.maxHeight = content.scrollHeight + 'px';
       } else {
         content.style.maxHeight = '0px';
@@ -352,6 +419,7 @@
       var answer = this.nextElementSibling;
       var isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
       answer.style.maxHeight = isOpen ? '0px' : answer.scrollHeight + 'px';
+      this.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
     });
   });
 
@@ -375,25 +443,59 @@
   });
 
   /* ========================================
-     DAY CARD TOGGLE
+     DAY CARD TOGGLE (with keyboard + aria)
      ======================================== */
   document.querySelectorAll('.day-card-header').forEach(function (header) {
-    header.addEventListener('click', function () {
-      this.closest('.day-card').classList.toggle('collapsed');
+    function toggleDayCard() {
+      var card = header.closest('.day-card');
+      card.classList.toggle('collapsed');
+      var isExpanded = !card.classList.contains('collapsed');
+      header.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+
+      // Update URL hash to this day
+      if (isExpanded && card.id) {
+        history.replaceState({ tab: 'tab-itinerary', day: card.id }, '', '#' + card.id);
+      }
+    }
+
+    header.addEventListener('click', toggleDayCard);
+    header.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleDayCard();
+      }
     });
   });
 
   /* ========================================
-     SECTION TOGGLE (Info tab)
+     SECTION TOGGLE (Info tab, with keyboard + aria)
      ======================================== */
   document.querySelectorAll('.section-header').forEach(function (header) {
-    header.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') return;
-      var section = this.closest('.section');
+    function toggleSection() {
+      var section = header.closest('.section');
       if (section && section.querySelector('.section-body')) {
         section.classList.toggle('collapsed');
+        var isExpanded = !section.classList.contains('collapsed');
+        header.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+      }
+    }
+
+    header.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') return;
+      toggleSection();
+    });
+    header.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleSection();
       }
     });
+
+    // Set initial aria-expanded
+    var section = header.closest('.section');
+    if (section) {
+      header.setAttribute('aria-expanded', section.classList.contains('collapsed') ? 'false' : 'true');
+    }
   });
 
   /* ========================================
@@ -426,20 +528,25 @@
 
       // Ensure we're on itinerary tab
       if (currentTab !== 'tab-itinerary') {
-        switchTab('tab-itinerary');
+        switchTab('tab-itinerary', true);
       }
 
-      // Expand the target day card
+      // Expand the target day card and update its aria
       target.classList.remove('collapsed');
+      var header = target.querySelector('.day-card-header');
+      if (header) header.setAttribute('aria-expanded', 'true');
 
       // Scroll to it
       setTimeout(function () {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        target.scrollIntoView({ behavior: prefersReducedMotion ? 'instant' : 'smooth', block: 'start' });
       }, 100);
 
       // Update active pill
       document.querySelectorAll('.day-pill').forEach(function (p) { p.classList.remove('active'); });
       this.classList.add('active');
+
+      // Update URL
+      history.pushState({ tab: 'tab-itinerary', day: dayId }, '', '#' + dayId);
     });
   });
 
