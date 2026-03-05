@@ -188,14 +188,15 @@
     }
     // Also trigger on first switch to itinerary
     var todayScrolled = currentTab === 'tab-itinerary';
-    var origSwitchTab = switchTab;
-    switchTab = function (tabId, skipHistory) {
-      origSwitchTab(tabId, skipHistory);
-      if (tabId === 'tab-itinerary' && !todayScrolled) {
-        todayScrolled = true;
-        scrollToToday();
-      }
-    };
+    // Hook into tab button clicks to auto-scroll on first itinerary visit
+    tabBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (this.getAttribute('data-tab') === 'tab-itinerary' && !todayScrolled) {
+          todayScrolled = true;
+          setTimeout(scrollToToday, 200);
+        }
+      });
+    });
   }
 
   // Handle back/forward
