@@ -1,14 +1,7 @@
-var CACHE = 'yunnan-v16';
-var CACHE = 'yunnan-v15';
-=======
-var CACHE = 'yunnan-v14';
->>>>>>> e234ab5 (feat(content): expand all info tab sections with deep-dive details)
-var URLS = [
-  './',
-  './index.html',
-  './style.css',
-  './script.js',
-  './manifest.json',
+var CACHE = 'yunnan-assets-v1';
+
+// Only cache static assets that rarely change
+var ASSET_URLS = [
   './images/280561044762.jpg',
   './images/31dbed614317.jpg',
   './images/7ed65f42ccf1.jpg',
@@ -35,7 +28,7 @@ var URLS = [
 ];
 
 self.addEventListener('install', function (e) {
-  e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(URLS); }));
+  e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(ASSET_URLS); }));
   self.skipWaiting();
 });
 
@@ -49,8 +42,25 @@ self.addEventListener('activate', function (e) {
 });
 
 self.addEventListener('fetch', function (e) {
+  var url = e.request.url;
+
+  // Network-first for app files (HTML, CSS, JS) — always get latest
+  if (url.endsWith('.html') || url.endsWith('.css') || url.endsWith('.js') ||
+      url.endsWith('/') || url.indexOf('.html?') !== -1) {
+    e.respondWith(
+      fetch(e.request).then(function (resp) {
+        var clone = resp.clone();
+        caches.open(CACHE).then(function (c) { c.put(e.request, clone); });
+        return resp;
+      }).catch(function () {
+        return caches.match(e.request);
+      })
+    );
+    return;
+  }
+
   // Cache-first for fonts
-  if (e.request.url.indexOf('fonts.googleapis.com') !== -1 || e.request.url.indexOf('fonts.gstatic.com') !== -1) {
+  if (url.indexOf('fonts.googleapis.com') !== -1 || url.indexOf('fonts.gstatic.com') !== -1) {
     e.respondWith(caches.open(CACHE).then(function (c) {
       return c.match(e.request).then(function (r) {
         return r || fetch(e.request).then(function (resp) { c.put(e.request, resp.clone()); return resp; });
@@ -58,8 +68,9 @@ self.addEventListener('fetch', function (e) {
     }));
     return;
   }
-  // Cache-first for Leaflet tiles
-  if (e.request.url.indexOf('tile.openstreetmap.org') !== -1) {
+
+  // Cache-first for map tiles
+  if (url.indexOf('tile.openstreetmap.org') !== -1) {
     e.respondWith(caches.open(CACHE).then(function (c) {
       return c.match(e.request).then(function (r) {
         return r || fetch(e.request).then(function (resp) {
@@ -70,8 +81,28 @@ self.addEventListener('fetch', function (e) {
     }));
     return;
   }
-  // Default: cache-first
+
+  // Cache-first for images
+  if (url.indexOf('/images/') !== -1) {
+    e.respondWith(caches.open(CACHE).then(function (c) {
+      return c.match(e.request).then(function (r) {
+        return r || fetch(e.request).then(function (resp) {
+          if (resp.ok) c.put(e.request, resp.clone());
+          return resp;
+        }).catch(function () { return r; });
+      });
+    }));
+    return;
+  }
+
+  // Default: network-first
   e.respondWith(
-    caches.match(e.request).then(function (r) { return r || fetch(e.request); })
+    fetch(e.request).then(function (resp) {
+      var clone = resp.clone();
+      caches.open(CACHE).then(function (c) { c.put(e.request, clone); });
+      return resp;
+    }).catch(function () {
+      return caches.match(e.request);
+    })
   );
 });
