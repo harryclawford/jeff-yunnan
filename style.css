@@ -219,18 +219,18 @@ body {
 }
 .map-hint {
   text-align: center;
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   color: var(--warm-gray);
-  padding: 10px 16px 0;
+  padding: 6px 16px 0;
   margin: 0;
 }
 #yunnan-map {
   width: calc(100% - 24px);
-  height: calc(100vh - var(--nav-height) - var(--tab-bar-height) - 80px);
-  min-height: 300px;
+  height: calc(100vh - var(--nav-height) - var(--tab-bar-height) - 140px);
+  min-height: 280px;
   border: none;
   border-radius: 14px;
-  margin: 8px 12px 12px;
+  margin: 4px 12px 0;
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(0,0,0,0.1);
 }
