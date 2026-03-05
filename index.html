@@ -25,18 +25,11 @@
   <meta name="twitter:image" content="https://harryclawford.github.io/jeff-yunnan/images/960px-Yunnan_China_Tiger-Leaping-Gorge-06.jpg">
 
   <title>Yunnan Deep-Dive Guide — Mar 8–15, 2026</title>
-  <link rel="preconnect" href="https://unpkg.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <!-- Skip link -->
-  <a href="#tab-content" class="skip-link">Skip to content</a>
-
   <!-- Progress bar -->
   <div class="progress-bar" id="progress-bar"></div>
 
@@ -56,9 +49,9 @@
     <div class="search-box">
       <div class="search-input-wrap">
         <span class="icon">🔍</span>
-        <input type="search" class="search-input" id="search-input" placeholder="Search the guide… (⌘K)" aria-label="Search the guide" autocomplete="off" name="search">
+        <input type="text" class="search-input" id="search-input" placeholder="Search the guide... (⌘K)">
       </div>
-      <div class="search-results" id="search-results" aria-live="polite"></div>
+      <div class="search-results" id="search-results"></div>
     </div>
   </div>
 
@@ -103,28 +96,29 @@
       <main class="content">
 <section class="section" id="days" data-nav-id="days">
   <span class="section-number">Section 04</span>
-  <h2 class="section-header" role="button" tabindex="0">Day-by-Day Deep Dives</h2>
+  <h2 class="section-header">Day-by-Day Deep Dives</h2>
   
-<div class="day-card collapsed" id="day1" data-nav-id="day1">
-  <div class="day-card-header" role="button" tabindex="0" aria-expanded="false">
+<div class="day-card" id="day1" data-nav-id="day1">
+  <div class="day-card-header">
     <span class="day-badge">D1</span>
     <div class="day-info">
-      <div class="day-date">March 8 <span class="weather-badge">☀️ 5–23°C · Clear skies</span></div>
+      <div class="day-date">March 8</div>
       <div class="day-title">Arrive Lijiang, Dayan Old Town</div>
-    </div></div>
+    </div>
+    <span class="weather-badge">☀️ 5–23°C · Clear skies</span>
+  </div>
   <div class="hotel-badge">🏨 Kuanshang Lijiang</div>
-  <div class="day-highlights">Naxi Old Town canals, Mu Mansion, first bābā &amp; smoked ribs</div>
   <div class="day-card-body">
 <div class="photo-gallery two-col">
 <figure class="photo-card">
-  <img src="images/280561044762.jpg" alt="Dayan Old Town canals at dusk" loading="lazy" width="720" height="200">
+  <img src="images/280561044762.jpg" alt="Dayan Old Town canals at dusk" loading="lazy">
   <figcaption>Dayan Old Town canals at dusk</figcaption>
 </figure>
 
 </div>
 <div class="photo-gallery">
 <figure class="photo-card">
-  <img src="images/mu_fu.jpg" alt="Mu Family Mansion — palace of the Naxi Mu clan chiefs" loading="lazy" width="720" height="200">
+  <img src="images/mu_fu.jpg" alt="Mu Family Mansion — palace of the Naxi Mu clan chiefs" loading="lazy">
   <figcaption>Mu Family Mansion — palace of the Naxi Mu clan chiefs</figcaption>
 </figure>
 </div>
@@ -133,7 +127,7 @@
     <p data-search="Day 1">MARCH 8 — ARRIVE LIJIANG, DAYAN OLD TOWN ---</p>
 <p data-search="Day 1">HOTEL: Kuanshang Lijiang (宽上丽江)</p>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">THE CITY THAT SURVIVED AN EARTHQUAKE BY BEING OLD <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">THE CITY THAT SURVIVED AN EARTHQUAKE BY BEING OLD <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 1 — THE CITY THAT SURVIVED AN EARTHQUAKE BY BEING OLD">Lijiang (麗江) sits at 2,400m elevation on a high plateau ringed by mountains. The Dayan ("Great Inkstone") Old Town — the UNESCO-listed historic center — was built by the Naxi from roughly the 13th century onward under the Mu clan chiefs (土司 tǔsī, the indigenous rulers who governed with nominal Ming dynasty approval).</p>
@@ -142,7 +136,7 @@
   </div>
 </div>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">THE THREE-TIER WATER SYSTEM <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">THE THREE-TIER WATER SYSTEM <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 1 — THE THREE-TIER WATER SYSTEM">Dayan Old Town has a canal system fed by Black Dragon Pool. Three streams branch through the town, and historically there was a strict usage protocol:</p>
@@ -156,7 +150,7 @@
   </div>
 </div>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">WHAT TO LOOK FOR ON YOUR FIRST EVENING WALK <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">WHAT TO LOOK FOR ON YOUR FIRST EVENING WALK <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 1 — WHAT TO LOOK FOR ON YOUR FIRST EVENING WALK">The town is organized around four main squares, but wander the small lanes.</p>
@@ -180,7 +174,7 @@
   </div>
 </div>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">ARRIVAL FOOD <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">ARRIVAL FOOD <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 1 — ARRIVAL FOOD">Your first night: eat at a restaurant serving 粑粑 (bābā) — Naxi flatbread, griddled with fillings. The savory version with local cured pork (火腿 huǒtuǐ, Yunnan ham, which is to China what prosciutto is to Italy) is the local staple. Order 臘排骨 (là páigǔ) — smoked ribs, local specialty. Wash it down with 苦茶 (kǔ chá, bitter tea) — you're in tea country now.</p>
@@ -190,33 +184,34 @@
   
     <div class="photo-grid">
   <div class="photo-card">
-    <img src="images/280561044762.jpg" alt="Dayan Old Town canal at dusk" loading="lazy" width="720" height="200">
+    <img src="images/280561044762.jpg" alt="Dayan Old Town canal at dusk" loading="lazy">
     <div class="photo-card-caption"><strong>Dayan Old Town (大研古城)</strong>Dayan Old Town canal at dusk</div>
   </div>
 </div>
   </div>
 </div>
 
-<div class="day-card collapsed" id="day2" data-nav-id="day2">
-  <div class="day-card-header" role="button" tabindex="0" aria-expanded="false">
+<div class="day-card" id="day2" data-nav-id="day2">
+  <div class="day-card-header">
     <span class="day-badge">D2</span>
     <div class="day-info">
-      <div class="day-date">March 9 <span class="weather-badge">⛅ 7–22°C · Partly cloudy</span></div>
+      <div class="day-date">March 9</div>
       <div class="day-title">Black Dragon Pool, Dayan, Baisha</div>
-    </div></div>
+    </div>
+    <span class="weather-badge">⛅ 7–22°C · Partly cloudy</span>
+  </div>
   <div class="hotel-badge">🏨 Kuanshang Lijiang</div>
-  <div class="day-highlights">Black Dragon Pool, Dongba Museum, Pu'er tea shopping, Baisha Murals</div>
   <div class="day-card-body">
 <div class="photo-gallery two-col">
 <figure class="photo-card">
-  <img src="images/960px-Lijiang_Yunnan_Black-Dragon-Pool-01.jpg" alt="Black Dragon Pool — classic Jade Dragon reflection" loading="lazy" width="720" height="200">
+  <img src="images/960px-Lijiang_Yunnan_Black-Dragon-Pool-01.jpg" alt="Black Dragon Pool — classic Jade Dragon reflection" loading="lazy">
   <figcaption>Black Dragon Pool — classic Jade Dragon reflection</figcaption>
 </figure>
 
 </div>
 <div class="photo-gallery">
 <figure class="photo-card">
-  <img src="images/baisha_murals.jpg" alt="Baisha — home of centuries-old Buddhist/Taoist/Dongba murals" loading="lazy" width="720" height="200">
+  <img src="images/baisha_murals.jpg" alt="Baisha — home of centuries-old Buddhist/Taoist/Dongba murals" loading="lazy">
   <figcaption>Baisha — home of centuries-old Buddhist/Taoist/Dongba murals</figcaption>
 </figure>
 </div>
@@ -224,7 +219,7 @@
 
     <p data-search="Day 2">MARCH 9 — BLACK DRAGON POOL, DAY AN OLD TOWN, BAISHA ---</p>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">BLACK DRAGON POOL (黑龍潭, Jade Spring Park) <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">BLACK DRAGON POOL (黑龍潭, Jade Spring Park) <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 2 — BLACK DRAGON POOL (黑龍潭, Jade Spring Park)">The pool is spring-fed and has a distinctive cyan-blue color from the mineral content and depth. The color changes through the day and season. The classic view: Deyue Pavilion (reflected in the pool) with Jade Dragon Snow Mountain visible directly behind it on clear days. This view is on every Lijiang postcard.</p>
@@ -233,7 +228,7 @@
   </div>
 </div>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">PU'ER TEA SHOPPING IN DAYAN <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">PU'ER TEA SHOPPING IN DAYAN <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 2 — PU'ER TEA SHOPPING IN DAYAN">Lijiang Old Town has hundreds of tea shops. Most sell mediocre tea to tourists. To find good tea:</p>
@@ -249,7 +244,7 @@
   </div>
 </div>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">BAISHA OLD TOWN (白沙古镇) <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">BAISHA OLD TOWN (白沙古镇) <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 2 — BAISHA OLD TOWN (白沙古镇)">Baisha is 8km north of Lijiang and was the original Naxi capital before the Mu clan moved their seat to Lijiang in the 13th century. It's smaller, quieter, and has something Lijiang Old Town lacks: the Baisha Murals (白沙壁畫).</p>
@@ -260,7 +255,7 @@
   </div>
 </div>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">JADE DRAGON SNOW MOUNTAIN VIEWS FROM BAISHA <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">JADE DRAGON SNOW MOUNTAIN VIEWS FROM BAISHA <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 2 — JADE DRAGON SNOW MOUNTAIN VIEWS FROM BAISHA">The best ground-level views of the full mountain range are from Baisha and the fields between Baisha and Lijiang — you're looking at 13 peaks, the highest at 5,596m. The mountain catches clouds most afternoons. Morning is clearest. On clear days, the glacier (now retreating) on the main face is visible.</p>
@@ -270,40 +265,41 @@
   
     <div class="photo-grid">
   <div class="photo-card">
-    <img src="images/960px-Lijiang_Yunnan_Black-Dragon-Pool-01.jpg" alt="Black Dragon Pool with Jade Dragon Snow Mountain" loading="lazy" width="720" height="200">
+    <img src="images/960px-Lijiang_Yunnan_Black-Dragon-Pool-01.jpg" alt="Black Dragon Pool with Jade Dragon Snow Mountain" loading="lazy">
     <div class="photo-card-caption"><strong>Black Dragon Pool (黑龍潭)</strong>Black Dragon Pool with Jade Dragon Snow Mountain</div>
   </div>
   <div class="photo-card">
-    <img src="images/960px-Baisha_Old_Town_(21183444262).jpg" alt="Baisha Old Town with mountain backdrop" loading="lazy" width="720" height="200">
+    <img src="images/960px-Baisha_Old_Town_(21183444262).jpg" alt="Baisha Old Town with mountain backdrop" loading="lazy">
     <div class="photo-card-caption"><strong>Baisha Old Town (白沙古鎮)</strong>Baisha Old Town with mountain backdrop</div>
   </div>
 </div>
   </div>
 </div>
 
-<div class="day-card collapsed" id="day3" data-nav-id="day3">
-  <div class="day-card-header" role="button" tabindex="0" aria-expanded="false">
+<div class="day-card" id="day3" data-nav-id="day3">
+  <div class="day-card-header">
     <span class="day-badge">D3</span>
     <div class="day-info">
-      <div class="day-date">March 10 <span class="weather-badge">🌧️ 6–13°C · Drizzle — cold front</span></div>
+      <div class="day-date">March 10</div>
       <div class="day-title">Jade Dragon Snow Mountain, Blue Moon Valley, Yuhu</div>
-    </div></div>
+    </div>
+    <span class="weather-badge" style="border-color:var(--terracotta);color:var(--terracotta)">🌧️ 6–13°C · Drizzle — cold front</span>
+  </div>
   <div class="hotel-badge">🏨 Kuanshang Lijiang</div>
-  <div class="day-highlights">Blue Moon Valley glacial lakes, Impressions Lijiang show, Yuhu Village &amp; Joseph Rock</div>
   <div class="day-card-body">
 <div class="photo-gallery two-col">
 <figure class="photo-card">
-  <img src="images/31dbed614317.jpg" alt="Jade Dragon Snow Mountain — 13 peaks, 5,596m" loading="lazy" width="720" height="200">
+  <img src="images/31dbed614317.jpg" alt="Jade Dragon Snow Mountain — 13 peaks, 5,596m" loading="lazy">
   <figcaption>Jade Dragon Snow Mountain — 13 peaks, 5,596m</figcaption>
 </figure>
 <figure class="photo-card">
-  <img src="images/7ed65f42ccf1.jpg" alt="Blue Moon Valley glacial lakes" loading="lazy" width="720" height="200">
+  <img src="images/7ed65f42ccf1.jpg" alt="Blue Moon Valley glacial lakes" loading="lazy">
   <figcaption>Blue Moon Valley glacial lakes</figcaption>
 </figure>
 </div>
 <div class="photo-gallery">
 <figure class="photo-card">
-  <img src="images/960px-Lijiang_Oct_2007_232.jpg" alt="Yuhu Village at the foot of Jade Dragon Snow Mountain" loading="lazy" width="720" height="200">
+  <img src="images/960px-Lijiang_Oct_2007_232.jpg" alt="Yuhu Village at the foot of Jade Dragon Snow Mountain" loading="lazy">
   <figcaption>Yuhu Village at the foot of Jade Dragon Snow Mountain</figcaption>
 </figure>
 </div>
@@ -312,7 +308,7 @@
     <p data-search="Day 3">MARCH 10 — JADE DRAGON SNOW MOUNTAIN, BLUE MOON VALLEY, IMPRESSIONS, YUHU ---</p>
 <p data-search="Day 3">(See dedicated sections on JDSS and Impressions Lijiang below.)</p>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">BLUE MOON VALLEY (藍月谷) <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">BLUE MOON VALLEY (藍月谷) <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 3 — BLUE MOON VALLEY (藍月谷)">Within the JDSS national park, Blue Moon Valley is a series of three lakes fed by glacial meltwater. The colors are vivid — turquoise, jade green, and in strong sunlight, electric blue — because the glacial water is extraordinarily pure and the suspended fine-particle "glacial flour" (rock ground to powder by ice movement) creates Rayleigh scattering effects. It's the same reason glacier lakes in the Alps and Canadian Rockies look unnaturally colored.</p>
@@ -322,7 +318,7 @@
   </div>
 </div>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">YUHU VILLAGE (玉湖村) AND JOSEPH ROCK <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">YUHU VILLAGE (玉湖村) AND JOSEPH ROCK <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 3 — YUHU VILLAGE (玉湖村) AND JOSEPH ROCK">Yuhu Village is where Joseph Rock — the Austrian-American botanist, explorer, National Geographic writer, and general eccentric who introduced Naxi culture to the Western world — lived for roughly 27 years (1922-1949). Rock used Yuhu as his base for botanical expeditions throughout Yunnan, Tibet, and Sichuan. He collected over 80,000 plant specimens sent to Harvard, described hundreds of previously unknown species, and shot thousands of photographs documenting Naxi culture, Tibetan monasteries, and the region's natural history.</p>
@@ -337,41 +333,42 @@
   
     <div class="photo-grid">
   <div class="photo-card">
-    <img src="images/31dbed614317.jpg" alt="Jade Dragon Snow Mountain from Lijiang" loading="lazy" width="720" height="200">
+    <img src="images/31dbed614317.jpg" alt="Jade Dragon Snow Mountain from Lijiang" loading="lazy">
     <div class="photo-card-caption"><strong>Jade Dragon Snow Mountain (玉龍雪山)</strong>Jade Dragon Snow Mountain from Lijiang</div>
   </div>
   <div class="photo-card">
-    <img src="images/960px-20140511_Lijiang_Impression_Show.jpg" alt="Impressions Lijiang — Zhang Yimou's open-air show at 3,100m" loading="lazy" width="720" height="200">
-    <div class="photo-card-caption"><strong>Impressions Lijiang (印象麗江)</strong>Zhang Yimou's 500-performer show against Jade Dragon Snow Mountain</div>
+    <img src="images/960px-20140511_Lijiang_Impression_Show.jpg" alt="Blue Moon Valley's turquoise glacial lakes" loading="lazy">
+    <div class="photo-card-caption"><strong>Blue Moon Valley (藍月谷)</strong>Blue Moon Valley's turquoise glacial lakes</div>
   </div>
   <div class="photo-card">
-    <img src="images/960px-Lijiang_Oct_2007_232.jpg" alt="Yuhu Village at the foot of Jade Dragon Snow Mountain" loading="lazy" width="720" height="200">
+    <img src="images/960px-Lijiang_Oct_2007_232.jpg" alt="Yuhu Village at the foot of Jade Dragon Snow Mountain" loading="lazy">
     <div class="photo-card-caption"><strong>Yuhu Village (玉湖村)</strong>Yuhu Village at the foot of Jade Dragon Snow Mountain</div>
   </div>
 </div>
   </div>
 </div>
 
-<div class="day-card collapsed" id="day4" data-nav-id="day4">
-  <div class="day-card-header" role="button" tabindex="0" aria-expanded="false">
+<div class="day-card" id="day4" data-nav-id="day4">
+  <div class="day-card-header">
     <span class="day-badge">D4</span>
     <div class="day-info">
-      <div class="day-date">March 11 <span class="weather-badge">🌧️ 7–14°C · Light rain</span></div>
+      <div class="day-date">March 11</div>
       <div class="day-title">Lashi Lake Horseback, Shuhe Old Town</div>
-    </div></div>
+    </div>
+    <span class="weather-badge">🌧️ 7–14°C · Light rain</span>
+  </div>
   <div class="hotel-badge">🏨 Kuanshang Lijiang</div>
-  <div class="day-highlights">Tea Horse Road horseback at Lashi Lake, Shuhe Old Town leather workshops</div>
   <div class="day-card-body">
 <div class="photo-gallery two-col">
 
 <figure class="photo-card">
-  <img src="images/960px-Qinglong_Qiao,_Lijiang_Shi.jpg" alt="Shuhe Old Town" loading="lazy" width="720" height="200">
+  <img src="images/960px-Qinglong_Qiao,_Lijiang_Shi.jpg" alt="Shuhe Old Town" loading="lazy">
   <figcaption>Shuhe Old Town</figcaption>
 </figure>
 </div>
 <div class="photo-gallery">
 <figure class="photo-card">
-  <img src="images/lashi_lake.jpg" alt="Lashi Lake — origin of the Tea Horse Road, horseback riding" loading="lazy" width="720" height="200">
+  <img src="images/lashi_lake.jpg" alt="Lashi Lake — origin of the Tea Horse Road, horseback riding" loading="lazy">
   <figcaption>Lashi Lake — origin of the Tea Horse Road, horseback riding</figcaption>
 </figure>
 </div>
@@ -379,7 +376,7 @@
 
     <p data-search="Day 4">MARCH 11 — LASHI LAKE HORSEBACK, SHUHE OLD TOWN ---</p>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">LASHI LAKE HORSEBACK RIDING (拉市海) <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">LASHI LAKE HORSEBACK RIDING (拉市海) <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 4 — LASHI LAKE HORSEBACK RIDING (拉市海)">The horseback trails at Lashi Lake follow sections of the actual Tea Horse Road. The terrain is gentle by the lake but gives you a physical sense of what it meant to transport goods by horse or mule over this landscape. Modern roads now run parallel — but the old stone-paved sections of the tea road are still visible in places as slightly elevated causeways cutting across the farmland.</p>
@@ -389,7 +386,7 @@
   </div>
 </div>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">SHUHE OLD TOWN (束河古镇) <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">SHUHE OLD TOWN (束河古镇) <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 4 — SHUHE OLD TOWN (束河古镇)">Shuhe is actually OLDER than Lijiang's Dayan Old Town — it was an early Naxi settlement and a significant stop on the Tea Horse Road, specifically known for leather goods and tanning. The caravans needed harnesses, saddles, and bags — all of which required leather — and Shuhe's craftsmen supplied them.</p>
@@ -403,26 +400,27 @@
     <div class="photo-grid">
   
   <div class="photo-card">
-    <img src="images/960px-Qinglong_Qiao,_Lijiang_Shi.jpg" alt="Shuhe Old Town" loading="lazy" width="720" height="200">
+    <img src="images/960px-Qinglong_Qiao,_Lijiang_Shi.jpg" alt="Shuhe Old Town" loading="lazy">
     <div class="photo-card-caption"><strong>Shuhe Old Town (束河古鎮)</strong>Shuhe Old Town</div>
   </div>
 </div>
   </div>
 </div>
 
-<div class="day-card collapsed" id="day5" data-nav-id="day5">
-  <div class="day-card-header" role="button" tabindex="0" aria-expanded="false">
+<div class="day-card" id="day5" data-nav-id="day5">
+  <div class="day-card-header">
     <span class="day-badge">D5</span>
     <div class="day-info">
-      <div class="day-date">March 12 <span class="weather-badge">🌧️ 8–17°C · Light drizzle</span></div>
+      <div class="day-date">March 12</div>
       <div class="day-title">Tiger Leaping Gorge → Shaxi</div>
-    </div></div>
+    </div>
+    <span class="weather-badge">🌧️ 8–17°C · Light drizzle</span>
+  </div>
   <div class="hotel-badge">🏨 Sunyata Shaxi</div>
-  <div class="day-highlights">Tiger Leaping Gorge viewpoint, scenic drive to Shaxi through rapeseed fields</div>
   <div class="day-card-body">
 <div class="photo-gallery ">
 <figure class="photo-card">
-  <img src="images/960px-Yunnan_China_Tiger-Leaping-Gorge-04.jpg" alt="Tiger Leaping Gorge — 3,900m deep" loading="lazy" width="720" height="200">
+  <img src="images/960px-Yunnan_China_Tiger-Leaping-Gorge-04.jpg" alt="Tiger Leaping Gorge — 3,900m deep" loading="lazy">
   <figcaption>Tiger Leaping Gorge — 3,900m deep</figcaption>
 </figure>
 </div>
@@ -430,7 +428,7 @@
     <p data-search="Day 5">MARCH 12 — TIGER LEAPING GORGE, DRIVE TO SHAXI ---</p>
 <p data-search="Day 5">(See dedicated Tiger Leaping Gorge section below.)</p>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">THE DRIVE TO SHAXI <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">THE DRIVE TO SHAXI <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 5 — THE DRIVE TO SHAXI">The drive from Tiger Leaping Gorge to Shaxi (roughly 3-4 hours) passes through the Jinsha River valley, then climbs over ridges into the Jianchuan valley where Shaxi sits. The landscape transitions from the dramatic gorge topography to softer valley farmland with terraced fields. March means the rape flower (菜花) season — yellow fields against green hills, classic Yunnan spring scenery.</p>
@@ -439,7 +437,7 @@
   </div>
 </div>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">ARRIVING SHAXI (SUNYATA HOTEL) <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">ARRIVING SHAXI (SUNYATA HOTEL) <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 5 — ARRIVING SHAXI (SUNYATA HOTEL)">Hotel: Sunyata Shaxi — a boutique property in the village area. Good base for exploring on foot. The village at night (with minimal light pollution) has extraordinary star visibility at 2,200m altitude. Worth staying up for.</p>
@@ -449,7 +447,7 @@
   
     <div class="photo-grid">
   <div class="photo-card">
-    <img src="images/960px-Yunnan_China_Tiger-Leaping-Gorge-06.jpg" alt="Tiger Leaping Gorge — the Jinsha River below" loading="lazy" width="720" height="200">
+    <img src="images/960px-Yunnan_China_Tiger-Leaping-Gorge-06.jpg" alt="Tiger Leaping Gorge — the Jinsha River below" loading="lazy">
     <div class="photo-card-caption"><strong>Tiger Leaping Gorge (虎跳峽)</strong>Tiger Leaping Gorge — the Jinsha River below</div>
   </div>
   
@@ -457,29 +455,30 @@
   </div>
 </div>
 
-<div class="day-card collapsed" id="day6" data-nav-id="day6">
-  <div class="day-card-header" role="button" tabindex="0" aria-expanded="false">
+<div class="day-card" id="day6" data-nav-id="day6">
+  <div class="day-card-header">
     <span class="day-badge">D6</span>
     <div class="day-info">
-      <div class="day-date">March 13 <span class="weather-badge">🌧️ 7–10°C · Drizzle — coldest day</span></div>
+      <div class="day-date">March 13</div>
       <div class="day-title">Shaxi Village, Dali Old Town</div>
-    </div></div>
+    </div>
+    <span class="weather-badge">🌧️ 7–10°C · Drizzle — coldest day</span>
+  </div>
   <div class="hotel-badge">🏨 Daji Dali</div>
-  <div class="day-highlights">Shaxi Sideng Square at dawn, drive to Dali, Catholic church fusion architecture</div>
   <div class="day-card-body">
 <div class="photo-gallery two-col">
 <figure class="photo-card">
-  <img src="images/960px-Shaxi_banner_Xingjiao_Temple.JPG" alt="Shaxi — Sideng Square area" loading="lazy" width="720" height="200">
+  <img src="images/960px-Shaxi_banner_Xingjiao_Temple.JPG" alt="Shaxi — Sideng Square area" loading="lazy">
   <figcaption>Shaxi — Sideng Square area</figcaption>
 </figure>
 <figure class="photo-card">
-  <img src="images/960px-Dali_Yunnan_China_West-gate-of-old-town-Dali-01.jpg" alt="Dali Old Town gate" loading="lazy" width="720" height="200">
+  <img src="images/960px-Dali_Yunnan_China_West-gate-of-old-town-Dali-01.jpg" alt="Dali Old Town gate" loading="lazy">
   <figcaption>Dali Old Town gate</figcaption>
 </figure>
 </div>
 <div class="photo-gallery">
 <figure class="photo-card">
-  <img src="images/shaxi_old_town.jpg" alt="Shaxi — ancient Tea Horse Road market town" loading="lazy" width="720" height="200">
+  <img src="images/shaxi_old_town.jpg" alt="Shaxi — ancient Tea Horse Road market town" loading="lazy">
   <figcaption>Shaxi — ancient Tea Horse Road market town</figcaption>
 </figure>
 </div>
@@ -487,7 +486,7 @@
 
     <p data-search="Day 6">MARCH 13 — SHAXI, DRIVE TO DALI, DALI OLD TOWN, CATHOLIC CHURCH ---</p>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">SHAXI VILLAGE DEEP DIVE <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">SHAXI VILLAGE DEEP DIVE <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 6 — SHAXI VILLAGE DEEP DIVE">Rise early if possible. The village before 8 AM, before tour groups arrive, is a completely different experience. Local Bai farmers walking to market, smoke from morning fires, the sound of the Sideng Square fountain.</p>
@@ -509,7 +508,7 @@
   </div>
 </div>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">DRIVE TO DALI AND DALI OLD TOWN <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">DRIVE TO DALI AND DALI OLD TOWN <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 6 — DRIVE TO DALI AND DALI OLD TOWN">(See dedicated Dali/Nanzhao section below for historical context.)</p>
@@ -518,7 +517,7 @@
   </div>
 </div>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">THE CATHOLIC CHURCH IN DALI <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">THE CATHOLIC CHURCH IN DALI <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 6 — THE CATHOLIC CHURCH IN DALI">The presence of a Catholic church in Dali requires explanation because it seems incongruous — deep in a Buddhist and Dongba-religion region of Southwest China, there's a European-style Catholic church. Here's how it got there:</p>
@@ -531,36 +530,37 @@
   
     <div class="photo-grid">
   <div class="photo-card">
-    <img src="images/960px-Dali_Yunnan_China_Chongsheng-Temple-03.jpg" alt="Three Pagodas of Chongsheng Temple, Dali" loading="lazy" width="720" height="200">
+    <img src="images/960px-Dali_Yunnan_China_Chongsheng-Temple-03.jpg" alt="Three Pagodas of Chongsheng Temple, Dali" loading="lazy">
     <div class="photo-card-caption"><strong>Dali Old Town (大理古城)</strong>Three Pagodas of Chongsheng Temple, Dali</div>
   </div>
 </div>
   </div>
 </div>
 
-<div class="day-card collapsed" id="day7" data-nav-id="day7">
-  <div class="day-card-header" role="button" tabindex="0" aria-expanded="false">
+<div class="day-card" id="day7" data-nav-id="day7">
+  <div class="day-card-header">
     <span class="day-badge">D7</span>
     <div class="day-info">
-      <div class="day-date">March 14 <span class="weather-badge">🌧️ 8–12°C · Light drizzle</span></div>
+      <div class="day-date">March 14</div>
       <div class="day-title">Xizhou, Mushroom Hotpot, Tie-Dye, Longkan Wharf</div>
-    </div></div>
+    </div>
+    <span class="weather-badge">🌧️ 8–12°C · Light drizzle</span>
+  </div>
   <div class="hotel-badge">🏨 Daji Dali</div>
-  <div class="day-highlights">Xizhou Bai village, wild mushroom hotpot, tie-dye workshop, Erhai Lake cycling</div>
   <div class="day-card-body">
 <div class="photo-gallery two-col">
 <figure class="photo-card">
-  <img src="images/960px-Three_Pagodas,_Dali,_China_-_panoramio.jpg" alt="Three Pagodas of Chongsheng Temple (崇圣寺三塔)" loading="lazy" width="720" height="200">
+  <img src="images/960px-Three_Pagodas,_Dali,_China_-_panoramio.jpg" alt="Three Pagodas of Chongsheng Temple (崇圣寺三塔)" loading="lazy">
   <figcaption>Three Pagodas of Chongsheng Temple (崇圣寺三塔)</figcaption>
 </figure>
 <figure class="photo-card">
-  <img src="images/960px-Dali_City_Birdseye.JPG" alt="Erhai Lake with Cangshan mountains" loading="lazy" width="720" height="200">
+  <img src="images/960px-Dali_City_Birdseye.JPG" alt="Erhai Lake with Cangshan mountains" loading="lazy">
   <figcaption>Erhai Lake with Cangshan mountains</figcaption>
 </figure>
 </div>
 <div class="photo-gallery">
 <figure class="photo-card">
-  <img src="images/xizhou_village.jpg" alt="Xizhou — finest Bai minority village architecture" loading="lazy" width="720" height="200">
+  <img src="images/xizhou_village.jpg" alt="Xizhou — finest Bai minority village architecture" loading="lazy">
   <figcaption>Xizhou — finest Bai minority village architecture</figcaption>
 </figure>
 </div>
@@ -568,7 +568,7 @@
 
     <p data-search="Day 7">MARCH 14 — XIZHOU, MUSHROOM HOTPOT, TIE-DYE, ERHAI LAKE ---</p>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">XIZHOU VILLAGE (喜洲) <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">XIZHOU VILLAGE (喜洲) <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 7 — XIZHOU VILLAGE (喜洲)">Xizhou is the best-preserved example of traditional Bai village architecture in the Dali area. Unlike Dali Old Town (which has significant modern reconstruction), Xizhou's traditional courtyard compounds (大院, dàyuàn) are mostly intact and still inhabited by Bai families.</p>
@@ -578,7 +578,7 @@
   </div>
 </div>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">WILD MUSHROOM HOTPOT <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">WILD MUSHROOM HOTPOT <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 7 — WILD MUSHROOM HOTPOT">Yunnan has the highest mushroom biodiversity in China — and probably Southeast Asia. Over 850 species of edible mushrooms have been documented in Yunnan. The province supplies the majority of China's wild mushroom market. This is not a trivial fact: mushroom export is a major sector of the Yunnan economy.</p>
@@ -608,7 +608,7 @@
   </div>
 </div>
 <div class="collapsible">
-  <button class="collapsible-toggle" aria-expanded="false">ERHAI LAKE CYCLING (洱海, Ěrhǎi) <span class="chevron">▼</span></button>
+  <button class="collapsible-toggle">ERHAI LAKE CYCLING (洱海, Ěrhǎi) <span class="chevron">▼</span></button>
   <div class="collapsible-content" style="max-height:0px">
     <div class="collapsible-content-inner">
       <p data-search="Day 7 — ERHAI LAKE CYCLING (洱海, Ěrhǎi)">Erhai ("Ear Sea") gets its name from its shape — it's roughly ear-shaped from above, and "hai" in local dialect means lake rather than sea (this is a Bai language term, not Mandarin). The lake is 250 km² and sits at 1,974m altitude — large enough that it has its own weather patterns.</p>
@@ -622,22 +622,23 @@
     <div class="photo-grid">
   
   <div class="photo-card">
-    <img src="images/960px-Tree_in_front_of_Erhai_Lake.jpg" alt="Erhai Lake with Cangshan Mountains" loading="lazy" width="720" height="200">
+    <img src="images/960px-Tree_in_front_of_Erhai_Lake.jpg" alt="Erhai Lake with Cangshan Mountains" loading="lazy">
     <div class="photo-card-caption"><strong>Erhai Lake (洱海)</strong>Erhai Lake with Cangshan Mountains</div>
   </div>
 </div>
   </div>
 </div>
 
-<div class="day-card collapsed" id="day8" data-nav-id="day8">
-  <div class="day-card-header" role="button" tabindex="0" aria-expanded="false">
+<div class="day-card" id="day8" data-nav-id="day8">
+  <div class="day-card-header">
     <span class="day-badge">D8</span>
     <div class="day-info">
-      <div class="day-date">March 15 <span class="weather-badge">🌧️ 9–13°C · Drizzle</span></div>
+      <div class="day-date">March 15</div>
       <div class="day-title">Depart Dali</div>
-    </div></div>
+    </div>
+    <span class="weather-badge">🌧️ 9–13°C · Drizzle</span>
+  </div>
   <div class="hotel-badge">🏨 Depart DLU → CAN</div>
-  <div class="day-highlights">Depart DLU → CAN, last Cangshan mountain views, Yunnan coffee</div>
   <div class="day-card-body">
     <p data-search="Day 8">MARCH 15 — DEPART DLU → CAN ---</p>
 <p data-search="Day 8">Dali Daxue Airport (DLU) is small and relatively new. Allow 2 hours before departure. Flight CZ3482 departs 10:30, arrives Guangzhou 12:45.</p>
@@ -653,23 +654,11 @@
       <div class="info-hint">
         <p>📖 Tap any section header to expand · Use 🔍 to search all content</p>
       </div>
-      <nav class="info-toc-grid" aria-label="Section navigation">
-        <button class="info-toc-card" data-target="overview"><span class="info-toc-icon">🌏</span><span class="info-toc-name">Yunnan Overview</span><span class="info-toc-time">4 min</span></button>
-        <button class="info-toc-card" data-target="peoples"><span class="info-toc-icon">👥</span><span class="info-toc-name">The Peoples</span><span class="info-toc-time">8 min</span></button>
-        <button class="info-toc-card" data-target="tea-horse-road"><span class="info-toc-icon">🐎</span><span class="info-toc-name">Tea Horse Road</span><span class="info-toc-time">5 min</span></button>
-        <button class="info-toc-card" data-target="jade-dragon"><span class="info-toc-icon">🏔️</span><span class="info-toc-name">Jade Dragon Mtn</span><span class="info-toc-time">3 min</span></button>
-        <button class="info-toc-card" data-target="tiger-leaping"><span class="info-toc-icon">🐅</span><span class="info-toc-name">Tiger Leaping Gorge</span><span class="info-toc-time">3 min</span></button>
-        <button class="info-toc-card" data-target="nanzhao"><span class="info-toc-icon">⛩️</span><span class="info-toc-name">Dali &amp; Nanzhao</span><span class="info-toc-time">5 min</span></button>
-        <button class="info-toc-card" data-target="impressions"><span class="info-toc-icon">🎭</span><span class="info-toc-name">Impressions Lijiang</span><span class="info-toc-time">3 min</span></button>
-        <button class="info-toc-card" data-target="puer"><span class="info-toc-icon">🍵</span><span class="info-toc-name">Pu'er Tea Primer</span><span class="info-toc-time">4 min</span></button>
-        <button class="info-toc-card" data-target="cultural-tips"><span class="info-toc-icon">🎒</span><span class="info-toc-name">Cultural Tips</span><span class="info-toc-time">3 min</span></button>
-        <button class="info-toc-card" data-target="conversation"><span class="info-toc-icon">💬</span><span class="info-toc-name">Conversation Starters</span><span class="info-toc-time">2 min</span></button>
-      </nav>
       <main class="content">
 <section class="section collapsed" id="overview" data-nav-id="overview">
   <span class="section-number">Section 01</span>
-  <h2 class="section-header" role="button" tabindex="0">Yunnan Overview — Why This Place Is Not Like the Rest of China <span class="reading-time">4 min</span></h2>
-  <p class="section-tldr">Why Yunnan is unlike anywhere else in China — geography, biodiversity, 26 ethnic groups.</p>
+  <h2 class="section-header">Yunnan Overview — Why This Place Is Not Like the Rest of China</h2>
+  
 
 <div class="section-body">
 <div class="subsection">
@@ -711,19 +700,19 @@
 
 <section class="section collapsed" id="peoples" data-nav-id="peoples">
   <span class="section-number">Section 02</span>
-  <h2 class="section-header" role="button" tabindex="0">The Peoples <span class="reading-time">8 min</span></h2>
-  <p class="section-tldr">The Naxi and their living pictographic script, the Bai who defeated the Tang Dynasty.</p>
+  <h2 class="section-header">The Peoples</h2>
+  
 
 <div class="section-body">
 <div class="subsection">
   <h3 class="subsection-title">NAXI (纳西族) — THE PEOPLE OF LIJIANG</h3>
   <div class="photo-gallery two-col">
 <figure class="photo-card">
-  <img src="images/280561044762.jpg" alt="Lijiang Old Town — UNESCO World Heritage" loading="lazy" width="720" height="200">
+  <img src="images/280561044762.jpg" alt="Lijiang Old Town — UNESCO World Heritage" loading="lazy">
   <figcaption>Lijiang Old Town — UNESCO World Heritage</figcaption>
 </figure>
 <figure class="photo-card">
-  <img src="images/31dbed614317.jpg" alt="Jade Dragon Snow Mountain from Lijiang" loading="lazy" width="720" height="200">
+  <img src="images/31dbed614317.jpg" alt="Jade Dragon Snow Mountain from Lijiang" loading="lazy">
   <figcaption>Jade Dragon Snow Mountain from Lijiang</figcaption>
 </figure>
 </div>
@@ -767,8 +756,8 @@
 
 <section class="section collapsed" id="tea-horse-road" data-nav-id="tea-horse-road">
   <span class="section-number">Section 03</span>
-  <h2 class="section-header" role="button" tabindex="0">The Tea Horse Road (茶馬古道) <span class="reading-time">5 min</span></h2>
-  <p class="section-tldr">A 1,000-year arms-for-food deal — Chinese tea for Tibetan warhorses.</p>
+  <h2 class="section-header">The Tea Horse Road (茶馬古道)</h2>
+  
 
 <div class="section-body">
 <div class="subsection">
@@ -815,8 +804,8 @@
 
 <section class="section collapsed" id="jade-dragon" data-nav-id="jade-dragon">
   <span class="section-number">Section 05</span>
-  <h2 class="section-header" role="button" tabindex="0">Jade Dragon Snow Mountain (玉龍雪山) <span class="reading-time">3 min</span></h2>
-  <p class="section-tldr">Sacred 5,596m peak that's never been summited. Glaciers, Blue Moon Valley, love suicides.</p>
+  <h2 class="section-header">Jade Dragon Snow Mountain (玉龍雪山)</h2>
+  
 
 <div class="section-body">
 <div class="subsection">
@@ -840,10 +829,9 @@
 </div>
 <div class="subsection">
   <h3 class="subsection-title">VISITING THE PARK</h3>
-  <p data-search="Jade Dragon Snow Mountain — VISITING THE PARK"><em>(Note: the Glacier Park cable car is not included in this itinerary — this section is background info in case you add it independently.)</em> The cable car (索道) takes you to approximately 4,506m. At that altitude, altitude sickness is a real risk — headache, nausea, dizziness. The temperature at the top is roughly 15–20°C colder than Lijiang. Walk slowly. Breathe deliberately. Don't run. Oxygen canisters are sold at the top — useful to have one, not embarrassing. The view on clear days extends across the entire plateau, with Tiger Leaping Gorge visible as a distant cleft to the north.</p>
+  <p data-search="Jade Dragon Snow Mountain — VISITING THE PARK">The cable car (索道) takes you to approximately 4,506m. At that altitude, altitude sickness is a real risk — headache, nausea, dizziness. The temperature at the top is roughly 15–20°C colder than Lijiang. Walk slowly. Breathe deliberately. Don't run. Oxygen canisters are sold at the top — useful to have one, not embarrassing. The view on clear days extends across the entire plateau, with Tiger Leaping Gorge visible as a distant cleft to the north.</p>
   <ul>
     <li>Blue Moon Valley (lower elevation, glacial lakes) and the Glacier Park (higher, cable car) are separate ticket zones</li>
-    <li><strong>Note: Glacier Park / cable car to 4,506m is NOT included in this itinerary.</strong> Your visit covers Blue Moon Valley, Impressions Lijiang, and Yuhu Village — all at lower elevations</li>
     <li>Budget time and energy accordingly — don't try to rush both</li>
     <li>Morning is clearest; clouds typically build in the afternoon</li>
     <li>The show (Impressions Lijiang) runs at sunset at ~3,100m — bring a warm layer</li>
@@ -854,8 +842,8 @@
 
 <section class="section collapsed" id="tiger-leaping" data-nav-id="tiger-leaping">
   <span class="section-number">Section 06</span>
-  <h2 class="section-header" role="button" tabindex="0">Tiger Leaping Gorge (虎跳峽) <span class="reading-time">3 min</span></h2>
-  <p class="section-tldr">One of Earth's deepest gorges — 3,900m deep, 30m wide. The upper Yangtze at its wildest.</p>
+  <h2 class="section-header">Tiger Leaping Gorge (虎跳峽)</h2>
+  
 
 <div class="section-body">
 <div class="subsection">
@@ -896,8 +884,8 @@
 
 <section class="section collapsed" id="nanzhao" data-nav-id="nanzhao">
   <span class="section-number">Section 07</span>
-  <h2 class="section-header" role="button" tabindex="0">Dali &amp; The Kingdom of Nanzhao <span class="reading-time">5 min</span></h2>
-  <p class="section-tldr">The kingdom that destroyed Tang Dynasty armies and changed the course of Chinese history.</p>
+  <h2 class="section-header">Dali &amp; The Kingdom of Nanzhao</h2>
+  
 
 <div class="section-body">
 <div class="subsection">
@@ -935,8 +923,8 @@
 
 <section class="section collapsed" id="impressions" data-nav-id="impressions">
   <span class="section-number">Section 08</span>
-  <h2 class="section-header" role="button" tabindex="0">Zhang Yimou's Impressions Lijiang <span class="reading-time">3 min</span></h2>
-  <p class="section-tldr">Zhang Yimou's mass spectacle at 3,100m — 500 performers against Jade Dragon Snow Mountain.</p>
+  <h2 class="section-header">Zhang Yimou's Impressions Lijiang</h2>
+  
 
 <div class="section-body">
 <div class="subsection">
@@ -1013,8 +1001,8 @@
 
 <section class="section collapsed" id="puer" data-nav-id="puer">
   <span class="section-number">Section 09</span>
-  <h2 class="section-header" role="button" tabindex="0">Pu'er Tea Primer <span class="reading-time">4 min</span></h2>
-  <p class="section-tldr">Yunnan's gift to tea culture — sheng vs shou, aging, and how not to get ripped off.</p>
+  <h2 class="section-header">Pu'er Tea Primer</h2>
+  
 
 <div class="section-body">
 <div class="subsection">
@@ -1121,8 +1109,8 @@
 
 <section class="section collapsed" id="cultural-tips" data-nav-id="cultural-tips">
   <span class="section-number">Section 10</span>
-  <h2 class="section-header" role="button" tabindex="0">Practical Cultural Tips <span class="reading-time">3 min</span></h2>
-  <p class="section-tldr">Altitude, etiquette, photography norms, haggling, and food safety essentials.</p>
+  <h2 class="section-header">Practical Cultural Tips</h2>
+  
 
 <div class="section-body">
 <div class="subsection">
@@ -1135,7 +1123,7 @@
 <li data-search="Practical Cultural Tips — ALTITUDE AWARENESS">Sleep quality may be slightly worse the first night</li>
 <li data-search="Practical Cultural Tips — ALTITUDE AWARENESS">Sun at altitude is more intense — UV exposure is higher, wear sunscreen</li>
 </ul>
-<p data-search="Practical Cultural Tips — ALTITUDE AWARENESS"><em>(The cable car to 4,506m is not part of this itinerary, but worth noting if you go independently.)</em> The cable car to 4,506m is the most significant altitude exposure. Ascent is rapid (from ~3,100m base in 20 minutes), giving your body no time to acclimatize. Symptoms at the top: headache, slight nausea, dizziness. These are normal and temporary. Walk slowly. Sit if you feel dizzy. Oxygen canisters help. Don't attempt to exert yourself at that altitude.</p>
+<p data-search="Practical Cultural Tips — ALTITUDE AWARENESS">The cable car to 4,506m is the most significant altitude exposure. Ascent is rapid (from ~3,100m base in 20 minutes), giving your body no time to acclimatize. Symptoms at the top: headache, slight nausea, dizziness. These are normal and temporary. Walk slowly. Sit if you feel dizzy. Oxygen canisters help. Don't attempt to exert yourself at that altitude.</p>
 <p data-search="Practical Cultural Tips — ALTITUDE AWARENESS">Practical: carry paracetamol (helps altitude headache), stay hydrated, limit alcohol especially the first two days. Acetazolamide (Diamox) is the medical prevention but requires prescription and advance preparation.</p>
 </div>
 <div class="subsection">
@@ -1241,39 +1229,38 @@
 
 <section class="section collapsed" id="conversation" data-nav-id="conversation">
   <span class="section-number">Section 11</span>
-  <h2 class="section-header" role="button" tabindex="0">Conversation Starters <span class="reading-time">2 min</span></h2>
-  <p class="section-tldr">Questions that'll get you past the tourist script and into real local knowledge.</p>
-
+  <h2 class="section-header">Conversation Starters</h2>
+  
 <div class="section-body">
 <p data-search="Conversation Starters">These are questions that signal genuine curiosity and will open up better conversations with guides and locals. They're designed to get past the rehearsed tourist explanation and into real knowledge.</p>
 <div class="convo-group">
   <div class="convo-group-label">FOR NAXI GUIDES OR LOCALS</div>
   <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">Is the Dongba script still taught to children? Can you read it, or is it only</button>
+  <button class="convo-question">Is the Dongba script still taught to children? Can you read it, or is it only</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Opens up: the revival vs. extinction debate, which young Naxi care about cultural preservation vs. which don't, how schools approach it.</div>
   </div>
 </div>
 <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">The Naxi Ancient Music uses instruments that are extinct in the rest of China.</button>
+  <button class="convo-question">The Naxi Ancient Music uses instruments that are extinct in the rest of China.</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Opens up: cultural ownership, the tension between preservation and performance, how ethnic identity is performed vs. lived.</div>
   </div>
 </div>
 <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">After the 1996 earthquake — did people in the old town think about rebuilding</button>
+  <button class="convo-question">After the 1996 earthquake — did people in the old town think about rebuilding</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Opens up: attachment to place, economic calculations (tourism vs. function), government incentives, personal stories of loss and rebuilding.</div>
   </div>
 </div>
 <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">The love suicide tradition — is that something that's still openly discussed</button>
+  <button class="convo-question">The love suicide tradition — is that something that's still openly discussed</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Opens up: generational attitudes to tradition, how Naxi people feel about tourist romanticization of something that was a tragedy.</div>
   </div>
 </div>
 <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">Joseph Rock lived here for decades. Do people here have stories passed down</button>
+  <button class="convo-question">Joseph Rock lived here for decades. Do people here have stories passed down</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Opens up: family memories of the Rock period, how locals viewed this foreign researcher, what he got right and wrong.</div>
   </div>
@@ -1283,25 +1270,25 @@
 <div class="convo-group">
   <div class="convo-group-label">FOR BAI GUIDES OR LOCALS</div>
   <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">The Battle of Tali in 754 — Tang dynasty lost catastrophically to Nanzhao.</button>
+  <button class="convo-question">The Battle of Tali in 754 — Tang dynasty lost catastrophically to Nanzhao.</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Opens up: ethnic minority relationship to Han Chinese historical narrative, whether Bai identity is defined against Han-ness or alongside it.</div>
   </div>
 </div>
 <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">The Catholic church in Dali — are there still Bai Catholic families? Do they</button>
+  <button class="convo-question">The Catholic church in Dali — are there still Bai Catholic families? Do they</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Opens up: syncretism, religious identity, French missionary legacy.</div>
   </div>
 </div>
 <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">The tie-dye workshop — is this something young Bai women learn? Are there</button>
+  <button class="convo-question">The tie-dye workshop — is this something young Bai women learn? Are there</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Opens up: craft economics, apprenticeship, whether traditional skills survive in the tourism economy or are killed by it.</div>
   </div>
 </div>
 <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">Erhai Lake — what was it like 20 years ago versus now? Do people think the</button>
+  <button class="convo-question">Erhai Lake — what was it like 20 years ago versus now? Do people think the</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Opens up: environmental change, local vs. government priorities, lake fishing culture that has changed.</div>
   </div>
@@ -1311,13 +1298,13 @@
 <div class="convo-group">
   <div class="convo-group-label">FOR TEA SHOP OWNERS</div>
   <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">If you had a friend who was new to pu'er and could only buy one cake to start</button>
+  <button class="convo-question">If you had a friend who was new to pu'er and could only buy one cake to start</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Good tea people will love this question. It reveals their pedagogy.</div>
   </div>
 </div>
 <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">What's the difference between a tea from a tree that's 100 years old and one</button>
+  <button class="convo-question">What's the difference between a tea from a tree that's 100 years old and one</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Opens up: gǔshù mythology vs. reality, whether tree age is auditable, honest shop owners will admit the premium may exceed the sensory difference.</div>
   </div>
@@ -1327,19 +1314,19 @@
 <div class="convo-group">
   <div class="convo-group-label">FOR ANYONE ALONG THE TEA HORSE ROAD</div>
   <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">If the Tea Horse Road was operating today — what would the modern equivalent</button>
+  <button class="convo-question">If the Tea Horse Road was operating today — what would the modern equivalent</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Gets locals thinking about their region's economic position today, Yunnan's role in China's Belt and Road, whether they feel connected to that larger story.</div>
   </div>
 </div>
 <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">The road took caravans months to complete. What's the fastest you can get</button>
+  <button class="convo-question">The road took caravans months to complete. What's the fastest you can get</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Opens up: infrastructure change, cultural attitudes to neighboring regions, what "near" and "far" meant before roads. --- UNIVERSAL GOOD QUESTION ---</div>
   </div>
 </div>
 <div class="convo-card">
-  <button class="convo-question" aria-expanded="false">What do most tourists miss about this place — something important that they</button>
+  <button class="convo-question">What do most tourists miss about this place — something important that they</button>
   <div class="convo-answer" style="max-height:0px">
     <div class="convo-answer-inner">Every knowledgeable local has an answer to this. It signals you're not a typical tourist. You'll almost always get something genuinely interesting. ================================================================================</div>
   </div>
@@ -1363,7 +1350,31 @@
     </div>
 
   </div><!-- /tab-content -->
-<!-- Bottom Tab Bar -->
+
+  <!-- Quick Reference FAB -->
+  <button class="qr-fab" id="qr-fab" aria-label="Quick Reference">ℹ️</button>
+
+  <!-- Quick Reference Bottom Sheet -->
+  <div class="qr-sheet" id="qr-sheet">
+    <div class="qr-sheet-header">
+      <span class="qr-sheet-title">Quick Reference</span>
+      <button class="qr-close" id="qr-close" aria-label="Close">✕</button>
+    </div>
+    <div class="qr-tabs">
+      <button class="qr-tab active" data-panel="qr-tea">Pu'er Buying</button>
+    </div>
+    <div class="qr-panel active" id="qr-tea">
+      <div class="tea-tip"><strong>Leaf quality:</strong> Look for intact large leaves with visible veins, not powdery debris</div>
+<div class="tea-tip"><strong>Compression:</strong> Firm but not concrete-hard — should yield to a tea needle</div>
+<div class="tea-tip"><strong>Smell test:</strong> Clean &amp; aromatic (young sheng) or complex/earthy (aged). Any mold = skip</div>
+<div class="tea-tip"><strong>Always taste:</strong> Any serious shop will brew for you — one steep tells the story</div>
+<div class="tea-tip"><strong>Price reality:</strong> Under ¥80 = plantation; ¥150-400 = decent; '30-year aged' under ¥800 = lying</div>
+<div class="tea-tip"><strong>Storage question:</strong> Ask if it's dry or wet storage — dry is usually better</div>
+<div class="tea-tip"><strong>Buy small:</strong> Get several small samples of different types rather than one big purchase</div>
+    </div>
+  </div>
+
+  <!-- Bottom Tab Bar -->
   <nav class="tab-bar" id="tab-bar" role="tablist">
     <button class="tab-btn active" data-tab="tab-map" role="tab" aria-selected="true" aria-label="Map">
       <span class="tab-label">Map</span>
@@ -1375,9 +1386,6 @@
       <span class="tab-label">Info</span>
     </button>
   </nav>
-
-  <!-- Back to top button (bottom-left, away from QR FAB on bottom-right) -->
-  <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="script.js"></script>
