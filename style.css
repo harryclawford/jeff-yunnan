@@ -113,6 +113,22 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 .nav-btn:hover { background: var(--cream-dark); }
+.lang-toggle {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  min-width: 36px;
+  text-align: center;
+}
+
+/* Chinese text styling */
+.zh-subheader {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  color: var(--indigo);
+  margin: 18px 0 8px;
+  font-weight: 600;
+}
 
 /* === BOTTOM TAB BAR === */
 .tab-bar {
@@ -606,9 +622,7 @@ li { margin-bottom: 6px; }
 }
 .collapsible-toggle.open .chevron { transform: rotate(180deg); }
 .collapsible-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
+  display: none;
 }
 .collapsible-content-inner { padding-bottom: 16px; }
 
@@ -756,9 +770,7 @@ li { margin-bottom: 6px; }
   margin-top: 2px;
 }
 .convo-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
+  display: none;
 }
 .convo-answer-inner {
   padding: 0 16px 14px 42px;
@@ -1017,9 +1029,9 @@ li { margin-bottom: 6px; }
   .day-card { break-inside: avoid; border: 1px solid #ccc; }
   .day-card.collapsed .day-card-body { display: block !important; padding: 0 20px 20px; }
   .section.collapsed .section-body { display: block !important; }
-  .collapsible-content { max-height: none !important; }
+  .collapsible-content { display: block !important; }
   .fact-callout { border-left: 3px solid #999; background: #f5f5f5; }
-  .convo-answer { max-height: none !important; }
+  .convo-answer { display: block !important; }
   a { color: #000; text-decoration: underline; }
 }
 
@@ -1089,11 +1101,11 @@ li { margin-bottom: 6px; }
   }
   html { scroll-behavior: auto; }
   .tab-panel { animation: none; }
-  .collapsible-content { transition: none; }
+  .collapsible-content { /* display:none, no transition needed */ }
   .section-body { transition: none; }
   .day-card-body { transition: none; }
   .qr-sheet { transition: none; }
-  .convo-answer { transition: none; }
+  .convo-answer { /* display:none, no transition needed */ }
 }
 
 /* === UTILITY === */

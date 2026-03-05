@@ -18,6 +18,7 @@
   var hero = document.getElementById('hero');
   var expandAllBtn = document.getElementById('expand-all-btn');
   var collapseAllBtn = document.getElementById('collapse-all-btn');
+  var langBtn = document.getElementById('lang-btn');
 
   /* ========================================
      TAB NAVIGATION
@@ -423,6 +424,151 @@
   } catch (e) {}
 
   /* ========================================
+     LANGUAGE TOGGLE (EN / 繁中)
+     ======================================== */
+  var currentLang = 'en';
+  var savedEnglish = {}; // stores original English innerHTML by section id
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-Hant' : 'en');
+    langBtn.textContent = lang === 'zh' ? '繁中' : 'EN';
+    try { localStorage.setItem('yn-lang', lang); } catch (e) {}
+
+    if (typeof TRANSLATIONS_ZH === 'undefined') return;
+
+    // Info tab sections
+    var sectionIds = ['overview', 'peoples', 'tea-horse-road', 'jade-dragon',
+                      'tiger-leaping', 'nanzhao', 'impressions', 'puer',
+                      'cultural-tips', 'conversation'];
+    sectionIds.forEach(function (id) {
+      var section = document.getElementById(id);
+      if (!section) return;
+      var body = section.querySelector('.section-body');
+      if (!body) return;
+
+      if (lang === 'zh' && TRANSLATIONS_ZH[id]) {
+        if (!savedEnglish[id]) savedEnglish[id] = body.innerHTML;
+        body.innerHTML = TRANSLATIONS_ZH[id];
+      } else if (lang === 'en' && savedEnglish[id]) {
+        body.innerHTML = savedEnglish[id];
+      }
+    });
+
+    // Day cards
+    for (var d = 1; d <= 8; d++) {
+      var dayId = 'day' + d;
+      var dayCard = document.getElementById(dayId);
+      if (!dayCard) continue;
+      var dayBody = dayCard.querySelector('.day-card-body');
+      if (!dayBody) continue;
+
+      if (lang === 'zh' && TRANSLATIONS_ZH[dayId]) {
+        if (!savedEnglish[dayId]) savedEnglish[dayId] = dayBody.innerHTML;
+        dayBody.innerHTML = TRANSLATIONS_ZH[dayId];
+      } else if (lang === 'en' && savedEnglish[dayId]) {
+        dayBody.innerHTML = savedEnglish[dayId];
+      }
+    }
+
+    // UI strings
+    if (TRANSLATIONS_ZH._ui) {
+      var ui = TRANSLATIONS_ZH._ui;
+      // Hero
+      var heroSub = document.querySelector('.hero-subtitle');
+      var heroH1 = document.querySelector('.hero h1');
+      var heroMeta = document.querySelector('.hero-meta');
+      if (lang === 'zh') {
+        if (heroSub) { if (!savedEnglish._heroSub) savedEnglish._heroSub = heroSub.textContent; heroSub.textContent = ui.heroSubtitle; }
+        if (heroH1) { if (!savedEnglish._heroH1) savedEnglish._heroH1 = heroH1.innerHTML; heroH1.innerHTML = '雲南<span>精華</span>'; }
+        if (heroMeta) { if (!savedEnglish._heroMeta) savedEnglish._heroMeta = heroMeta.innerHTML; heroMeta.innerHTML = ui.heroMeta; }
+      } else {
+        if (heroSub && savedEnglish._heroSub) heroSub.textContent = savedEnglish._heroSub;
+        if (heroH1 && savedEnglish._heroH1) heroH1.innerHTML = savedEnglish._heroH1;
+        if (heroMeta && savedEnglish._heroMeta) heroMeta.innerHTML = savedEnglish._heroMeta;
+      }
+
+      // Tab bar labels
+      var tabLabels = document.querySelectorAll('.tab-label');
+      if (lang === 'zh') {
+        tabLabels.forEach(function (lbl) {
+          if (!lbl.getAttribute('data-en')) lbl.setAttribute('data-en', lbl.textContent);
+          if (lbl.textContent === 'Map' || lbl.getAttribute('data-en') === 'Map') lbl.textContent = ui.tabMap;
+          else if (lbl.textContent === 'Itinerary' || lbl.getAttribute('data-en') === 'Itinerary') lbl.textContent = ui.tabItinerary;
+          else if (lbl.textContent === 'Info' || lbl.getAttribute('data-en') === 'Info') lbl.textContent = ui.tabInfo;
+        });
+      } else {
+        tabLabels.forEach(function (lbl) {
+          var en = lbl.getAttribute('data-en');
+          if (en) lbl.textContent = en;
+        });
+      }
+
+      // Expand/collapse buttons
+      if (expandAllBtn) {
+        if (lang === 'zh') {
+          if (!savedEnglish._expandAll) savedEnglish._expandAll = expandAllBtn.textContent;
+          expandAllBtn.textContent = ui.expandAll;
+        } else if (savedEnglish._expandAll) {
+          expandAllBtn.textContent = savedEnglish._expandAll;
+        }
+      }
+      if (collapseAllBtn) {
+        if (lang === 'zh') {
+          if (!savedEnglish._collapseAll) savedEnglish._collapseAll = collapseAllBtn.textContent;
+          collapseAllBtn.textContent = ui.collapseAll;
+        } else if (savedEnglish._collapseAll) {
+          collapseAllBtn.textContent = savedEnglish._collapseAll;
+        }
+      }
+
+      // Info hint
+      var infoHint = document.querySelector('.info-hint p');
+      if (infoHint) {
+        if (lang === 'zh') {
+          if (!savedEnglish._infoHint) savedEnglish._infoHint = infoHint.textContent;
+          infoHint.textContent = ui.infoHint;
+        } else if (savedEnglish._infoHint) {
+          infoHint.textContent = savedEnglish._infoHint;
+        }
+      }
+
+      // Search placeholder
+      if (searchInput) {
+        if (lang === 'zh') {
+          if (!savedEnglish._searchPh) savedEnglish._searchPh = searchInput.placeholder;
+          searchInput.placeholder = ui.searchPlaceholder;
+        } else if (savedEnglish._searchPh) {
+          searchInput.placeholder = savedEnglish._searchPh;
+        }
+      }
+    }
+
+    // Re-bind collapsible toggles in swapped content
+    document.querySelectorAll('.collapsible-toggle').forEach(function (btn) {
+      if (btn._langBound) return;
+      btn._langBound = true;
+      btn.addEventListener('click', function () {
+        this.classList.toggle('open');
+        var isOpen = this.classList.contains('open');
+        this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        var content = this.nextElementSibling;
+        content.style.display = isOpen ? 'block' : 'none';
+      });
+    });
+  }
+
+  langBtn.addEventListener('click', function () {
+    setLang(currentLang === 'en' ? 'zh' : 'en');
+  });
+
+  // Restore language preference
+  try {
+    var savedLang = localStorage.getItem('yn-lang');
+    if (savedLang === 'zh') setLang('zh');
+  } catch (e) {}
+
+  /* ========================================
      SEARCH
      ======================================== */
   var searchIndex = [];
@@ -511,7 +657,7 @@
 
         // Expand collapsible if needed
         var parentCollapsible = hit.el.closest('.collapsible-content');
-        if (parentCollapsible && parentCollapsible.style.maxHeight === '0px') {
+        if (parentCollapsible && parentCollapsible.style.display !== 'block') {
           var toggle = parentCollapsible.previousElementSibling;
           if (toggle && toggle.classList.contains('collapsible-toggle')) {
             toggle.click();
@@ -539,11 +685,7 @@
       var isOpen = this.classList.contains('open');
       this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       var content = this.nextElementSibling;
-      if (isOpen) {
-        content.style.maxHeight = content.scrollHeight + 'px';
-      } else {
-        content.style.maxHeight = '0px';
-      }
+      content.style.display = isOpen ? 'block' : 'none';
     });
   });
 
@@ -553,8 +695,8 @@
   document.querySelectorAll('.convo-question').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var answer = this.nextElementSibling;
-      var isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
-      answer.style.maxHeight = isOpen ? '0px' : answer.scrollHeight + 'px';
+      var isOpen = answer.style.display === 'block';
+      answer.style.display = isOpen ? 'none' : 'block';
       this.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
     });
   });
@@ -790,12 +932,10 @@
       updateBackToTop();
     }, { passive: true });
 
-    // Also update when tab switches
-    var origSwitchTab = switchTab;
-    switchTab = function (tabId, skipHistory) {
-      origSwitchTab(tabId, skipHistory);
-      updateBackToTop();
-    };
+    // Also update when tab switches — use event listener, not function wrapping
+    tabBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { updateBackToTop(); });
+    });
     updateBackToTop();
   }
 
