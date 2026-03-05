@@ -328,45 +328,22 @@ body.map-tab-active .qr-fab {
 /* === HERO === */
 .hero {
   text-align: center;
-  padding: 48px 20px 36px;
+  padding: 16px 20px 12px;
   max-width: 720px;
   margin: 0 auto;
 }
-.hero.compact {
-  padding: 24px 20px 16px;
-}
-.hero.compact h1 { font-size: 1.6rem; margin-bottom: 8px; }
-.hero.compact .hero-divider { margin: 12px auto; }
-.hero.compact .hero-meta { font-size: 0.82rem; }
-.hero-subtitle {
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--warm-gray);
-  margin-bottom: 12px;
-  font-weight: 500;
-}
 .hero h1 {
   font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  font-size: 1.5rem;
   color: var(--charcoal);
-  line-height: 1.15;
-  margin-bottom: 16px;
-  text-wrap: balance;
+  line-height: 1.2;
+  margin-bottom: 4px;
 }
 .hero h1 span { color: var(--terracotta); }
 .hero-meta {
-  font-size: 0.88rem;
+  font-size: 0.78rem;
   color: var(--warm-gray);
-  line-height: 1.6;
-}
-.hero-divider {
-  width: 48px;
-  height: 3px;
-  background: var(--terracotta);
-  margin: 24px auto;
-  border-radius: 2px;
+  line-height: 1.4;
 }
 
 /* === MAIN CONTENT === */
