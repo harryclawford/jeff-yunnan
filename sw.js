@@ -1,4 +1,8 @@
+var CACHE = 'yunnan-v16';
 var CACHE = 'yunnan-v15';
+=======
+var CACHE = 'yunnan-v14';
+>>>>>>> e234ab5 (feat(content): expand all info tab sections with deep-dive details)
 var URLS = [
   './',
   './index.html',
