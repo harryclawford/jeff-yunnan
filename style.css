@@ -403,13 +403,16 @@ body.map-tab-active .qr-fab {
   margin-bottom: 6px;
 }
 .section-body {
+  transition: max-height 0.4s ease, opacity 0.3s ease;
   overflow: hidden;
 }
 .section.collapsed .section-body {
-  display: none;
+  max-height: 0 !important;
+  opacity: 0;
 }
 .section:not(.collapsed) .section-body {
-  display: block;
+  max-height: none;
+  opacity: 1;
 }
 
 /* === SUBSECTIONS === */
@@ -549,13 +552,19 @@ li { margin-bottom: 6px; }
 
 .day-card-body {
   padding: 0 16px 16px;
+  transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
   overflow: hidden;
 }
 .day-card.collapsed .day-card-body {
-  display: none;
+  max-height: 0 !important;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
 }
 .day-card:not(.collapsed) .day-card-body {
-  display: block;
+  max-height: none;
+  opacity: 1;
 }
 
 /* Day highlights (always visible) */
