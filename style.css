@@ -982,7 +982,7 @@ li { margin-bottom: 6px; }
 
 /* === DESKTOP SIDEBAR (hidden on mobile/tab layout) === */
 @media (min-width: 1100px) {
-  .content { margin-left: calc(50% - 120px); }
+  .content { max-width: 720px; margin: 0 auto; }
   .toc-sidebar {
     position: fixed;
     top: calc(var(--nav-height) + 24px);
