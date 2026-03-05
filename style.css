@@ -256,6 +256,7 @@ body.map-tab-active .qr-fab {
 /* === DAY PILLS STRIP === */
 .day-strip {
   display: flex;
+  justify-content: center;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -266,6 +267,8 @@ body.map-tab-active .qr-fab {
   position: sticky;
   top: var(--nav-height);
   z-index: 50;
+  max-width: 720px;
+  margin: 0 auto;
 }
 .day-strip::-webkit-scrollbar { display: none; }
 .day-pill {
@@ -303,6 +306,8 @@ body.map-tab-active .qr-fab {
 .expand-controls {
   text-align: center;
   padding: 10px 16px 4px;
+  max-width: 720px;
+  margin: 0 auto;
 }
 .expand-controls button {
   background: var(--cream-dark);
