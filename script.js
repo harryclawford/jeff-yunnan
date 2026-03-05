@@ -27,7 +27,10 @@
   var currentTab = 'tab-map';
   document.body.classList.add('map-tab-active');
 
-  function switchTab(tabId) {
+  /* === REDUCED MOTION CHECK === */
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function switchTab(tabId, skipHistory) {
     if (tabId === currentTab) return;
     currentTab = tabId;
 
@@ -60,14 +63,142 @@
       setTimeout(function () { leafletMap.invalidateSize(); }, 150);
     }
 
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Scroll to top (respect reduced motion)
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'instant' : 'instant' });
+
+    // Update URL state
+    if (!skipHistory) {
+      var tabName = tabId.replace('tab-', '');
+      var newHash = '#' + tabName;
+      history.pushState({ tab: tabId }, '', newHash);
+    }
   }
 
   tabBtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
       switchTab(this.getAttribute('data-tab'));
     });
+  });
+
+  /* ========================================
+     URL STATE RESTORATION
+     ======================================== */
+  function restoreFromHash() {
+    var hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+
+    // Check if hash is a tab name
+    var tabMap = { map: 'tab-map', itinerary: 'tab-itinerary', info: 'tab-info' };
+    if (tabMap[hash]) {
+      switchTab(tabMap[hash], true);
+      return;
+    }
+
+    // Check if hash is a day (e.g., #day3)
+    if (hash.match(/^day\d$/)) {
+      switchTab('tab-itinerary', true);
+      var target = document.getElementById(hash);
+      if (target) {
+        target.classList.remove('collapsed');
+        setTimeout(function () {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
+      }
+      return;
+    }
+
+    // Check if hash is a section id (info tab)
+    var sectionEl = document.getElementById(hash);
+    if (sectionEl && sectionEl.classList.contains('section')) {
+      switchTab('tab-info', true);
+      sectionEl.classList.remove('collapsed');
+      setTimeout(function () {
+        sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    }
+  }
+
+  /* ========================================
+     AUTO-SCROLL TO TODAY'S DAY
+     ======================================== */
+  function scrollToToday() {
+    // Trip dates: Mar 8-15, 2026
+    var tripDays = [
+      { id: 'day1', date: new Date(2026, 2, 8) },
+      { id: 'day2', date: new Date(2026, 2, 9) },
+      { id: 'day3', date: new Date(2026, 2, 10) },
+      { id: 'day4', date: new Date(2026, 2, 11) },
+      { id: 'day5', date: new Date(2026, 2, 12) },
+      { id: 'day6', date: new Date(2026, 2, 13) },
+      { id: 'day7', date: new Date(2026, 2, 14) },
+      { id: 'day8', date: new Date(2026, 2, 15) }
+    ];
+
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var matchId = null;
+
+    for (var i = 0; i < tripDays.length; i++) {
+      if (today.getTime() === tripDays[i].date.getTime()) {
+        matchId = tripDays[i].id;
+        break;
+      }
+    }
+
+    // Before trip: show day1. After trip: don't auto-scroll.
+    if (!matchId && today < tripDays[0].date) {
+      matchId = 'day1';
+    }
+
+    if (!matchId) return;
+
+    var target = document.getElementById(matchId);
+    if (!target) return;
+
+    // Expand the day card
+    target.classList.remove('collapsed');
+    var header = target.querySelector('.day-card-header');
+    if (header) header.setAttribute('aria-expanded', 'true');
+
+    // Update active day pill
+    document.querySelectorAll('.day-pill').forEach(function (p) {
+      var pillDay = p.getAttribute('data-day') || p.getAttribute('href').substring(1);
+      p.classList.toggle('active', pillDay === matchId);
+    });
+
+    // Scroll to it after a short delay
+    setTimeout(function () {
+      target.scrollIntoView({ behavior: prefersReducedMotion ? 'instant' : 'smooth', block: 'start' });
+    }, 300);
+  }
+
+  // Restore on load — hash takes priority, otherwise scroll to today
+  if (window.location.hash) {
+    restoreFromHash();
+  } else {
+    // Auto-scroll to today when on itinerary tab
+    if (currentTab === 'tab-itinerary') {
+      scrollToToday();
+    }
+    // Also trigger on first switch to itinerary
+    var todayScrolled = currentTab === 'tab-itinerary';
+    var origSwitchTab = switchTab;
+    switchTab = function (tabId, skipHistory) {
+      origSwitchTab(tabId, skipHistory);
+      if (tabId === 'tab-itinerary' && !todayScrolled) {
+        todayScrolled = true;
+        scrollToToday();
+      }
+    };
+  }
+
+  // Handle back/forward
+  window.addEventListener('popstate', function (e) {
+    if (e.state && e.state.tab) {
+      switchTab(e.state.tab, true);
+    } else {
+      restoreFromHash();
+    }
   });
 
   /* ========================================
@@ -192,9 +323,72 @@
     };
     legend.addTo(leafletMap);
 
-    // Fit bounds
-    var group = L.featureGroup(markers);
-    leafletMap.fitBounds(group.getBounds().pad(0.12));
+    // Store markers with day info for filtering
+    leafletMap._ynMarkers = markers;
+    leafletMap._ynLocations = locations;
+
+    // Zoom to today's day, or fit all
+    var todayDayNum = getTodayDayNum();
+    if (todayDayNum) {
+      zoomToDay(todayDayNum, markers, locations);
+    } else {
+      var group = L.featureGroup(markers);
+      leafletMap.fitBounds(group.getBounds().pad(0.12));
+    }
+  }
+
+  /* ========================================
+     MAP: ZOOM TO DAY
+     ======================================== */
+  // Map trip dates to day numbers
+  function getTodayDayNum() {
+    var tripStart = new Date(2026, 2, 8); // Mar 8
+    var tripEnd = new Date(2026, 2, 15);  // Mar 15
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    if (today < tripStart || today > tripEnd) return null;
+
+    var diff = Math.floor((today - tripStart) / 86400000) + 1; // 1-8
+    return diff;
+  }
+
+  function dayMatchesNum(dayStr, num) {
+    // dayStr examples: "D1–D4", "D2", "D5–D6"
+    var label = 'D' + num;
+    if (dayStr === label) return true;
+    // Handle ranges like "D1–D4", "D5–D6", "D6–D7"
+    var rangeMatch = dayStr.match(/D(\d+)[–-]D(\d+)/);
+    if (rangeMatch) {
+      var lo = parseInt(rangeMatch[1]);
+      var hi = parseInt(rangeMatch[2]);
+      return num >= lo && num <= hi;
+    }
+    return false;
+  }
+
+  function zoomToDay(dayNum, markers, locations) {
+    var todayMarkers = [];
+    for (var i = 0; i < locations.length; i++) {
+      if (dayMatchesNum(locations[i].day, dayNum)) {
+        todayMarkers.push(markers[i]);
+      }
+    }
+
+    if (todayMarkers.length === 0) {
+      // Fallback: fit all
+      var group = L.featureGroup(markers);
+      leafletMap.fitBounds(group.getBounds().pad(0.12));
+      return;
+    }
+
+    if (todayMarkers.length === 1) {
+      leafletMap.setView(todayMarkers[0].getLatLng(), 13);
+      todayMarkers[0].openPopup();
+    } else {
+      var todayGroup = L.featureGroup(todayMarkers);
+      leafletMap.fitBounds(todayGroup.getBounds().pad(0.3));
+    }
   }
 
   // Initialize map
@@ -206,6 +400,11 @@
   function setTheme(dark) {
     document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
     themeBtn.textContent = dark ? '☀️' : '🌙';
+    // Update theme-color meta for status bar
+    var themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) {
+      themeMeta.setAttribute('content', dark ? '#1a1916' : '#c2583a');
+    }
     try { localStorage.setItem('yn-theme', dark ? 'dark' : 'light'); } catch (e) {}
   }
 
@@ -335,8 +534,10 @@
   document.querySelectorAll('.collapsible-toggle').forEach(function (btn) {
     btn.addEventListener('click', function () {
       this.classList.toggle('open');
+      var isOpen = this.classList.contains('open');
+      this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       var content = this.nextElementSibling;
-      if (this.classList.contains('open')) {
+      if (isOpen) {
         content.style.maxHeight = content.scrollHeight + 'px';
       } else {
         content.style.maxHeight = '0px';
@@ -352,6 +553,7 @@
       var answer = this.nextElementSibling;
       var isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
       answer.style.maxHeight = isOpen ? '0px' : answer.scrollHeight + 'px';
+      this.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
     });
   });
 
@@ -375,25 +577,59 @@
   });
 
   /* ========================================
-     DAY CARD TOGGLE
+     DAY CARD TOGGLE (with keyboard + aria)
      ======================================== */
   document.querySelectorAll('.day-card-header').forEach(function (header) {
-    header.addEventListener('click', function () {
-      this.closest('.day-card').classList.toggle('collapsed');
+    function toggleDayCard() {
+      var card = header.closest('.day-card');
+      card.classList.toggle('collapsed');
+      var isExpanded = !card.classList.contains('collapsed');
+      header.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+
+      // Update URL hash to this day
+      if (isExpanded && card.id) {
+        history.replaceState({ tab: 'tab-itinerary', day: card.id }, '', '#' + card.id);
+      }
+    }
+
+    header.addEventListener('click', toggleDayCard);
+    header.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleDayCard();
+      }
     });
   });
 
   /* ========================================
-     SECTION TOGGLE (Info tab)
+     SECTION TOGGLE (Info tab, with keyboard + aria)
      ======================================== */
   document.querySelectorAll('.section-header').forEach(function (header) {
-    header.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') return;
-      var section = this.closest('.section');
+    function toggleSection() {
+      var section = header.closest('.section');
       if (section && section.querySelector('.section-body')) {
         section.classList.toggle('collapsed');
+        var isExpanded = !section.classList.contains('collapsed');
+        header.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+      }
+    }
+
+    header.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') return;
+      toggleSection();
+    });
+    header.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleSection();
       }
     });
+
+    // Set initial aria-expanded
+    var section = header.closest('.section');
+    if (section) {
+      header.setAttribute('aria-expanded', section.classList.contains('collapsed') ? 'false' : 'true');
+    }
   });
 
   /* ========================================
@@ -426,20 +662,25 @@
 
       // Ensure we're on itinerary tab
       if (currentTab !== 'tab-itinerary') {
-        switchTab('tab-itinerary');
+        switchTab('tab-itinerary', true);
       }
 
-      // Expand the target day card
+      // Expand the target day card and update its aria
       target.classList.remove('collapsed');
+      var header = target.querySelector('.day-card-header');
+      if (header) header.setAttribute('aria-expanded', 'true');
 
       // Scroll to it
       setTimeout(function () {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        target.scrollIntoView({ behavior: prefersReducedMotion ? 'instant' : 'smooth', block: 'start' });
       }, 100);
 
       // Update active pill
       document.querySelectorAll('.day-pill').forEach(function (p) { p.classList.remove('active'); });
       this.classList.add('active');
+
+      // Update URL
+      history.pushState({ tab: 'tab-itinerary', day: dayId }, '', '#' + dayId);
     });
   });
 
@@ -502,6 +743,58 @@
         hero.classList.remove('compact');
       }
     });
+  }
+
+  /* ========================================
+     INFO TOC CARD NAVIGATION
+     ======================================== */
+  document.querySelectorAll('.info-toc-card').forEach(function (card) {
+    card.addEventListener('click', function () {
+      var targetId = this.getAttribute('data-target');
+      var targetEl = document.getElementById(targetId);
+      if (!targetEl) return;
+
+      // Expand the section if collapsed
+      targetEl.classList.remove('collapsed');
+      var header = targetEl.querySelector('.section-header');
+      if (header) header.setAttribute('aria-expanded', 'true');
+
+      // Scroll to it after a short delay to let expansion animate
+      setTimeout(function () {
+        targetEl.scrollIntoView({ behavior: prefersReducedMotion ? 'instant' : 'smooth', block: 'start' });
+      }, 80);
+    });
+  });
+
+  /* ========================================
+     BACK TO TOP BUTTON
+     ======================================== */
+  var backToTopBtn = document.getElementById('back-to-top');
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'instant' : 'smooth' });
+    });
+
+    // Show/hide on scroll — integrated into existing scroll handler
+    function updateBackToTop() {
+      if (backToTopBtn) {
+        var show = window.scrollY > 600 && currentTab !== 'tab-map';
+        backToTopBtn.classList.toggle('visible', show);
+      }
+    }
+
+    // Patch the existing scroll handler to also call updateBackToTop
+    window.addEventListener('scroll', function () {
+      updateBackToTop();
+    }, { passive: true });
+
+    // Also update when tab switches
+    var origSwitchTab = switchTab;
+    switchTab = function (tabId, skipHistory) {
+      origSwitchTab(tabId, skipHistory);
+      updateBackToTop();
+    };
+    updateBackToTop();
   }
 
   /* ========================================
