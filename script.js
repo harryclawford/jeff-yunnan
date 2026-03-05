@@ -1,12 +1,7 @@
 /* === YUNNAN GUIDE — SCRIPT.JS === */
 (function () {
   'use strict';
-  window.onerror = function(msg, url, line, col, err) {
-    var d = document.createElement('div');
-    d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:red;color:white;padding:12px;font-size:14px;white-space:pre-wrap;';
-    d.textContent = 'JS ERROR L' + line + ': ' + msg + '\n' + (err && err.stack ? err.stack : '');
-    document.body.appendChild(d);
-  };
+
 
   /* ========================================
      DOM REFS

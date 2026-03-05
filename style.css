@@ -553,6 +553,10 @@ li { margin-bottom: 6px; }
 .day-card.collapsed .day-card-body {
   display: none;
 }
+.day-card.collapsed .hotel-badge,
+.day-card.collapsed .day-highlights {
+  display: none;
+}
 .day-card:not(.collapsed) .day-card-body {
   display: block;
 }
